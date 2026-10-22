@@ -126,9 +126,12 @@ def _emphasis(label, text, index):
     if label == 'Experience' and index == 0 and len(text) < 220:
         return text, ''
     if label in {'Core Capabilities', 'Selected Projects', 'Education & Training', 'Additional Experience'}:
-        prefix, separator, suffix = text.partition(':')
-        if separator:
-            return prefix + separator, suffix
+        # Original reference emphasises skills/project labels. Keep the exact
+        # approved string (including punctuation) in PDF and DOCX text.
+        for delimiter in (':', ' | '):
+            prefix, separator, suffix = text.partition(delimiter)
+            if separator and prefix and len(prefix) <= 65:
+                return prefix + separator, suffix
     return '', text
 
 
