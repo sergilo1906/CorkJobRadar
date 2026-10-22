@@ -11,10 +11,16 @@ from conftest import source
 
 @pytest.mark.parametrize('desired,state,expected',[
     ('RUNNING','WAITING',('PAUSE','STOP')),('RUNNING','RUNNING',('PAUSE','STOP')),
-    ('PAUSED','PAUSED',('RESUME','STOP')),('STOPPED','STOPPED',('START',)),
+    ('PAUSED','PAUSED',('RESUME','STOP')),('PAUSED','PAUSING',()),('RUNNING','PAUSING',()),('STOPPED','STOPPED',('START',)),
     ('STOPPED','STOPPING',()),('PAUSED','STOPPING',())])
 def test_runtime_visibility_matrix(desired,state,expected):
     assert runtime_actions(dict(desired=desired,state=state))==expected
+
+
+def test_search_now_blocked_during_pause_even_without_child():
+    from corkjobradar.ui.visibility import safe_controls
+    with pytest.raises(ValueError,match='WORK_ALREADY_ACTIVE'):
+        safe_controls(dict(desired='PAUSED',state='PAUSING',active_kind=None),'SEARCH_NOW')
 
 
 @pytest.mark.parametrize('state',APPLICATION_STATES[3:])
