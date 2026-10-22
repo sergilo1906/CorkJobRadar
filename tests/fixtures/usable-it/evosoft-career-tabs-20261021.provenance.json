@@ -1,0 +1,9 @@
+{
+  "source_url": "https://evosoft.ie/about-evo-soft/careers/",
+  "source_sha256": "76958921db4adf2802af53d77ff9db5af16057ba3c04ecd1d9b4c6520315bb9e",
+  "fixture_sha256": "9668a3677d5d48f46f739bfd958b2a0990921ba9d4a78783640ca764ec014eec",
+  "transformation": "Extract only published .elementor-tabs container; four titles and corresponding original bodies; no synthetic description.",
+  "submission": false,
+  "capture_date": "2026-10-21",
+  "local_capture_modified_at": "2026-10-21T16:05:24.572675+01:00"
+}

@@ -1,0 +1,56 @@
+{
+  "source": "Existing local JUnit evidence; not GitHub Actions",
+  "suites_overlap_do_not_sum": true,
+  "external_application_confirmed": false,
+  "live_enabled": false,
+  "results": [
+    {
+      "source": "academic-reevaluation-full.xml",
+      "tests": 590.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 507.192
+    },
+    {
+      "source": "academic-reevaluation-final-regression.xml",
+      "tests": 166.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 101.639
+    },
+    {
+      "source": "academic-reevaluation-last-controls.xml",
+      "tests": 63.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 39.203
+    },
+    {
+      "source": "academic-reevaluation-ashby-final.xml",
+      "tests": 106.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 50.747
+    },
+    {
+      "source": "academic-reevaluation-rules-final.xml",
+      "tests": 38.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 7.66
+    },
+    {
+      "source": "academic-reevaluation-display-final.xml",
+      "tests": 37.0,
+      "failures": 0.0,
+      "errors": 0.0,
+      "skipped": 0.0,
+      "time": 8.405
+    }
+  ]
+}

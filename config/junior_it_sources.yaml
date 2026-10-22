@@ -1,0 +1,59 @@
+sources:
+- id: junior_solarwinds
+  name: SolarWinds
+  kind: greenhouse
+  url: https://boards-api.greenhouse.io/v1/boards/solarwinds/jobs
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  config:
+    board_url: https://jobs.solarwinds.com/jobs/
+    permission_evidence: https://docs.greenhouse.io/job-board.html
+  notes: "GET público completo del tablero verificado el 21/10/2026. Conservar todos los anuncios; analizar todos los que queden dentro de alcance o con accesibilidad pendiente. No autoriza candidaturas API."
+- id: junior_version1
+  name: Version 1
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/Version1/postings
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  config:
+    page_size: 100
+    query:
+      country: ie
+    board_url: https://careers.smartrecruiters.com/Version1
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  notes: "Publicaciones públicas Irlanda, paginación y detalle mediante API pública sin credenciales. Incluye senior y no compatibles: no son solicitudes ni se ocultan. No usar acceso a publicaciones internas ni inferir permisos de envío."
+- id: junior_evosoft
+  name: Evo-soft Ireland
+  kind: career_tabs
+  url: https://evosoft.ie/about-evo-soft/careers/
+  enabled: true
+  permission: HTML_PUBLICO_REVISADO
+  config:
+    scope: SINGLE_CAREERS_PAGE
+    discovery_url: https://evosoft.ie/about-evo-soft/careers/
+  notes: "Cuatro descripciones públicas en pestañas Elementor, robots comprobado antes de cada recorrido. Una identidad por puesto. La página no acredita el centro del trabajo ni funciones IT suficientes para todos los títulos; no mezclar tareas entre pestañas. Uso del formulario exclusivamente manual."
+manual_channels:
+- name: PFH
+  url: https://www.pfh.ie/careers
+  status: SIN_LISTADO_EXTRAIBLE
+  note: "Página pública accesible, sin listado de puestos recuperable en el HTML consultado."
+- name: ICT Services
+  url: https://ictservices.ie/it-resourcing/current-positions/
+  status: ACCESO_AUTOMATIZADO_BLOQUEADO
+  note: "El cliente ha bloqueado la consulta por robots/acceso. Abrir manualmente; el índice web muestra Desktop Support Cork, sin acreditar su elegibilidad ni sede exacta."
+- name: eir business talent
+  url: https://eirbusinesstalent.ie/job-search/
+  status: ACCESO_AUTOMATIZADO_BLOQUEADO
+  note: "Consulta suspendida por acceso/robots; no usar otra ruta para eludir el bloqueo."
+- name: Fruition Group Ireland
+  url: https://www.fruitiongroup.ie/ie/
+  status: REVISION_MANUAL
+  note: "Los enlaces indexados de soporte consultados estaban expirados o no disponibles. Usar su buscador oficial manualmente."
+- name: Teamwork.com
+  url: https://www.teamwork.com/careers/
+  status: SIN_JUNIOR_IT_EN_LISTADO_OBSERVADO
+  note: "El listado actual consultado mostraba ventas/marketing/customer success; no equivalen a puestos informáticos. El identificador Greenhouse probado no era válido; no confundirlo con bloqueo ni con ausencia global de ofertas."
+- name: DEITG
+  url: https://deitg.com/careers/
+  status: REVISION_MANUAL
+  note: "Sección Newbie Tech sin experiencia exigida, pero sin funciones detalladas, horario ni fecha de vacante verificables. Hay formulario general de talento: no declarar puesto abierto específico ni candidato compatible."

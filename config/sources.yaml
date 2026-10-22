@@ -1,0 +1,554 @@
+sources:
+- id: abbvie
+  name: AbbVie
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/AbbVie/postings
+  config:
+    page_size: 100
+    company_identifier: AbbVie
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/AbbVie/3743990015760041-senior-business-systems-validation-engineer
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:56+01:00'
+  last_success: '2026-10-19T12:03:56+01:00'
+  notes: Listado limitado a Irlanda por consulta explícita; totalFound nacional no
+    es total Cork. Descarga de cada ficha dentro de alcance o pendiente.
+- id: abbvie_html_individual
+  name: AbbVie — anuncio HTML individual
+  kind: html
+  url: https://jobs.smartrecruiters.com/AbbVie/3743990015760041-senior-business-systems-validation-engineer
+  config:
+    pagination_verified: true
+    scope: SINGLE_JOB_ONLY
+    discovery_url: https://jobs.smartrecruiters.com/AbbVie/3743990015760041-senior-business-systems-validation-engineer
+  enabled: true
+  permission: HTML_PUBLICO_REVISADO
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:58+01:00'
+  last_success: '2026-10-19T12:03:58+01:00'
+  notes: Solo un anuncio público JSON-LD como comprobación del adaptador genérico.
+    HTTP 200 y robots.txt 404; nunca equivale a rastreo corporativo completo.
+- id: adecco
+  name: Adecco Cork
+  kind: manual
+  url: https://www.adecco.com/en-ie/locations/cork
+  config:
+    source_class: agencia
+    discovery_url: https://www.adecco.com/en-ie/locations/cork
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:05:08+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: apple
+  name: Apple Cork
+  kind: manual
+  url: https://www.apple.com/careers/ie/work-at-apple/locations/cork.html
+  config:
+    source_class: empresa
+    discovery_url: https://www.apple.com/careers/ie/work-at-apple/locations/cork.html
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:44+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: bostonscientific
+  name: Boston Scientific Cork
+  kind: manual
+  url: https://jobs.bostonscientific.com/go/All-Jobs-in-Cork%2C-Ireland/392198/
+  config:
+    source_class: empresa
+    discovery_url: https://jobs.bostonscientific.com/go/All-Jobs-in-Cork%2C-Ireland/392198/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:47+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: brightmachines
+  name: Bright Machines
+  kind: lever
+  url: https://api.lever.co/v0/postings/brightmachines
+  config:
+    page_size: 100
+    board_url: https://jobs.lever.co/brightmachines
+    discovery_url: https://jobs.lever.co/brightmachines
+    permission_evidence: https://github.com/lever/postings-api
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:52+01:00'
+  last_success: '2026-10-19T12:03:52+01:00'
+  notes: Paginación skip/limit hasta página vacía; no equivale a cobertura de todas
+    las empresas de Cork.
+- id: careerwise
+  name: CareerWise Cork
+  kind: manual
+  url: https://careerwise.ie/about-us/recruitment-agencies-cork/
+  config:
+    source_class: agencia
+    discovery_url: https://careerwise.ie/about-us/recruitment-agencies-cork/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:58+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: corkcoco
+  name: Cork County Council
+  kind: manual
+  url: https://careers.corkcoco.ie/
+  config:
+    source_class: publico
+    discovery_url: https://careers.corkcoco.ie/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:42+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: cpl
+  name: Cpl / Flexsource
+  kind: manual
+  url: https://www.cpl.com/
+  config:
+    source_class: agencia
+    discovery_url: https://www.cpl.com/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:51+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: frs
+  name: FRS Recruitment Cork
+  kind: manual
+  url: https://www.frsrecruitment.com/office-locations/cork
+  config:
+    source_class: agencia
+    discovery_url: https://www.frsrecruitment.com/office-locations/cork
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:56+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: gigroup
+  name: GI Group Cork
+  kind: manual
+  url: https://ie.gigroup.com/current-vacancies/cork-re/
+  config:
+    source_class: agencia
+    discovery_url: https://ie.gigroup.com/current-vacancies/cork-re/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:05:14+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: globetech
+  name: GlobeTech
+  kind: greenhouse
+  url: https://boards-api.greenhouse.io/v1/boards/globetech/jobs
+  config:
+    board_url: https://job-boards.greenhouse.io/globetech
+    discovery_url: https://job-boards.greenhouse.io/globetech
+    permission_evidence: https://docs.greenhouse.io/job-board.html
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:30+01:00'
+  last_success: '2026-10-19T12:03:30+01:00'
+  notes: API GET pública documentada; tablero internacional conservado íntegro. Prospectos/talent
+    pools requieren revisión.
+- id: hays
+  name: Hays Cork
+  kind: manual
+  url: https://www.hays.ie/job-search?location=CORK&locationf=Cork
+  config:
+    source_class: agencia
+    discovery_url: https://www.hays.ie/job-search?location=CORK&locationf=Cork
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:52+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: hse
+  name: HSE Cork
+  kind: hse
+  url: https://about.hse.ie/jobs/job-search/?county=Cork&page=1
+  config:
+    source_class: publico
+    discovery_url: https://about.hse.ie/jobs/job-search/?county=Cork&page=1
+    permission_evidence: https://www2.hse.ie/disclaimer/
+    robots_evidence: https://about.hse.ie/robots.txt
+    reviewed_at: '2026-10-19T13:52:37+01:00'
+  enabled: true
+  permission: HTML_PUBLICO_REVISADO
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:41+01:00'
+  last_success: null
+  notes: Public personal job research. Published count/range + disabled Next pagination;
+    DOCX/PDF specs extracted, failures preserved. No claim of all public-sector vacancies.
+- id: indeed
+  name: Indeed Ireland
+  kind: manual
+  url: https://ie.indeed.com/jobs?l=cork
+  config:
+    source_class: portal
+    discovery_url: https://ie.indeed.com/jobs?l=cork
+  enabled: false
+  permission: PENDIENTE
+  status: BLOQUEADA_RESTRINGIDA
+  checked_at: '2026-10-19T12:04:31+01:00'
+  last_success: null
+  notes: 'HTTP 403: acceso restringido, no significa cierre; importación manual disponible'
+- id: irishjobs
+  name: IrishJobs
+  kind: manual
+  url: https://www.irishjobs.ie/
+  config:
+    source_class: portal
+    discovery_url: https://www.irishjobs.ie/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:32+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: jnj
+  name: Johnson & Johnson Ireland
+  kind: manual
+  url: https://www.careers.jnj.com/fr-fr/locations/emea/ireland/
+  config:
+    source_class: empresa
+    discovery_url: https://www.careers.jnj.com/fr-fr/locations/emea/ireland/
+  enabled: false
+  permission: PENDIENTE
+  status: BLOQUEADA_RESTRINGIDA
+  checked_at: '2026-10-19T12:04:50+01:00'
+  last_success: null
+  notes: 'HTTP 403: acceso restringido, no significa cierre; importación manual disponible'
+- id: jobsie
+  name: Jobs.ie
+  kind: manual
+  url: https://www.jobs.ie/
+  config:
+    source_class: portal
+    discovery_url: https://www.jobs.ie/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:33+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: jobsireland
+  name: JobsIreland
+  kind: manual
+  url: https://jobsireland.ie/en-US/browse-jobs?location=cork
+  config:
+    source_class: publico
+    discovery_url: https://jobsireland.ie/en-US/browse-jobs?location=cork
+    permission_evidence: https://jobsireland.ie/en-US/TermsConditions
+    reviewed_at: '2026-10-19T13:52:37+01:00'
+  enabled: false
+  permission: PERMISO_REPRODUCCION_REQUERIDO
+  status: RESTRINGIDA_CONDICIONES
+  checked_at: '2026-10-19T12:04:35+01:00'
+  last_success: null
+  notes: Terms require prior permission for storage/reproduction. Bulk extraction
+    disabled; open original website for personal search.
+- id: keepersecurity
+  name: Keeper Security
+  kind: greenhouse
+  url: https://boards-api.greenhouse.io/v1/boards/keepersecurity/jobs
+  config:
+    board_url: https://job-boards.greenhouse.io/keepersecurity
+    discovery_url: https://job-boards.greenhouse.io/keepersecurity/jobs/4418202009
+    permission_evidence: https://docs.greenhouse.io/job-board.html
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:33+01:00'
+  last_success: '2026-10-19T12:03:33+01:00'
+  notes: Incluye Cork y otras localizaciones; no filtrar antes de persistir.
+- id: lilly
+  name: Eli Lilly Ireland
+  kind: manual
+  url: https://careers.lilly.com/us/en/ireland-overview/
+  config:
+    source_class: empresa
+    discovery_url: https://careers.lilly.com/us/en/ireland-overview/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:59+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: manpower
+  name: Manpower Ireland
+  kind: manual
+  url: https://www.manpower.ie/job-seeker
+  config:
+    source_class: agencia
+    discovery_url: https://www.manpower.ie/job-seeker
+    permission_evidence: https://www.manpower.ie/legal_documents/terms_and_conditions
+    reviewed_at: '2026-10-19T13:52:37+01:00'
+  enabled: false
+  permission: PERMISO_REPRODUCCION_REQUERIDO
+  status: RESTRINGIDA_CONDICIONES
+  checked_at: '2026-10-19T12:05:11+01:00'
+  last_success: null
+  notes: Terms require prior permission for storage/reproduction. Bulk extraction
+    disabled; open original website for personal search.
+- id: morganmckinley
+  name: Morgan McKinley Cork
+  kind: manual
+  url: https://www.morganmckinley.com/ie/jobs/city/cork-jobs
+  config:
+    source_class: agencia
+    discovery_url: https://www.morganmckinley.com/ie/jobs/city/cork-jobs
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:05:13+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: netgear
+  name: NETGEAR
+  kind: ashby
+  url: https://api.ashbyhq.com/posting-api/job-board/netgear
+  config:
+    board_url: https://jobs.ashbyhq.com/netgear
+    discovery_url: https://jobs.ashbyhq.com/netgear/ff47de3c-5f0c-4edd-9bd4-79914af2b5ae
+    permission_evidence: https://developers.ashbyhq.com/docs/public-job-posting-api
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:54+01:00'
+  last_success: '2026-10-19T12:03:54+01:00'
+  notes: Localizaciones múltiples conservadas; remoto Irlanda separado de remoto sin
+    país.
+- id: noelgroup
+  name: Noel Group
+  kind: manual
+  url: https://noelgroup.ie/job-listings
+  config:
+    source_class: agencia
+    discovery_url: https://noelgroup.ie/job-listings
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:05:18+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: pepsico
+  name: PepsiCo Cork — anuncio identificado
+  kind: manual
+  url: https://www.pepsicojobs.com/main/jobs/479319?lang=en-us
+  config:
+    source_class: empresa
+    discovery_url: https://www.pepsicojobs.com/main/jobs/479319?lang=en-us
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:05:01+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: publicjobs
+  name: Publicjobs
+  kind: manual
+  url: https://www.publicjobs.ie/
+  config:
+    source_class: publico
+    discovery_url: https://www.publicjobs.ie/
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:38+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: qumulo
+  name: Qumulo
+  kind: ashby
+  url: https://api.ashbyhq.com/posting-api/job-board/qumulo
+  config:
+    board_url: https://jobs.ashbyhq.com/qumulo
+    discovery_url: https://jobs.ashbyhq.com/qumulo/0773bcc6-b576-4d4c-a61e-5ce2bc85b657
+    permission_evidence: https://developers.ashbyhq.com/docs/public-job-posting-api
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T12:03:52+01:00'
+  last_success: '2026-10-19T12:03:52+01:00'
+  notes: API pública del tablero completo; salarios solo si publicados con unidad/moneda.
+- id: stryker
+  name: Stryker Ireland
+  kind: manual
+  url: https://careers.stryker.com/jobs?filter%5Bcountry%5D%5B0%5D=Ireland
+  config:
+    source_class: empresa
+    discovery_url: https://careers.stryker.com/jobs?filter%5Bcountry%5D%5B0%5D=Ireland
+  enabled: false
+  permission: PENDIENTE
+  status: REVISION_PENDIENTE
+  checked_at: '2026-10-19T12:04:45+01:00'
+  last_success: null
+  notes: Página accesible; conector específico/paginación y condiciones pendientes
+    de implementar/revisar; importación manual disponible
+- id: egisgroup
+  name: Egis Group
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/EgisGroup/postings
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  checked_at: '2026-10-19T14:15:51+01:00'
+  status: ACCESIBLE
+  config:
+    company_identifier: EgisGroup
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/EgisGroup/744000150975204
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  notes: Actual public job identified; documented Posting API checked. Country Ireland
+    query, all pages. A search-engine result may have expired or be outside Cork;
+    only current API results count.
+- id: lgcgroup
+  name: LGC Group
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/LGCGroup/postings
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  checked_at: '2026-10-19T14:15:51+01:00'
+  status: ACCESIBLE
+  config:
+    company_identifier: LGCGroup
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/LGCGroup/744000155297209-despatch-operative
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  notes: Actual public job identified; documented Posting API checked. Country Ireland
+    query, all pages. A search-engine result may have expired or be outside Cork;
+    only current API results count.
+- id: eurofins
+  name: Eurofins
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/Eurofins/postings
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  checked_at: '2026-10-19T14:15:51+01:00'
+  status: ACCESIBLE
+  config:
+    company_identifier: Eurofins
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/Eurofins/744000124105449-van-driver-cork-area-
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  notes: Actual public job identified; documented Posting API checked. Country Ireland
+    query, all pages. A search-engine result may have expired or be outside Cork;
+    only current API results count.
+- id: rexel1
+  name: Rexel / Kellihers
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/rexel1/postings
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  checked_at: '2026-10-19T14:15:51+01:00'
+  status: ACCESIBLE
+  config:
+    company_identifier: rexel1
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/rexel1/744000147247749
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+  notes: Actual public job identified; documented Posting API checked. Country Ireland
+    query, all pages. A search-engine result may have expired or be outside Cork;
+    only current API results count.
+- id: watchguard
+  name: WatchGuard
+  kind: lever
+  url: https://api.lever.co/v0/postings/watchguard
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  checked_at: '2026-10-19T14:15:51+01:00'
+  status: ACCESIBLE
+  config:
+    page_size: 100
+    board_url: https://jobs.lever.co/watchguard
+    discovery_url: https://jobs.lever.co/watchguard/5217e4e4-2cdc-425c-8003-b56a445f1cd9
+    permission_evidence: https://github.com/lever/postings-api
+  notes: Official public postings API; all locations retained with explicit scope
+    states. Cork SOC technician identified in current board.
+- id: jysk
+  name: JYSK
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/JYSK/postings
+  config:
+    company_identifier: JYSK
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/JYSK/744000141925258-logistics-responsible-eastgate-cork
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+    reviewed_at: '2026-10-19T19:48:28+01:00'
+    initial_probe:
+      first_page: 18
+      expected_total: 18
+      cork_cards: 5
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T19:48:28+01:00'
+  notes: API GET publica documentada; primera pagina comprobada. Recorrido completo
+    y detalles registrados en source_runs. No acredita transporte ni cobertura total
+    Cork.
+- id: securitas
+  name: Securitas
+  kind: smartrecruiters
+  url: https://api.smartrecruiters.com/v1/companies/Securitas/postings
+  config:
+    company_identifier: Securitas
+    page_size: 100
+    query:
+      country: ie
+    discovery_url: https://jobs.smartrecruiters.com/Securitas/744000152899179
+    permission_evidence: https://developers.smartrecruiters.com/docs/posting-api
+    reviewed_at: '2026-10-19T19:48:28+01:00'
+    initial_probe:
+      first_page: 21
+      expected_total: 21
+      cork_cards: 1
+  enabled: true
+  permission: PUBLIC_API_DOCUMENTADA
+  status: ACCESIBLE
+  checked_at: '2026-10-19T19:48:28+01:00'
+  notes: API GET publica documentada; primera pagina comprobada. Recorrido completo
+    y detalles registrados en source_runs. No acredita transporte ni cobertura total
+    Cork.

@@ -1,0 +1,33 @@
+origin_neighborhood: Ballinlough
+origin_city: Cork
+origin_country: Ireland
+owns_car: false
+has_bicycle: true
+public_transport: true
+driving_license_b_confirmed: false
+it_weekdays_required: false
+it_car_radius_minutes_reference: 60
+non_it_city_first: true
+non_it_max_bus_transfers: 0
+max_bicycle_minutes: null
+max_bus_minutes: null
+skills:
+  - DAM
+  - almacén y stock
+  - instalación y manipulación
+accepted_time_windows: []
+weights:
+  experience: 25
+  schedule: 20
+  commute: 15
+  stability: 10
+  salary: 10
+  learning: 10
+  functions: 10
+http_timeout: 25
+http_retries: 2
+domain_interval_seconds: 1.0
+max_response_bytes: 15000000
+safety_max_pages: 10000
+analyzer: basic
+ollama_model: ''

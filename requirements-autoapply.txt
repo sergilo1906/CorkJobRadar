@@ -1,0 +1,2 @@
+playwright==1.64.0
+reportlab==5.0.1

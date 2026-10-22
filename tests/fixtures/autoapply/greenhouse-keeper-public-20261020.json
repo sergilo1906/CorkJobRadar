@@ -1,0 +1,292 @@
+{
+  "platform": "greenhouse",
+  "public_url": "https://job-boards.greenhouse.io/keepersecurity/jobs/4418202009",
+  "endpoint": "https://boards-api.greenhouse.io/v1/boards/keepersecurity/jobs/4418202009?questions=true",
+  "posting_id": "4418202009",
+  "response_sha256": "bfdae6b11604496605b18d04ac694add9ee61f4568e16fbc55574e7076f6e7ec",
+  "questions": [
+    {
+      "description": null,
+      "label": "First Name",
+      "required": true,
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Last Name",
+      "required": true,
+      "fields": [
+        {
+          "name": "last_name",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Preferred First Name",
+      "required": false,
+      "fields": [
+        {
+          "name": "preferred_name",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Email",
+      "required": true,
+      "fields": [
+        {
+          "name": "email",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Phone",
+      "required": true,
+      "fields": [
+        {
+          "name": "phone",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Resume/CV",
+      "required": true,
+      "fields": [
+        {
+          "name": "resume",
+          "type": "input_file",
+          "values": []
+        },
+        {
+          "name": "resume_text",
+          "type": "textarea",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Cover Letter",
+      "required": false,
+      "fields": [
+        {
+          "name": "cover_letter",
+          "type": "input_file",
+          "values": []
+        },
+        {
+          "name": "cover_letter_text",
+          "type": "textarea",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Are you authorized to work in Ireland for any employer?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692263009",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "label": "Yes",
+              "value": 1
+            },
+            {
+              "label": "No",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Will you now or in the future require employer sponsorship?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692264009",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "label": "Yes",
+              "value": 1
+            },
+            {
+              "label": "No",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Do you currently and will you permanently reside in Ireland?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692265009",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "label": "Yes",
+              "value": 1
+            },
+            {
+              "label": "No",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "If you are in a commutable distance from our Cork office, are you able to work a hybrid schedule (3 days a week)? \n\nCork office address: King's Terrace, 5A Lower Glanmire Rd, Victorian Quarter, Cork T23 DX49, Ireland",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692266009",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Do you have 2+ years of hands-on IT support experience in a business environment, including troubleshooting Windows and/or macOS devices, user access, and common workplace technology issues?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692540009",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "label": "Yes",
+              "value": 1
+            },
+            {
+              "label": "No",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Describe a Level 1 or Level 2 IT issue you resolved from initial troubleshooting through resolution. What was the issue, what steps did you take, and when did you decide whether to escalate it?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692541009",
+          "type": "textarea",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "LinkedIn Profile",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692268009",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "What are your compensation expectations for this role?",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_7692269009",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "location_questions": [
+    {
+      "description": null,
+      "label": "Longitude",
+      "required": true,
+      "fields": [
+        {
+          "name": "longitude",
+          "type": "input_hidden",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Latitude",
+      "required": true,
+      "fields": [
+        {
+          "name": "latitude",
+          "type": "input_hidden",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Location",
+      "required": true,
+      "fields": [
+        {
+          "name": "location",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "compliance": null,
+  "data_compliance": [
+    {
+      "type": "gdpr",
+      "requires_consent": false,
+      "requires_processing_consent": false,
+      "requires_retention_consent": false,
+      "retention_period": null,
+      "demographic_data_consent_applies": false
+    }
+  ],
+  "demographic_questions": null,
+  "provenance": {
+    "retrieved_at": "2026-10-20T11:16:49+01:00",
+    "method": "GET",
+    "real_public_source": true,
+    "submission_tested": false,
+    "personal_data_sent": false
+  }
+}

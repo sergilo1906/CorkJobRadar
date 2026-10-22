@@ -1,0 +1,9 @@
+{
+  "source_url": "https://boards-api.greenhouse.io/v1/boards/solarwinds/jobs?content=true",
+  "capture_date": "2026-10-21",
+  "source_sha256": "0f36215952141f06c279623bd4245b53f7881dbc013c11e81e3164ad96540fd0",
+  "posting_id": 4739548005,
+  "transformation": "One original posting selected without rewriting any content",
+  "fixture_sha256": "f4596484286bdfa2a724d1017afa19e29d8c44e69b04b36bfe15c9879debd1de",
+  "external_posts": 0
+}

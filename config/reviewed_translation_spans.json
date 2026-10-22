@@ -1,0 +1,21 @@
+{
+  "version": "literal-review-1",
+  "corrections": [
+    {
+      "source": "• Provide technical leadership across Ethernet switching, Wi-Fi, multicast networking, and AV-over-IP deployments.\n",
+      "source_hash": "64346894e6e4438aa455d35761a941206ab739045b227a53eb39fc4ee2f1ed38",
+      "spanish": "• Aportar liderazgo técnico en conmutación Ethernet, Wi-Fi, redes multicast y despliegues de AV-over-IP.",
+      "evidence": "https://jobs.ashbyhq.com/netgear/a19705d7-8cab-46a1-bad4-e2c70f0a0b97",
+      "reviewed_at": "2026-10-19T20:32:01+01:00",
+      "reviewed_by": "DEVELOPER_LITERAL_TRANSLATION_REVIEW_NOT_CANDIDATE_CONSENT"
+    },
+    {
+      "source": "Casual Toll Operators will provide relief cover for full-time and part-time employees while on leave. They must be flexible and willing to work varied hours in a 24/7 operation. There are no fixed hours of work each week and hours will vary from week to week. Ability to work weekends and nights is required. • The collection of tolls at the toll plaza. • To correctly identify vehicles by class / type, to collect the appropriate tolls and to issue change and receipts as appropriate in an efficient and customer friendly manner. • To assist in maintaining optimum traffic flow so as to minimise delay, maximise throughput and meet business targets and ensure customer satisfaction with the tolling service. • To follow established procedures for handling of cash, transfer to the Cash Office and completion of the ‘cash up’ procedure at end of shift / work session. • To ensure that all customer enquiries and complaints received at toll booths are addressed and / or reported and escalated as appropriate in accordance with established procedures.\n",
+      "source_hash": "f6f814a112e2dc3fe7fb596461fa0d8a211b6a803a1087ae3d38b8cf1f1107c9",
+      "spanish": "El personal ocasional de peaje cubrirá las ausencias del personal a jornada completa y parcial. Debe tener flexibilidad y disposición para trabajar horarios variables en un servicio 24/7. No hay un número fijo de horas de trabajo semanales y las horas variarán de una semana a otra. Se exige disponibilidad para trabajar fines de semana y noches. • Cobrar los peajes en la plaza de peaje. • Identificar correctamente los vehículos por clase o tipo, cobrar el peaje correspondiente y entregar cambio y recibos según corresponda, de forma eficiente y amable con el cliente. • Ayudar a mantener un flujo de tráfico óptimo para minimizar retrasos, maximizar el número de vehículos atendidos, cumplir los objetivos del negocio y asegurar la satisfacción del cliente con el servicio de peaje. • Seguir los procedimientos establecidos para manejar efectivo, trasladarlo a la oficina de caja y realizar el cierre de caja al terminar el turno o período de trabajo. • Atender o comunicar y escalar, según proceda y conforme a los procedimientos establecidos, todas las consultas y quejas recibidas en las cabinas de peaje.",
+      "evidence": "https://jobs.smartrecruiters.com/EgisGroup/744000147514734-casual-toll-operator",
+      "reviewed_at": "2026-10-19T20:32:01+01:00",
+      "reviewed_by": "DEVELOPER_LITERAL_TRANSLATION_REVIEW_NOT_CANDIDATE_CONSENT"
+    }
+  ]
+}

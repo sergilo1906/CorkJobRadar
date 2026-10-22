@@ -1,0 +1,12 @@
+{
+  "url": "https://jobs.lever.co/brightmachines/92b0e3d3-00e1-43d6-abde-a7efc492416d/apply",
+  "retrieved_at": "2026-10-20T11:24:21+01:00",
+  "sha256": "45062b027d0654aace3b451c84fdc894c86764fd9a6e5ac8e36d7b7448a786f8",
+  "public_source": true,
+  "methods": [
+    "GET"
+  ],
+  "captcha_bypassed": false,
+  "form_filled": false,
+  "submission_tested": false
+}

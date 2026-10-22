@@ -1,0 +1,10 @@
+{
+  "executable": "data/local-model-gpu/runtime/llama-server.exe",
+  "model": "data/local-model-gpu/Qwen3-4B-Q4_K_M.gguf",
+  "gpu": true,
+  "status": "LIMITED_READING_VALIDATION",
+  "device": "Vulkan1",
+  "gpu_layers": 99,
+  "startup_timeout": 180,
+  "diagnostic": false
+}

@@ -1,0 +1,124 @@
+{
+  "offers": [
+    {
+      "id": 2777657,
+      "slug": "snr-fe",
+      "title": "Frontend Engineer",
+      "careers_url": "https://distilled.recruitee.com/o/snr-fe",
+      "careers_apply_url": "https://distilled.recruitee.com/o/snr-fe/c/new",
+      "description": "<p><strong><span style=\"color:#222222\">What’s the Opportunity</span></strong></p><p><a rel=\"noopener\" target=\"_blank\" href=\"https://www.propertypal.com/\"><span style=\"color:#000000\">PropertyPal</span></a><span style=\"color:#000000\"> is Northern Ireland's favourite property portal, trusted by home movers across Northern Ireland and by the estate agents who power their business. We are a forward-thinking, innovative company built on strong values, a fantastic reputation, and a genuine passion for making moving home easier, smarter and more enjoyable for everyone.</span></p><p style=\"min-height: 1.7em;\"></p><p><span style=\"color:#000000\">Alongside PropertyPal.com we run PropertyNews, our iOS and Android apps, and around 270 websites for estate agents. PropertyPal is part of Distilled, the group behind </span><a rel=\"noopener\" target=\"_blank\" href=\"https://www.daft.ie/\"><span style=\"color:#000000\">Daft.ie</span></a><span style=\"color:#000000\">, </span><a rel=\"noopener\" target=\"_blank\" href=\"https://www.donedeal.ie/\"><span style=\"color:#000000\">DoneDeal.ie</span></a><span style=\"color:#000000\"> and Adverts.ie.</span></p><p style=\"min-height: 1.7em;\"></p><p><span style=\"color:#000000\">We are looking for a Frontend Engineer to work across our React web app and React Native mobile apps. You will be up to date with modern frontend technologies, enjoy building intuitive experiences for both web and mobile, and want to work in a high-performance, fast-paced and ambitious environment.</span></p><p style=\"min-height: 1.7em;\"></p><p><span style=\"color:#000000\">We're a small team, so everyone has a real say in what we build and how. That comes with trust and ownership: we expect high standards and good pace, without needing constant direction. If that sounds like where you do your best work, you'll fit right in.</span></p><p><span style=\"color:#000000\">You'll work closely with product, design, QA and backend engineers, and your ideas will help shape what we build.</span></p><p style=\"min-height: 1.7em;\"></p><p><strong><span style=\"color:#000000\">This is a remote-first role, with the flexibility to work from home.</span></strong></p><p style=\"min-height: 1.7em;\"></p><p style=\"text-align:justify;\"><strong><span style=\"color:#121317\">How You’ll Create with Impact</span></strong></p><p><span style=\"color:#000000\">We build the PropertyPal web app with React, TypeScript and </span><a rel=\"noopener\" target=\"_blank\" href=\"http://Next.js\">Next.js</a><span style=\"color:#000000\">, and our iOS and Android apps with React Native.</span></p><p style=\"min-height: 1.7em;\"></p><p><span style=\"color:#000000\">As a Frontend Engineer at PropertyPal you will:</span></p><ul><li><p><span style=\"color:#000000\">Build, maintain and own features across the PropertyPal web and mobile apps</span></p></li><li><p><span style=\"color:#000000\">Take responsibility for defining and delivering the solution for complex features, working closely with product and design</span></p></li><li><p><span style=\"color:#000000\">Help ship and maintain our iOS and Android apps, including app store and over-the-air releases</span></p></li><li><p><span style=\"color:#000000\">Build efficient, reusable frontend components and shared code that work across web and mobile</span></p></li><li><p><span style=\"color:#000000\">Use AI development tools such as Claude Code every day to deliver better products faster</span></p></li><li><p><span style=\"color:#000000\">Keep our codebase clean, scalable, secure and well tested</span></p></li><li><p><span style=\"color:#000000\">Look after the health of the systems you work on, in production as well as in development</span></p></li><li><p><span style=\"color:#000000\">Keep up with new technologies and techniques in frontend and mobile development</span></p></li></ul>",
+      "requirements": "<p><strong><span style=\"color:#0D0D0D\">What You’ll need to Play Your Part</span></strong></p><ul><li><p><span style=\"color:#000000\">3-5 years demonstrated experience in a similar commercial role</span></p></li><li><p><span style=\"color:#000000\">Excellent JavaScript and TypeScript skills, with significant professional experience of React</span></p></li><li><p><span style=\"color:#000000\">Solid experience with HTML and CSS, and experience building fully responsive, mobile-first web interfaces</span></p></li><li><p><span style=\"color:#000000\">Experience working with RESTful APIs</span></p></li><li><p><span style=\"color:#000000\">Unit and integration testing experience, using tools such as Jest, React Testing Library or Cypress</span></p></li><li><p><span style=\"color:#000000\">A daily user of AI development tools such as Claude Code, Cursor or GitHub Copilot</span></p></li><li><p><span style=\"color:#000000\">Strong communication skills, and the ability to work on your own initiative while being a strong teammate</span></p></li></ul><p style=\"min-height: 1.7em;\"></p><p><strong><span style=\"color:#000000\">Advantage if you have</span></strong></p><ul><li><p><span style=\"color:#000000\">Experience of mobile app releases: App Store Connect, Google Play Console, code signing and over-the-air updates</span></p></li><li><p><span style=\"color:#000000\">Experience building, shipping and maintaining a React Native app in production</span></p></li><li><p><span style=\"color:#000000\">Experience with native build tooling such as Xcode, Gradle and CocoaPods</span></p></li><li><p><span style=\"color:#000000\">Experience with Next.js</span></p></li><li><p><span style=\"color:#000000\">Experience with Redux Toolkit or styled-components</span></p></li><li><p><span style=\"color:#000000\">Experience with CI/CD, for example GitHub Actions</span></p></li><li><p><span style=\"color:#000000\">Web and mobile app performance experience</span></p></li></ul><p style=\"min-height: 1.7em;\"></p><p><strong><span style=\"color:#000000\">What's it like to work here</span></strong></p><p><span style=\"color:#000000\">You will join a small, experienced engineering team building products used by a large share of people in Northern Ireland when they move home. You will have real ownership of what you work on and the chance to make a significant contribution to how our products and platform develop.</span></p><p style=\"min-height: 1.7em;\"></p><p><strong><span style=\"color:#000000\">Why Join PropertyPal</span></strong></p><ul><li><p><span style=\"color:#000000\">Competitive salary</span></p></li><li><p><span style=\"color:#000000\">Hybrid working + flexible hours</span></p></li><li><p><span style=\"color:#000000\">Private health cover for you and your family</span></p></li><li><p><span style=\"color:#000000\">Pension contributions</span></p></li><li><p><span style=\"color:#000000\">Cycle to work scheme</span></p></li><li><p><span style=\"color:#000000\">25 days annual leave + 11 bank holidays</span></p></li><li><p><span style=\"color:#000000\">Day off for birthday and moving house</span></p></li><li><p><span style=\"color:#000000\">Work with one of NI’s most recognised digital brands</span></p></li><li><p><span style=\"color:#000000\">Opportunity to own and grow a meaningful territory</span></p></li><li><p><span style=\"color:#000000\">Career growth in a scaling marketplace business</span></p></li></ul><p style=\"min-height: 1.7em;\"></p><p><strong><span style=\"color:#000000\">More about PropertyPal and Distilled</span></strong></p><p><span style=\"color:#000000\">PropertyPal helps people in Northern Ireland find their next home and helps estate agents reach buyers and tenants.<br></span></p><p><span style=\"color:#000000\">We put our people first, creating an inclusive environment where we can develop products that put our users first. We value people's work and time, and we want everyone to have the opportunity to make an impact and grow.</span></p><p style=\"min-height: 1.7em;\"></p><p><strong><em><span style=\"color:#000000\">We are an equal opportunities employer and we welcome applications from all suitably qualified persons.</span></em></strong></p>",
+      "country": "United Kingdom",
+      "city": "Belfast",
+      "status": "published",
+      "options_cv": "required",
+      "options_phone": "required",
+      "options_cover_letter": "off",
+      "options_photo": "off",
+      "options_title": "off",
+      "options_salutation": "off",
+      "location_question_visible": false,
+      "locations_question": "What is your preferred work location?",
+      "locations_question_required": true,
+      "locations_question_type": "multiple_choice",
+      "open_questions": [
+        {
+          "id": 4426005,
+          "position": 1,
+          "options": {},
+          "required": true,
+          "body": " Do you have at least 3 years of proven experience in a similar role?",
+          "kind": "boolean",
+          "translations": {
+            "en": {
+              "body": " Do you have at least 3 years of proven experience in a similar role?"
+            }
+          },
+          "open_question_options": []
+        },
+        {
+          "id": 4426006,
+          "position": 2,
+          "options": {},
+          "required": true,
+          "body": "Are you currently based in Northern Ireland with full working rights?",
+          "kind": "boolean",
+          "translations": {
+            "en": {
+              "body": "Are you currently based in Northern Ireland with full working rights?"
+            }
+          },
+          "open_question_options": []
+        },
+        {
+          "id": 4426007,
+          "position": 3,
+          "options": {},
+          "required": true,
+          "body": "(Ignore if already based in Ireland) If you are currently based outside of Northern Ireland, are you open to travelling to the office on an Ad Hoc basis?",
+          "kind": "boolean",
+          "translations": {
+            "en": {
+              "body": "(Ignore if already based in Ireland) If you are currently based outside of Northern Ireland, are you open to travelling to the office on an Ad Hoc basis?"
+            }
+          },
+          "open_question_options": []
+        },
+        {
+          "id": 4426008,
+          "position": 4,
+          "options": {
+            "length": 120
+          },
+          "required": true,
+          "body": "What is your current notice period?",
+          "kind": "string",
+          "translations": {
+            "en": {
+              "body": "What is your current notice period?"
+            }
+          },
+          "open_question_options": []
+        },
+        {
+          "id": 4426027,
+          "position": 5,
+          "options": {},
+          "required": false,
+          "body": "Please complete the Fair Employment Monitoring Questionnaire: https://forms.gle/979AXp9mCvsSsZja9",
+          "kind": "string",
+          "translations": {
+            "en": {
+              "body": "Please complete the Fair Employment Monitoring Questionnaire: https://forms.gle/979AXp9mCvsSsZja9"
+            }
+          },
+          "open_question_options": []
+        },
+        {
+          "id": 4426009,
+          "position": 6,
+          "options": {},
+          "required": true,
+          "body": "What is your expected annual salary?",
+          "kind": "string",
+          "translations": {
+            "en": {
+              "body": "What is your expected annual salary?"
+            }
+          },
+          "open_question_options": []
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "source_url": "https://distilled.recruitee.com/api/offers",
+    "captured_at": "2026-10-20T13:02:36+01:00",
+    "response_sha256": "a43f2e5f2f67247d3692030b8470d7eb6bd31bc8324175d8ed58556662c11af2",
+    "fragment_sha256": "915716240dfc8972a854aa13088d56d8ec2a171e803b6f397d1f75d91b390e34",
+    "real_public_source": true,
+    "submission_tested": false,
+    "candidate_fit_verified": false,
+    "limitation": "Actual published Frontend Engineer in Belfast, not a Cork candidate proposal. Selected fields from the full retained API capture."
+  }
+}

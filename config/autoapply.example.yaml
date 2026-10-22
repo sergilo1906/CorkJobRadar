@@ -1,0 +1,35 @@
+# Ejemplo estricto: NO es una autorización. No contiene datos personales.
+AUTOAPPLY_ENABLED: false
+LIVE_SUBMISSION_ENABLED: false
+# Guarda y acepta únicamente el bloque policy desde UI/CLI para SIMULACIÓN.
+policy:
+  expires_at: '2026-11-19T18:00:00+00:00'
+  categories: [IT]
+  authorization_scope: IT_ONLY_CONFIRMED_FUNCTIONS_V1
+  modes: []
+  location_scope: CORK_AND_SURROUNDINGS
+  max_commute_minutes: null
+  allowed_hosts: []
+  adapter_versions: {}
+  min_score: 70
+  min_confidence: 80
+  max_daily: 3
+  max_weekly: 15
+  max_company_weekly: 1
+  cooldown_hours: 168
+  max_failures: 1
+  window_start: '09:00'
+  window_end: '18:00'
+  permissions:
+    generate_cv: false
+    attach_cv: false
+    generate_letter: false
+    fill_forms: false
+    final_submit: false
+    read_email: false
+  it:
+    schedules: []
+    contracts: []
+    full_time_required: true
+    minimum_salary: null
+    salary_unit: year

@@ -1,0 +1,444 @@
+{
+  "platform": "greenhouse",
+  "adapter": "greenhouse-readonly-1",
+  "public_url": "https://job-boards.eu.greenhouse.io/globetech/jobs/4960319101",
+  "endpoint": "https://boards-api.greenhouse.io/v1/boards/globetech/jobs/4960319101?questions=true",
+  "posting_id": "4960319101",
+  "title": "Localisation QA Engineer with Danish",
+  "location": {
+    "name": "Cork"
+  },
+  "questions": [
+    {
+      "description": null,
+      "label": "First Name",
+      "required": true,
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Last Name",
+      "required": true,
+      "fields": [
+        {
+          "name": "last_name",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Email",
+      "required": true,
+      "fields": [
+        {
+          "name": "email",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Phone",
+      "required": true,
+      "fields": [
+        {
+          "name": "phone",
+          "type": "input_text",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": null,
+      "label": "Resume/CV",
+      "required": true,
+      "fields": [
+        {
+          "name": "resume",
+          "type": "input_file",
+          "values": []
+        },
+        {
+          "name": "resume_text",
+          "type": "textarea",
+          "values": []
+        }
+      ]
+    },
+    {
+      "description": "<p>What is your native language</p>",
+      "label": "What is your native language",
+      "required": true,
+      "fields": [
+        {
+          "name": "question_9539981101",
+          "type": "multi_value_single_select",
+          "values": [
+            {
+              "label": "Afrikaans",
+              "value": 70770139101
+            },
+            {
+              "label": "Albanian",
+              "value": 70770140101
+            },
+            {
+              "label": "Arabic",
+              "value": 70770141101
+            },
+            {
+              "label": "Arabic - Saudi Arabia Market",
+              "value": 70770142101
+            },
+            {
+              "label": "Arabic - UAE Market",
+              "value": 70770143101
+            },
+            {
+              "label": "Bengali",
+              "value": 70770144101
+            },
+            {
+              "label": "Bulgarian",
+              "value": 70770145101
+            },
+            {
+              "label": "Catalan",
+              "value": 70770146101
+            },
+            {
+              "label": "Chinese - Hong Kong",
+              "value": 70770147101
+            },
+            {
+              "label": "Chinese - Mandarin",
+              "value": 70770148101
+            },
+            {
+              "label": "Chinese - Singapore",
+              "value": 70770149101
+            },
+            {
+              "label": "Chinese - Taiwanese",
+              "value": 70770150101
+            },
+            {
+              "label": "Croatian",
+              "value": 70770151101
+            },
+            {
+              "label": "Czech",
+              "value": 70770152101
+            },
+            {
+              "label": "Danish",
+              "value": 70770153101
+            },
+            {
+              "label": "Dutch - Belgium",
+              "value": 70770154101
+            },
+            {
+              "label": "Dutch - Netherlands",
+              "value": 70770155101
+            },
+            {
+              "label": "English - Australia",
+              "value": 70770156101
+            },
+            {
+              "label": "English - Canada",
+              "value": 70770157101
+            },
+            {
+              "label": "English - Great Britain",
+              "value": 70770158101
+            },
+            {
+              "label": "English - India",
+              "value": 70770159101
+            },
+            {
+              "label": "English - Ireland",
+              "value": 70770160101
+            },
+            {
+              "label": "English - New Zealand",
+              "value": 70770161101
+            },
+            {
+              "label": "English - Phillippines",
+              "value": 70770162101
+            },
+            {
+              "label": "English - Singapore",
+              "value": 70770163101
+            },
+            {
+              "label": "English - Southern Africa",
+              "value": 70770164101
+            },
+            {
+              "label": "English - United States",
+              "value": 70770165101
+            },
+            {
+              "label": "Estonian",
+              "value": 70770166101
+            },
+            {
+              "label": "Farsi (Persian)",
+              "value": 70770167101
+            },
+            {
+              "label": "Filipino",
+              "value": 70770168101
+            },
+            {
+              "label": "Finnish",
+              "value": 70770169101
+            },
+            {
+              "label": "French - Belgium",
+              "value": 70770170101
+            },
+            {
+              "label": "French - Canada",
+              "value": 70770171101
+            },
+            {
+              "label": "French - France",
+              "value": 70770172101
+            },
+            {
+              "label": "French - Luxembourg",
+              "value": 70770173101
+            },
+            {
+              "label": "French - Switzerland",
+              "value": 70770174101
+            },
+            {
+              "label": "German",
+              "value": 70770175101
+            },
+            {
+              "label": "German - Austria",
+              "value": 70770176101
+            },
+            {
+              "label": "German - Germany",
+              "value": 70770177101
+            },
+            {
+              "label": "German - Switzerland",
+              "value": 70770178101
+            },
+            {
+              "label": "Greek",
+              "value": 70770179101
+            },
+            {
+              "label": "Hebrew",
+              "value": 70770180101
+            },
+            {
+              "label": "Hindi",
+              "value": 70770181101
+            },
+            {
+              "label": "Hungarian",
+              "value": 70770182101
+            },
+            {
+              "label": "Icelandic",
+              "value": 70770183101
+            },
+            {
+              "label": "Indonesian",
+              "value": 70770184101
+            },
+            {
+              "label": "Italian - Italy",
+              "value": 70770185101
+            },
+            {
+              "label": "Italian - Switzerland",
+              "value": 70770186101
+            },
+            {
+              "label": "Japanese",
+              "value": 70770187101
+            },
+            {
+              "label": "Kazakh",
+              "value": 70770188101
+            },
+            {
+              "label": "Korean",
+              "value": 70770189101
+            },
+            {
+              "label": "Latvian",
+              "value": 70770190101
+            },
+            {
+              "label": "Lithuanian",
+              "value": 70770191101
+            },
+            {
+              "label": "Malay - Malaysia",
+              "value": 70770192101
+            },
+            {
+              "label": "Norwegian",
+              "value": 70770193101
+            },
+            {
+              "label": "Punjabi - Pakistan",
+              "value": 70770194101
+            },
+            {
+              "label": "Polish",
+              "value": 70770195101
+            },
+            {
+              "label": "Portuguese - Brazil",
+              "value": 70770196101
+            },
+            {
+              "label": "Portuguese - Portugal",
+              "value": 70770197101
+            },
+            {
+              "label": "Romanian - Moldova",
+              "value": 70770198101
+            },
+            {
+              "label": "Romanian - Romania",
+              "value": 70770199101
+            },
+            {
+              "label": "Russian - Belarus",
+              "value": 70770200101
+            },
+            {
+              "label": "Russian - Estonian",
+              "value": 70770201101
+            },
+            {
+              "label": "Russian - Kazakhstan",
+              "value": 70770202101
+            },
+            {
+              "label": "Russian - Kyrgyzstan",
+              "value": 70770203101
+            },
+            {
+              "label": "Russian - Lithuania",
+              "value": 70770204101
+            },
+            {
+              "label": "Russian - Moldova",
+              "value": 70770205101
+            },
+            {
+              "label": "Russian - Russian",
+              "value": 70770206101
+            },
+            {
+              "label": "Russian - Ukraine",
+              "value": 70770207101
+            },
+            {
+              "label": "Slovak",
+              "value": 70770208101
+            },
+            {
+              "label": "Slovenian",
+              "value": 70770209101
+            },
+            {
+              "label": "Spanish - Argentina",
+              "value": 70770210101
+            },
+            {
+              "label": "Spanish - Chile",
+              "value": 70770211101
+            },
+            {
+              "label": "Spanish - Mexico",
+              "value": 70770212101
+            },
+            {
+              "label": "Spanish - North America",
+              "value": 70770213101
+            },
+            {
+              "label": "Spanish - Peru",
+              "value": 70770214101
+            },
+            {
+              "label": "Spanish - South America",
+              "value": 70770215101
+            },
+            {
+              "label": "Spanish - Spain",
+              "value": 70770216101
+            },
+            {
+              "label": "Spanish - Venezuela",
+              "value": 70770217101
+            },
+            {
+              "label": "Swedish - Sweden",
+              "value": 70770218101
+            },
+            {
+              "label": "Thai",
+              "value": 70770219101
+            },
+            {
+              "label": "Turkish",
+              "value": 70770220101
+            },
+            {
+              "label": "Ukrainian",
+              "value": 70770221101
+            },
+            {
+              "label": "Urdu",
+              "value": 70770222101
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "location_questions": [],
+  "data_compliance": [
+    {
+      "type": "gdpr",
+      "requires_consent": true,
+      "requires_processing_consent": true,
+      "requires_retention_consent": true,
+      "retention_period": 440,
+      "demographic_data_consent_applies": false
+    }
+  ],
+  "demographic_questions": null,
+  "inspected_read_only": true,
+  "submitted": false,
+  "live_supported": false,
+  "limitation": "GET público documentado. POST requiere credenciales de la empresa; no implica permiso para automatizar formularios alojados.",
+  "checked_at": "2026-10-19T19:13:27+01:00"
+}
