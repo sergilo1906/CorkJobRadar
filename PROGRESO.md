@@ -1,5 +1,9 @@
 # Cork Job Radar — progreso verificable
 
+## GitHub público por autorización expresa — 22/10/2026
+
+El usuario solicitó cambiar la visibilidad: **https://github.com/sergilo1906/CorkJobRadar es ahora público**. Revisado el historial completo antes de publicar:3 commits/311 blobs, sin contactos reales ni patrones de secretos detectados. Cambio confirmado en GitHub y mediante API anónima HTTP200. Evidencia local `logs/github-public-history-audit.json`/`logs/github-public-visibility.json`. Exclusiones de bases, CV, DPAPI, copias, logs, exportaciones y secretos conservadas. No se modifica LIVE ni la aplicación. Las menciones siguientes a repositorio privado describen su creación inicial.
+
 ## Publicación del código en GitHub — 22/10/2026
 
 **Estado actual observado a las11:58:** la aplicación registra CV2 aprobado desde11:35:37,22 hechos vigentes y26 paquetes manuales locales. La aprobación ya existía antes de esta publicación; el agente no la ha realizado ni modificado.613 ofertas, cero intentos/envíos y LIVE OFF. Las menciones a CV pendiente en bloques anteriores describen sus respectivos cierres históricos y no deben provocar una nueva solicitud de aprobación del mismo CV.

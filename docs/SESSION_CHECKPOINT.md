@@ -1,5 +1,9 @@
 # Checkpoint de continuidad — EN DESARROLLO
 
+## Visibilidad vigente: GitHub público — 22/10/2026
+
+Cambio expresamente pedido por el usuario: **https://github.com/sergilo1906/CorkJobRadar es público**, confirmado mediante GitHub API autenticada y consulta anónima HTTP200. Auditado antes del cambio el historial completo (3 commits/311 blobs), sin contactos reales ni patrones de secretos detectados. Informes locales: `logs/github-public-history-audit.json` y `logs/github-public-visibility.json`. Las exclusiones de datos/CV/DPAPI/logs/backups siguen vigentes; no subirlos en siguientes commits. No cambia LIVE ni ninguna aprobación o envío. Las referencias siguientes a privado corresponden a la creación inicial.
+
 ## GitHub privado publicado — 22/10/2026
 
 **Estado más reciente observado11:58:** CV id2 aprobado desde22/10 11:35:37, sin revocación;22 hechos vigentes y26 paquetes manuales locales,613 ofertas,0 intentos/envíos, control0/0/1/epoch0. La aprobación precede a la tarea GitHub y no fue realizada/modificada por el agente. No volver a pedir aprobación de ese CV salvo cambio de versión/hechos. Las referencias a CV pendiente en los checkpoints anteriores son históricas. Los paquetes se revalidan y no acreditan elegibilidad completa ni recepción empresarial.

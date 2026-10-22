@@ -1,6 +1,6 @@
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
-Código respaldado en **repositorio privado** https://github.com/sergilo1906/CorkJobRadar. Usar la carpeta local actual para conservar bases/documentos/aprobaciones; un clon no incluye esos datos. Antes de futuras subidas, revisar lo preparado con `scripts/audit_github_publish.py` y un nombre de informe nuevo. Ver `docs/GITHUB_PUBLICATION.md`. La publicación no autoriza candidaturas ni aprobación del CV; LIVE OFF.
+Código respaldado en **repositorio público**, por petición expresa del usuario: https://github.com/sergilo1906/CorkJobRadar. Usar la carpeta local actual para conservar bases/documentos/aprobaciones; un clon no incluye esos datos. Antes de futuras subidas, revisar lo preparado con `scripts/audit_github_publish.py` y un nombre de informe nuevo. Ver `docs/GITHUB_PUBLICATION.md`. La publicación no autoriza candidaturas ni aprobación del CV; LIVE OFF.
 
 **Actualización de estado11:58:** CV2 ya consta aprobado desde11:35:37; no volver a pedir aprobación del mismo documento mientras siga vigente. Hay26 paquetes locales preparados por el trabajador, sin envíos externos. Revisar/revalidar esos paquetes, requisitos, ubicación y transporte antes de utilizarlos manualmente. Las instrucciones de aprobación del CV en bloques anteriores reflejan estados previos; no aprobar de nuevo ni revocar por el agente.
 
