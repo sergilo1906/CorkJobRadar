@@ -34,6 +34,6 @@ def show_pdf_preview(content, extension):
         return
     import streamlit as st
     try:
-        st.image(pdf_preview(content), caption='Vista previa del PDF exacto que estás revisando')
+        st.image(pdf_preview(content), caption='Vista previa del PDF exacto que estás revisando', output_format='PNG')
     except ValueError:
         st.info('Vista previa no disponible. Descarga y revisa el documento completo antes de aprobarlo.')

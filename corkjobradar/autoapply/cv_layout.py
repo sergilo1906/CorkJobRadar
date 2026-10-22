@@ -262,6 +262,11 @@ def _docx(name, contact, linkedin, sections, size):
             p.paragraph_format.space_before = Pt(0)
             p.paragraph_format.space_after = Pt(3)
             p.paragraph_format.line_spacing = Pt(size*1.22)
+            # Word may split a year range at the hyphen (2022- / 2024), unlike
+            # ReportLab. A layout-only line break at the preceding space keeps
+            # the literal date intact in both the view and ATS text extraction.
+            if label == 'Education & Training' and len(text) > 100:
+                text = re.sub(r'[ \t]+(\(\d{4}[-\u2013]\d{4}\))', r'\n\1', text)
             bold, rest = _emphasis(label, text, index)
             if bold:
                 p.add_run(bold).bold = True

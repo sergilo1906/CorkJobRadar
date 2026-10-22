@@ -1,5 +1,21 @@
 # Cork Job Radar — progreso verificable
 
+## Estado vigente — PR y CV verificados en Windows, 22/10/2026
+
+PR #2/#3 probadas y combinadas localmente; trabajo de CV #1 reutilizado y corregido. Rama activa `work/validated-pr23-cv-20261022`; `main` remoto y las PR originales se conservan sin fusionar. No se reconstruyó la interfaz. [Informe de integración](docs/PR_CV_WINDOWS_2026-10-22.md).
+
+**614 ofertas, 3.026 análisis, 22 hechos activos/24 históricos. DAM finalizado, Institut Baix Camp, 2022–2024. CV4 cifrado pendiente de revisión.** Los CV anteriores conservan sus aprobaciones históricas y quedan revocados por el cambio; los52 paquetes antiguos se retienen y rechazan su reutilización. Reevaluadas614/614;56 IT confirmadas y15 oportunidades locales para revisar, sin presumir centro/ruta ni elegibilidad plena.
+
+PDF/DOCX profesionales de una página comprobados con el contenido real; vista previa PNG del PDF exacto, consentimiento sin marcar y opción Word en la interfaz. **645 PASS** suite completa previa a últimos ajustes; **65 PASS** regresión de runtime/UI, **39 PASS** CV/Word/importación y **1 PASS** respaldo. Suites solapadas, no sumar. Chromium real en1440/390: descarga e imagen exactas, tablas críticas intactas y supervisor activo al cerrar la pestaña; segundo lanzador sin duplicar supervisor.
+
+Supervisor recuperado con programación de6h, siguiente búsqueda conservada22/10 a22:25:41 Dublin. Sin servicios ni inicio automático. Reinicio/suspensión físicos pendientes. Copias e integridad comprobadas, incluidos los datos de transporte. [Lista actual](docs/OPORTUNIDADES_IT_DAM_FECHAS_2026-10-22.md).
+
+**LIVE OFF, cero candidaturas externas.** Keeper permite consultar su esquema público; seis preguntas obligatorias siguen pendientes y su formulario externo no está validado para automatizar. CV4 requiere tu revisión en **Perfil y configuración → CV definitivo**. La preparación manual no necesita permisos API empresariales. AutoApply real exige transporte permitido, ensayo externo autorizado y recepción comprobada, además de activación de política separada.
+
+Los apartados siguientes son historial conservado y pueden describir versiones anteriores.
+
+Limpieza temporal pendiente: el control automático rechazó los comandos de borrado por política. `data/pr23-cv-private` conserva las inspecciones locales con ACL usuario/SYSTEM y copia adicional DPAPI; está fuera de Git. Registro: `logs/pr23-render-evidence-preservation.json`.
+
 ## GitHub público por autorización expresa — 22/10/2026
 
 El usuario solicitó cambiar la visibilidad: **https://github.com/sergilo1906/CorkJobRadar es ahora público**. Revisado el historial completo antes de publicar:3 commits/311 blobs, sin contactos reales ni patrones de secretos detectados. Cambio confirmado en GitHub y mediante API anónima HTTP200. Evidencia local `logs/github-public-history-audit.json`/`logs/github-public-visibility.json`. Exclusiones de bases, CV, DPAPI, copias, logs, exportaciones y secretos conservadas. No se modifica LIVE ni la aplicación. Las menciones siguientes a repositorio privado describen su creación inicial.

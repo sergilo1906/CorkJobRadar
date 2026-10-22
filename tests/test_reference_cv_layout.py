@@ -115,6 +115,16 @@ def test_docx_has_no_external_relationships(candidate):
                 assert b'TargetMode="External"' not in archive.read(name)
 
 
+def test_docx_year_range_stays_whole_without_changing_the_claim(candidate):
+    statement = ('SYNTHETIC: Higher Technician qualification in Multiplatform Application '
+        'Development (CFGS DAM), Example Institute (2022-2024): completed; final examination passed.')
+    candidate['_claims'][6]['text_en'] = statement
+    doc = Document(io.BytesIO(render_cv(candidate, 'docx')))
+    paragraph = next(p for p in doc.paragraphs if 'Example Institute' in p.text)
+    assert '\n(2022-2024)' in paragraph.text
+    assert statement in ' '.join(paragraph.text.split())
+
+
 def test_docx_real_office_renderer_one_page_and_all_claims(candidate, tmp_path):
     """Optional installed LibreOffice, private owned profile, no system changes."""
     import os
@@ -124,6 +134,9 @@ def test_docx_real_office_renderer_one_page_and_all_claims(candidate, tmp_path):
     office = Path('C:/Program Files/LibreOffice/program/soffice.com')
     if not office.is_file():
         pytest.skip('LibreOffice not installed; no claim of DOCX pagination verification')
+    candidate['_claims'][6]['text_en'] = ('SYNTHETIC: Higher Technician qualification in '
+        'Multiplatform Application Development (CFGS DAM), Example Institute (2022-2024): '
+        'completed; final examination passed.')
     source = tmp_path/'synthetic.docx'
     source.write_bytes(render_cv(candidate, 'docx'))
     destination = tmp_path/'rendered'; destination.mkdir()
