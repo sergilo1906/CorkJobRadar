@@ -52,3 +52,11 @@ Streamlit necesitó reinicio controlado para cargar la migración y, posteriorme
 El usuario revisa el contenido, diseño, formato, documentos opcionales y permiso de cada paquete. Los campos profesionales o anexos nuevos necesitan revisión; los22 hechos vigentes no requieren reaprobarse. Una descarga explícita es una copia privada legible bajo control del usuario; revocar en la aplicación no borra copias ya descargadas.
 
 Para el modo automático siguen pendientes un canal permitido, ensayo externo autorizado con recepción comprobada y activación separada de política. LinkedIn/Indeed continúan manuales. No se envían candidaturas, no se resuelven CAPTCHA reales ni se piden permisos API para utilizar los paquetes manuales.
+
+## Continuidad y publicación verificadas
+
+El commit funcional `b683a28` se publicó en `work/per-job-documents-20261022`, conservando main. La auditoría del índice comprobó336 archivos sin contactos reales ni patrones de secretos detectados. Bases, originales, CV, capturas y evidencias privadas permanecen fuera de Git.
+
+El ciclo automático21 terminó el22/10 a las22:25:55, con122 observaciones de las tres fuentes habilitadas y67 tareas completadas. Añadió dos anuncios de marketing en Austin: son616 registros/3.028 análisis, no dos oportunidades IT compatibles nuevas. La comprobación posterior conserva los614 IDs anteriores, todo su contenido y análisis históricos,17 tablas estáticas idénticas,76 activos cifrados y las7 tablas de transporte. Fechas de observación y cinco metadatos de origen se actualizaron como parte de la búsqueda real. Evidencia: `logs/per-job-scheduled-cycle-verification.json`.
+
+El supervisor existente permanece RUNNING/WAITING, cada6 horas, próxima búsqueda23/10 a las04:26:29 Europe/Dublin. Copia adicional posterior al ciclo: `logs/per-job-post-cycle-backup.json`. No se repiten pruebas funcionales tras cambios exclusivamente documentales. Los712 PASS acreditan el código publicado, sin atribuirlos a GitHub CI ni a un envío externo.

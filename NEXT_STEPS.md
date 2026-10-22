@@ -11,6 +11,8 @@
 
 **Cierre técnico:712 PASS** completa,0 fallos/errores/omitidas; navegador real y documentos PDF/DOCX con LibreOffice comprobados. No se comprobó Microsoft Word. No repetir suites sin cambios/fallos nuevos. [Informe](docs/PER_JOB_DOCUMENTS_2026-10-22.md). Copia final y verificación indicadas en el checkpoint; conservar históricos y no restaurar sobre producción.
 
+**Continuidad comprobada tras publicar:** ciclo21 completado; 616 ofertas/3.028 análisis. Sus dos anuncios nuevos son marketing en Austin y no amplían la lista IT compatible. Próxima búsqueda23/10 a las04:26:29 Europe/Dublin. Mantener el supervisor existente; no iniciar otro ni repetir la suite de712 sin cambios funcionales. Código funcional publicado en `work/per-job-documents-20261022` (`b683a28`); main conserva su estado anterior. Copia posterior al ciclo: `logs/per-job-post-cycle-backup.json`, sin restaurar sobre producción.
+
 Los bloques siguientes son historia, incluidas las recomendaciones de aprobar CV4.
 
 ## Prioridad actual tras integrar y probar las PR localmente
