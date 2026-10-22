@@ -326,8 +326,10 @@ def activity_status(db):
     labels={'START':'Iniciar actividad local','PAUSE':'Pausar actividad','RESUME':'Reanudar actividad','STOP':'Detener actividad'}
     cols=st.columns(max(1,len(available)+1))
     for col,action in zip(cols,available):col.button(labels[action],key='ui_runtime_'+action,on_click=_runtime_command,args=(db,action))
-    if row['state']!='STOPPING':cols[-1].button('Buscar IT ahora',key='ui_runtime_SEARCH_NOW',disabled=bool(row.get('active_kind')),on_click=_runtime_command,args=(db,'SEARCH_NOW'))
-    else:st.info('Detención en curso. Se conserva la página o tarea actual antes de terminar.')
+    if row['state'] not in {'STOPPING','PAUSING'}:
+        cols[-1].button('Buscar IT ahora',key='ui_runtime_SEARCH_NOW',disabled=bool(row.get('active_kind')),on_click=_runtime_command,args=(db,'SEARCH_NOW'))
+    else:
+        st.info('Pausa o detención en curso. Se conserva la página o tarea actual antes de terminar.')
     st.write('Última búsqueda: '+date_label(row['last_search_finished'],'Sin búsqueda finalizada'))
     st.write('Próxima búsqueda: '+(date_label(row['next_search_at'],'Al iniciar') if row['desired']=='RUNNING' else 'Programación pausada o detenida'))
     st.caption('Cerrar la pestaña no detiene la actividad. El ordenador no trabaja durante suspensión o apagado.')
@@ -417,7 +419,7 @@ def profile(db,view):
         from ..autoapply.manual_workspace_ui import _cv
         from ..autoapply.vault import candidate_snapshot
         _cv(db,None,candidate_snapshot(db),expanded=True)
-        if st.checkbox('Importar otro CV o preparar una carta',key='profile_cv_import'):
+        if st.checkbox('Opciones de documento: DOCX, importar CV o carta',key='profile_cv_import'):
             from ..autoapply.ui import render_cv_editor
             render_cv_editor(db)
     elif section=='Datos y experiencia aprobados':

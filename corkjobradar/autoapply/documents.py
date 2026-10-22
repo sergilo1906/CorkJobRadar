@@ -49,18 +49,13 @@ def render_cv(candidate, extension='docx', job=None):
         require_it_job(job)
     if not candidate.get('full_name') or not candidate.get('email') or not candidate.get('_claims'):
         raise ValueError('VERIFIED_CONTACT_AND_CLAIMS_REQUIRED')
-    # Fixed English labels + approved English claims; no web text and no LLM instructions.
-    lines=[candidate['full_name'],candidate['email']]
-    for key in ('phone','location','linkedin_url'):
-        if candidate.get(key):lines.append(candidate[key])
-    for section in ('Experience','Education','Skills','Languages','Availability'):
-        claims=[c['text_en'] for c in candidate['_claims'] if c['section']==section]
-        if job:
-            # Reorder approved claims by literal job vocabulary. Web instructions never become CV content.
-            vocabulary=set(re.findall(r'[a-z]{3,}',(job.get('title','')+' '+job.get('description','')).lower()))
-            claims.sort(key=lambda c:-len(vocabulary.intersection(re.findall(r'[a-z]{3,}',c.lower()))))
-        if claims:lines.extend([section,*claims])
-    return _render_lines(lines,candidate,extension)
+    from .cv_layout import render_professional_cv
+    content=render_professional_cv(candidate,extension,job)
+    text=validate_document(content,extension)
+    for claim in candidate['_claims']:
+        if ' '.join(claim['text_en'].split()) not in ' '.join(text.split()):
+            raise ValueError('GENERATED_DOCUMENT_LOST_A_CLAIM')
+    return content
 
 
 def render_letter(candidate,job,extension='docx'):

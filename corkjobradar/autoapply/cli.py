@@ -12,7 +12,7 @@ from .store import reconcile
 
 def doctor(db):
     dependencies={}
-    for name in ('playwright','reportlab'):
+    for name in ('playwright','reportlab','pypdfium2'):
         try:dependencies[name]=importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:dependencies[name]=None
     from .platforms import platform_for

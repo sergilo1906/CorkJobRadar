@@ -1,5 +1,23 @@
 # Checkpoint de continuidad — EN DESARROLLO
 
+## Checkpoint actual — PR2/3, CV4 y recuperación Windows (22/10/2026)
+
+- Proyecto real `C:\Proyectos\CorkJobRadar`, rama **`work/validated-pr23-cv-20261022`**. El worktree aislado está en `data/integration-pr23`; no usarlo como instalación con el perfil real. No reinicializar Git, forzar push ni sobrescribir bases. `main` remoto permanece sin fusionar las PR originales.
+- Commits de PR2 `9a72ee2`, PR3 `defda70` y PR1 `702ea61` conservados en la ascendencia. PR2/3 sin conflictos; los tres conflictos documentales al añadir PR1 se resolvieron reteniendo ambos historiales. Corrección funcional combinada inicial `43308ec`; consultar `git log` para los ajustes posteriores de Word/PNG y entrega.
+- Base v12 íntegra/FK sin errores. **614 ofertas,3.026 análisis,22 hechos vigentes/24 históricos, CV4 PDF cifrado pendiente**,52 paquetes antiguos conservados y bloqueados por cambio de perfil/CV. Nuevo hecho académico24 sustituye23: DAM finalizado, Institut Baix Camp,2022–2024. Los otros21 hechos no se alteraron. CV2/CV3 conservan sus fechas de aprobación y ahora están revocados. No aprobar CV4 por el agente.
+- Reevaluadas614/614 sin borrar análisis.56 IT confirmadas/15 oportunidades locales para revisar; no equivalen a radio/transporte/elegibilidad acreditados. Excel nuevo y documento de oportunidades indicados en el informe.
+- PDF y DOCX con contenido real: una página, todos los hechos, escuela/fechas correctas; DOCX abierto con LibreOffice, no Microsoft Word. Plantilla profesional reutilizada/corregida. Word no parte el rango académico; vista previa PNG conserva los píxeles del PDF, descarga exacta y consentimiento desmarcado. Los previsualizados legibles son temporales; no subir CV ni capturas privadas.
+- Pruebas locales: **645 PASS** suite completa antes de los últimos ajustes; **65 PASS** runtime/UI/procesos/navegador; **39 PASS** CV/Word/importación; **1 PASS** respaldo. No sumar. Navegador sobre la aplicación real PASS:1440/390 sin overflow, imagen/descarga exactas, DOCX disponible, tablas críticas sin cambios, pestaña cerrada y supervisor continúa, segundo lanzador reutiliza supervisor. Resumen público separado: `PR23_VERIFIED_TEST_RESULTS_2026-10-22.json`; no atribuir ejecución a GitHub CI.
+- El proceso antiguo terminó a17:30; checkpoint conservado. Se relanzó con `scripts/iniciar_local.py`, sin instalar servicios/inicio Windows. Supervisor observado164516, propietario176572; **comprobar PID+stamp y puerto antes de lanzar nada**, no confiar en estos números después. Estado deseado RUNNING/intervalo6h, próxima búsqueda conservada22/10 a22:25:41 Dublin. Suspensión/reinicio físicos pendientes.
+- La protección PAUSING/STOPPING está también en `runtime.command` dentro de transacción y en la UI avanzada. Ya no basta un callback antiguo para reactivar trabajo.
+- Keeper: inspección pública nueva id4 (15 preguntas/16 campos); preparación local desconectada con datos reales y CV4 solo para revisión:8 campos reconocidos,6 preguntas obligatorias pendientes,0 POST, HOLD. No se ha rellenado ni enviado el formulario externo. Diagnóstico de las614 ofertas por siete ejes; ninguna integración de envío autorizada/validada.
+- **Control AutoApply0/0/1/epoch0; LIVE OFF,0 intentos,0 envíos/recibos externos.** LinkedIn/Indeed manuales. Para un ensayo automatizado futuro faltan concesión específica, transporte y confirmación externa; después consentimiento único y activación separada. No pedir aprobaciones de hechos ya vigentes ni permisos API para uso manual normal.
+- Copias verificadas: `logs/pr23-cv-start-backup.json`, `logs/pr23-before-academic-backup.json`; conservación `logs/pr23-data-preservation.json`, siete tablas transporte sin diferencias. Respaldo final/validación: `logs/pr23-final-backup.json` y `logs/pr23-final-verification.json`. Conservar logs/exports/DPAPI dentro del proyecto y fuera de Git.
+
+Continuar con la revisión del CV por el usuario y los requisitos/transportes/respuestas pendientes. [Informe completo](PR_CV_WINDOWS_2026-10-22.md). Los siguientes checkpoints son históricos; no volver al estado anterior de CV2 ni reconstruir la UI.
+
+Limpieza de inspecciones bloqueada por revisión automática (`blocked by policy`, sin detalle adicional), tanto con borrado recursivo como con una lista explícita de archivos. No sortearla con otro mecanismo. `data/pr23-cv-private` sigue local, ACL usuario/SYSTEM; se creó y verificó un archivo ZIP protegido con DPAPI de138 archivos. `logs/pr23-render-evidence-preservation.json` registra ruta/hash. Fuera de Git, sin tocar el CV cifrado ni los respaldos de producción.
+
 ## Visibilidad vigente: GitHub público — 22/10/2026
 
 Cambio expresamente pedido por el usuario: **https://github.com/sergilo1906/CorkJobRadar es público**, confirmado mediante GitHub API autenticada y consulta anónima HTTP200. Auditado antes del cambio el historial completo (3 commits/311 blobs), sin contactos reales ni patrones de secretos detectados. Informes locales: `logs/github-public-history-audit.json` y `logs/github-public-visibility.json`. Las exclusiones de datos/CV/DPAPI/logs/backups siguen vigentes; no subirlos en siguientes commits. No cambia LIVE ni ninguna aprobación o envío. Las referencias siguientes a privado corresponden a la creación inicial.
@@ -339,3 +357,10 @@ Modelo portátil existente: `data/local-model-gpu/runtime_config.json`, Qwen3-4B
 ## Continuación local supervisada
 
 Actualizado: 2026-10-19T21:46:26+01:00. Estado: **COMPLETED**; después de ejecución 12. Fase: refresh-documents. Registro preciso: `data/continuity-workflow-12.json`; logs `logs/continuity-workflow-12-*.log`. Proyecto EN DESARROLLO, envío real OFF. Este proceso no es un servicio y no arranca con Windows. Una cancelación de la ejecución esperada detiene la continuación. No relanzar fases iniciadas sin revisar su resultado.
+
+### Anotaci?n hist?rica recibida de PR #1 (antes de validaci?n Windows)
+
+# Checkpoint de continuidad — EN DESARROLLO
+
+## 22/10/2026 — Propuesta de generador profesional desde GitHub
+

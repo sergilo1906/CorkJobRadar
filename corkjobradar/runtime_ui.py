@@ -31,6 +31,11 @@ def startup_script():
             'shell.Run Chr(34) & "'+python+'" & Chr(34) & " " & Chr(34) & "'+script+'" & Chr(34), 0, False\r\n').encode('utf-16')
 
 
+def _command(db,action):
+    try:command(db,action)
+    except ValueError:st.session_state['local_runtime_command_error']='El estado cambió o hay trabajo activo; espera a que termine la transición.'
+
+
 @st.fragment(run_every='5s')
 def render(db):
     st.subheader('Actividad local continua · Windows · LIVE OFF')
@@ -39,11 +44,13 @@ def render(db):
     from .ui.visibility import runtime_actions
     labels={'START':'Iniciar actividad local','PAUSE':'Pausar actividad','RESUME':'Reanudar actividad','STOP':'Detener actividad','SEARCH_NOW':'Buscar IT ahora'}
     actions=list(runtime_actions(row))
-    if row['state']!='STOPPING' and not row.get('active_kind'):actions.append('SEARCH_NOW')
+    if row['state'] not in {'STOPPING','PAUSING'} and not row.get('active_kind'):actions.append('SEARCH_NOW')
+    error=st.session_state.pop('local_runtime_command_error',None)
+    if error:st.info(error)
     cols=st.columns(max(1,len(actions)))
     for col,action in zip(cols,actions):
         label=labels[action]
-        col.button(label,key='local_'+action,on_click=command,args=(db,action))
+        col.button(label,key='local_'+action,on_click=_command,args=(db,action))
     st.caption('Cerrar la pestaña no detiene el proceso local. Pausar o detener deja terminar la petición/tarea en curso y conserva los puntos de reanudación. Apagar o suspender el PC detiene su ejecución; al volver se conserva la cola. No se envían candidaturas.')
     with st.expander('Configurar frecuencia y preparación local'):
         with st.form('local_runtime_config'):

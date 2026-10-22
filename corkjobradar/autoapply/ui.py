@@ -65,7 +65,7 @@ def render_autoapply_controls(db):
                 try:approve_fact(db,field,value,origin,confirmed);st.success('Dato cifrado guardado. Los CV anteriores se invalidan.')
                 except Exception:st.error('No se pudo guardar: comprueba formato, origen y confirmación explícita.')
         with st.form('aa_claim_form',clear_on_submit=True):
-            section=st.selectbox('Sección del CV',['Education','Experience','Skills','Languages','Availability'])
+            section=st.selectbox('Sección del CV',['Profile','Skills','Experience','Projects','Education','Additional Experience','Languages','Availability'])
             text=st.text_area('Afirmación exacta en inglés para el CV')
             origin=st.text_input('Evidencia de esta afirmación')
             approved=st.checkbox('He comprobado esta afirmación; no contiene experiencia ni títulos inventados')
@@ -236,7 +236,7 @@ def render_profile_editor(db):
             try:approve_fact(db,field,value,origin,confirmed);st.success('Dato cifrado guardado. Los CV anteriores se invalidan.')
             except Exception:st.error('No se pudo guardar: comprueba formato, origen y confirmación explícita.')
     with st.form('aa_claim_form',clear_on_submit=True):
-        section=st.selectbox('Sección del CV',['Education','Experience','Skills','Languages','Availability'])
+        section=st.selectbox('Sección del CV',['Profile','Skills','Experience','Projects','Education','Additional Experience','Languages','Availability'])
         text=st.text_area('Afirmación exacta en inglés para el CV')
         origin=st.text_input('Evidencia de esta afirmación')
         approved=st.checkbox('He comprobado esta afirmación; no contiene experiencia ni títulos inventados')
@@ -268,6 +268,10 @@ def render_cv_editor(db):
     if st.button('Preparar CV inglés para revisar'):
         try:
             st.session_state['aa_review_id']=create_cv_review(db,render_cv(candidate_snapshot(db),extension,role),extension)
+        except ValueError as exc:
+            if str(exc)=='CV_CONTENT_EXCEEDS_ONE_PAGE_REVIEW_REQUIRED':
+                st.error('El CV completo no cabe en una página legible. Revisa la extensión; no se ha recortado contenido ni aprobado el CV.')
+            else:st.error('Completa nombre, contacto y afirmaciones aprobadas; revisa el contenido del CV.')
         except Exception:st.error('Completa nombre, contacto y al menos una afirmación aprobada; verifica las dependencias opcionales.')
     upload=st.file_uploader('CV propio para revisión local',type=['pdf','docx'],key='aa_upload')
     prepared=None
@@ -303,6 +307,8 @@ def render_cv_editor(db):
         try:
             content,ext,sha,text=cv_review_bytes(db,chosen)
             st.caption('Revisión íntegra del documento. La aprobación solo afecta a esta versión y a la ficha actual; no activa AutoApply.')
+            from .cv_preview import show_pdf_preview
+            show_pdf_preview(content,ext)
             st.text(text)
             st.download_button('Descargar CV para revisión',content,file_name='CV.'+ext)
             prepared=(content,ext,candidate_snapshot(db)['_facts_hash'])

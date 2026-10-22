@@ -4,7 +4,7 @@ APPLICATION_STATES=('Pendientes de preparar','Preparadas','Requieren intervenci√
 
 
 def runtime_actions(control,alive=True):
-    if control['state']=='STOPPING':return ()
+    if control['state'] in {'STOPPING','PAUSING'}:return ()
     if control['desired']=='RUNNING':return ('PAUSE','STOP')
     if control['desired']=='PAUSED':return ('RESUME','STOP')
     return ('START',)
@@ -32,4 +32,4 @@ def actions_for(*,cv_approved,preparation_allowed,application,channel_validated=
 
 def safe_controls(control,action):
     if action not in runtime_actions(control) and action!='SEARCH_NOW':raise ValueError('ACTION_NOT_AVAILABLE_FOR_CURRENT_STATE')
-    if action=='SEARCH_NOW' and (control['state']=='STOPPING' or control.get('active_kind')):raise ValueError('WORK_ALREADY_ACTIVE')
+    if action=='SEARCH_NOW' and (control['state'] in {'STOPPING','PAUSING'} or control.get('active_kind')):raise ValueError('WORK_ALREADY_ACTIVE')

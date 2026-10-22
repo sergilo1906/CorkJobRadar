@@ -1,5 +1,19 @@
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
+## Prioridad actual tras integrar y probar las PR localmente
+
+1. Abrir **Perfil y configuración → CV definitivo → versión4**: revisar imagen y descarga y aprobarla solo si el usuario lo decide. DAM finalizado, Institut Baix Camp,2022–2024. No volver a aprobar los22 hechos ni reutilizar CV2/CV3 revocados. Para Word: **Opciones de documento: DOCX, importar CV o carta**; esa versión requiere revisión propia.
+2. Usar [las oportunidades reevaluadas](docs/OPORTUNIDADES_IT_DAM_FECHAS_2026-10-22.md). Son56 IT/15 locales razonables para revisar, no candidaturas plenamente elegibles. En **Mis candidaturas → Requieren intervención** se conservan las retenidas por CV/datos;52 paquetes históricos no son descargables como vigentes.
+3. Para Keeper, resolver las seis preguntas exactas vigentes: patrocinio, residencia, híbrido3 días, experiencia2+ años, incidente técnico y salario. Conservar1a10m reales; verificar centro, turno y trayecto desde Ballinlough sin coche. No inventar respuestas ni equiparar DAM a NFQ8.
+4. Tras aprobación del CV, el trabajador podrá preparar paquetes nuevos sin duplicar candidaturas. Presentación manual por los mecanismos oficiales, sin permisos API empresariales. **No se ha autorizado ni realizado ningún envío.**
+5. Revisar/integrar la rama completa `work/validated-pr23-cv-20261022`, que conserva los commits de PR1/2/3 y sus correcciones posteriores. Las PR originales siguen abiertas y `main` remoto no se ha sobrescrito. [Evidencia y límites](docs/PR_CV_WINDOWS_2026-10-22.md).
+6. Mantener6h y comprobar el panel para la próxima búsqueda. Cerrar pestaña y segundo lanzador comprobados sobre la instalación; reinicio/suspensión físicos del equipo pendientes para una sesión adecuada, sin activar inicio automático.
+7. AutoApply externo: Greenhouse es la opción técnica condicionada más cercana. Necesita concesión/entorno de ensayo del titular, transporte de envío y confirmación externa implementados y probados. Después: consentimiento para un ensayo único y activación separada. LIVE continúa OFF; LinkedIn/Indeed manuales. No bloquear la vía asistida esperando esos permisos.
+
+Resultados: suite completa645 PASS antes de últimos ajustes; regresiones65/39/1 PASS y navegador real PASS, sin sumar solapamientos. [Informe](docs/PR_CV_WINDOWS_2026-10-22.md). Los siguientes bloques son historial anterior a CV4.
+
+Limpieza menor pendiente: las copias legibles de inspección en `data/pr23-cv-private` se conservaron porque el control automático bloqueó su borrado por política. Están restringidas a usuario/SYSTEM y respaldadas con DPAPI; no están en Git. No afecta a las bases ni al CV4 cifrado de la aplicación.
+
 Código respaldado en **repositorio público**, por petición expresa del usuario: https://github.com/sergilo1906/CorkJobRadar. Usar la carpeta local actual para conservar bases/documentos/aprobaciones; un clon no incluye esos datos. Antes de futuras subidas, revisar lo preparado con `scripts/audit_github_publish.py` y un nombre de informe nuevo. Ver `docs/GITHUB_PUBLICATION.md`. La publicación no autoriza candidaturas ni aprobación del CV; LIVE OFF.
 
 **Actualización de estado11:58:** CV2 ya consta aprobado desde11:35:37; no volver a pedir aprobación del mismo documento mientras siga vigente. Hay26 paquetes locales preparados por el trabajador, sin envíos externos. Revisar/revalidar esos paquetes, requisitos, ubicación y transporte antes de utilizarlos manualmente. Las instrucciones de aprobación del CV en bloques anteriores reflejan estados previos; no aprobar de nuevo ni revocar por el agente.
@@ -217,3 +231,10 @@ Lee PROGRESO.md, docs/TEST_REPORT.md y la especificación original. No reinstale
 ## Continuación local supervisada
 
 Actualizado: 2026-10-19T21:46:26+01:00. Estado: **COMPLETED**; después de ejecución 12. Fase: refresh-documents. Registro preciso: `data/continuity-workflow-12.json`; logs `logs/continuity-workflow-12-*.log`. Proyecto EN DESARROLLO, envío real OFF. Este proceso no es un servicio y no arranca con Windows. Una cancelación de la ejecución esperada detiene la continuación. No relanzar fases iniciadas sin revisar su resultado.
+
+### Anotaci?n hist?rica recibida de PR #1 (antes de validaci?n Windows)
+
+# Continuación vigente — EN DESARROLLO (22/10/2026)
+
+## 22/10/2026 — Propuesta de generador profesional desde GitHub
+

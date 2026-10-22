@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-22",
+  "environment": "Local Windows / Python 3.12; isolated DB and owned browser/process fixtures",
+  "github_actions_execution": false,
+  "results_overlap_do_not_add": true,
+  "full_suite_precedes_final_runtime_guards_word_wrap_and_png_refinements": true,
+  "pytest_executions": [
+    {
+      "phase": "PR2 original",
+      "local_evidence": "logs/pr2-windows-tests.xml",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 5.602
+    },
+    {
+      "phase": "PR3 original",
+      "local_evidence": "logs/pr3-windows-tests.xml",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 11.985
+    },
+    {
+      "phase": "PR1 original",
+      "local_evidence": "logs/pr1-cv-original-tests.xml",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 3.764
+    },
+    {
+      "phase": "Full integration before final controls/layout refinements",
+      "local_evidence": "logs/pr23-reference-full-tests.xml",
+      "tests": 645,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 411.631
+    },
+    {
+      "phase": "Final runtime guards, browser and academic migration",
+      "local_evidence": "logs/pr23-final-runtime-tests.xml",
+      "tests": 65,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 64.723
+    },
+    {
+      "phase": "Final CV, actual Office renderer and date-range regression",
+      "local_evidence": "logs/pr23-word-final-regression.xml",
+      "tests": 39,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 27.494
+    },
+    {
+      "phase": "Backup preservation regression",
+      "local_evidence": "logs/pr23-backup-regression-corrected.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.57
+    }
+  ],
+  "actual_application_browser": {
+    "status": "PASS",
+    "pending_cv_preview_and_exact_download": true,
+    "consent_unchecked": true,
+    "critical_tables_unchanged": true,
+    "preview_pixels_match_exact_pdf": true,
+    "docx_option_available": true,
+    "viewports": [
+      {
+        "width": 1440,
+        "layout": {
+          "viewport": 1440,
+          "document_width": 1440,
+          "main_width": 1184,
+          "main_scroll": 1184,
+          "overflow_controls": 0
+        }
+      },
+      {
+        "width": 390,
+        "layout": {
+          "viewport": 390,
+          "document_width": 390,
+          "main_width": 390,
+          "main_scroll": 390,
+          "overflow_controls": 0
+        }
+      }
+    ],
+    "private_screenshots_saved": false,
+    "browser_closed_worker_continues": true,
+    "second_launcher_reuses_supervisor": true,
+    "external_requests_from_browser": 0,
+    "applications_sent": 0,
+    "live_enabled": false
+  },
+  "real_profile_document_render": "PDF and LibreOffice DOCX: one page each; all approved claims and corrected school/years preserved. Private document hashes and files excluded from Git.",
+  "not_verified": [
+    "External application submission/receipt",
+    "Microsoft Word rendering",
+    "Physical Windows sleep/reboot/power-off"
+  ],
+  "initial_failures_retained_locally": [
+    "pr2-original-tests.xml",
+    "reference-cv-first-tests.xml",
+    "reference-cv-office-tests.xml",
+    "reference-cv-office-corrected-tests.xml",
+    "pr23-backup-regression.xml",
+    "pr23-word-date-wrap-initial.json",
+    "pr23-delivery-initial.json",
+    "pr23-preview-initial-format.json",
+    "pr23-docx-option-initial-selector.json"
+  ]
+}
