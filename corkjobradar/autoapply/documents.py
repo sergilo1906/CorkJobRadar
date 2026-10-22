@@ -63,31 +63,78 @@ def render_letter(candidate,job,extension='docx'):
     require_it_job(job)
     if not candidate.get('full_name') or not candidate.get('email') or not candidate.get('_claims'):
         raise ValueError('VERIFIED_CONTACT_AND_CLAIMS_REQUIRED')
-    lines=[candidate['full_name'],candidate['email'],'Dear Hiring Team,',
-           'Please consider my application for '+job['title']+' at '+job['company']+'.',
-           'My verified background includes:',*[c['text_en'] for c in candidate['_claims']],
-           'I would welcome the opportunity to discuss this position.','Kind regards,',candidate['full_name']]
-    return _render_lines(lines,candidate,extension)
+    # Legacy entry point still works, but no longer dumps the master profile.
+    from .job_composition import cover_letter_content,render_cover_letter,family_for
+    from .professional_dossier import build_dossier
+    entries=build_dossier(candidate)['entries']
+    plan={'family':family_for(job),'selected_fact_ids':[c['id'] for c in candidate['_claims']],
+          'priorities':[(e['fact_id'],10 if e['kind']=='responsibility' else 1) for e in entries],
+          'duties':[]}
+    return render_cover_letter(candidate,cover_letter_content(candidate,job,plan),extension)
 
 
 def _render_lines(lines,candidate,extension):
     if extension=='docx':
         from docx import Document
+        from docx.shared import Pt, RGBColor
+        from docx.oxml import OxmlElement
+        from docx.oxml.ns import qn
         doc=Document()
-        for n,line in enumerate(lines):doc.add_paragraph(line,style='Title' if n==0 else 'Normal')
-        buffer=io.BytesIO();doc.save(buffer);content=buffer.getvalue()
+        from docx.shared import Mm
+        page=doc.sections[0];page.page_width=Mm(210);page.page_height=Mm(297)
+        page.left_margin=page.right_margin=Pt(42);page.top_margin=Pt(32);page.bottom_margin=Pt(36)
+        doc.styles['Normal'].font.name='Arial'
+        doc.styles['Normal'].font.size=Pt(10.5)
+        doc.styles['Normal'].paragraph_format.line_spacing=Pt(14)
+        doc.styles['Normal'].paragraph_format.space_after=Pt(8)
+        doc.styles['Title'].font.name='Arial'
+        doc.styles['Title'].font.size=Pt(20)
+        doc.styles['Title'].font.color.rgb=RGBColor.from_string('193F68')
+        for style_name in ('Normal','Title'):
+            fonts=doc.styles[style_name].element.get_or_add_rPr().get_or_add_rFonts()
+            for attr in list(fonts.attrib):
+                if attr.rsplit('}',1)[-1].lower().endswith('theme'):del fonts.attrib[attr]
+            for attr in ('ascii','hAnsi','eastAsia','cs'):fonts.set(qn('w:'+attr),'Arial')
+        doc.core_properties.author='';doc.core_properties.last_modified_by=''
+        for n,line in enumerate(lines):
+            paragraph=doc.add_paragraph(line,style='Title' if n==0 else 'Normal')
+            paragraph.paragraph_format.keep_together=True
+            if n==0:
+                borders=OxmlElement('w:pBdr');border=OxmlElement('w:bottom')
+                for key,value in {'val':'single','sz':'14','color':'193F68','space':'3'}.items():border.set(qn('w:'+key),value)
+                borders.append(border);paragraph._p.get_or_add_pPr().append(borders)
+                paragraph.paragraph_format.keep_with_next=True
+            if n==1:
+                for run in paragraph.runs:run.font.size=Pt(8.5);run.font.color.rgb=RGBColor.from_string('647184')
+            if n==2:paragraph.paragraph_format.space_before=Pt(10)
+        buffer=io.BytesIO();doc.save(buffer)
+        stable=io.BytesIO()
+        with zipfile.ZipFile(io.BytesIO(buffer.getvalue())) as source,zipfile.ZipFile(stable,'w',zipfile.ZIP_DEFLATED) as target:
+            for entry in source.infolist():
+                entry.date_time=(1980,1,1,0,0,0);target.writestr(entry,source.read(entry.filename))
+        content=stable.getvalue()
     elif extension=='pdf':
-        from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer
-        from reportlab.lib.styles import getSampleStyleSheet
+        from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,HRFlowable
+        from reportlab.lib.styles import ParagraphStyle
+        from reportlab.lib.colors import HexColor
+        from reportlab.lib.pagesizes import A4
         from reportlab.pdfbase import pdfmetrics
         from reportlab.pdfbase.ttfonts import TTFont
         font=Path('C:/Windows/Fonts/arial.ttf')
         if not font.is_file():raise RuntimeError('UNICODE_FONT_UNAVAILABLE')
         if 'RadarArial' not in pdfmetrics.getRegisteredFontNames():pdfmetrics.registerFont(TTFont('RadarArial',str(font)))
-        buffer=io.BytesIO();styles=getSampleStyleSheet();styles['Normal'].fontName='RadarArial'
+        if 'RadarArialBold' not in pdfmetrics.getRegisteredFontNames():pdfmetrics.registerFont(TTFont('RadarArialBold',str(font.with_name('arialbd.ttf'))))
+        buffer=io.BytesIO()
+        normal=ParagraphStyle('LetterBody',fontName='RadarArial',fontSize=10.5,leading=14,spaceAfter=8)
+        title=ParagraphStyle('LetterTitle',parent=normal,fontName='RadarArialBold',fontSize=20,leading=24,textColor=HexColor('#193F68'),spaceAfter=4)
+        contact=ParagraphStyle('LetterContact',parent=normal,fontSize=8.5,leading=11,textColor=HexColor('#647184'),spaceAfter=10)
         story=[]
-        for line in lines:story.extend([Paragraph(escape(line).replace('\n','<br/>'),styles['Normal']),Spacer(1,8)])
-        SimpleDocTemplate(buffer).build(story);content=buffer.getvalue()
+        for n,line in enumerate(lines):
+            story.append(Paragraph(escape(line).replace('\n','<br/>'),title if n==0 else contact if n==1 else normal))
+            if n==0:story.append(HRFlowable(width='100%',thickness=1.8,color=HexColor('#193F68'),spaceAfter=4))
+        from .cv_layout import _deterministic_canvas
+        SimpleDocTemplate(buffer,pagesize=A4,leftMargin=36,rightMargin=36,topMargin=26,bottomMargin=30,
+            author='',title='Cover letter').build(story,canvasmaker=_deterministic_canvas);content=buffer.getvalue()
     else:raise ValueError('PDF_OR_DOCX_REQUIRED')
     text=validate_document(content,extension)
     for claim in candidate['_claims']:
@@ -177,6 +224,8 @@ def approve_cv_review(db, document_id, expected_hash, expected_facts_hash, confi
     if not confirmed:raise ValueError('EXPLICIT_DOCUMENT_REVIEW_REQUIRED')
     with db.transaction() as con:
         if not con.in_transaction:con.execute('BEGIN IMMEDIATE')
+        if db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' AND json_extract(details,'$.document_id')=?",(document_id,)):
+            raise ValueError('DOCUMENT_HELD_FOR_QUALITY_REVIEW')
         _,_,sha,_=cv_review_bytes(db,document_id)
         if expected_hash!=sha or expected_facts_hash!=candidate_snapshot(db)['_facts_hash']:raise ValueError('DOCUMENT_OR_FACTS_CHANGED')
         row=db.rows('SELECT approved_at FROM candidate_documents WHERE id=?',(document_id,))[0]

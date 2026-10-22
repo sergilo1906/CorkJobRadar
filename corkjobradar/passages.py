@@ -16,11 +16,13 @@ def heading_for(text):
     return next((key for key,pattern in SECTION_PATTERNS.items() if re.fullmatch(pattern,text,re.I)),None)
 
 
-def source_passages(text,max_characters=1200):
+def source_passages(text,max_characters=1200,section_aliases=None):
     units=[];retained=[];section='unknown';offset=0;conditional=False
     for line in text.splitlines(keepends=True):
         start=offset;offset+=len(line)
         value=line.strip();heading=heading_for(value)
+        if not heading and section_aliases:
+            heading=section_aliases.get(re.sub(r'\s+',' ',value.rstrip(':?').strip()).casefold())
         if heading:
             section=heading;conditional=False
             retained.append({'offset':start,'text':line,'kind':'SECTION_HEADING','section':section})

@@ -26,7 +26,7 @@ def _job(db, job_id):
     return rows[0]
 
 
-def prepare_handoff(db, job_id, inspection_id=None):
+def prepare_handoff(db, job_id, inspection_id=None, *, bundle_id=None):
     """Explicit local preparation only. Unknown fields remain visibly unanswered.
 
     No policy authorization is needed to prepare a manual package. This does not
@@ -38,6 +38,20 @@ def prepare_handoff(db, job_id, inspection_id=None):
         job=_job(db,job_id)
         if already_applied(db,job,'LIVE'):raise PermissionError('ALREADY_APPLIED_OR_RESERVED')
         candidate=candidate_snapshot(db)
+        bundle=None
+        if bundle_id is not None:
+            from .job_documents import load_job_bundle
+            bundle=load_job_bundle(db,bundle_id)
+            if bundle['job_id']!=job_id or bundle['inspection_id']!=inspection_id:
+                raise ValueError('DOCUMENT_BUNDLE_HANDOFF_MISMATCH')
+            candidate={**candidate,'cv_document_id':next(d['id'] for d in bundle['documents'] if d['kind']=='CV')}
+            for previous in db.rows('SELECT id FROM manual_application_handoffs WHERE job_id=? ORDER BY id DESC',(job_id,)):
+                try:
+                    old=load_handoff(db,previous['id'])
+                    if old.get('document_bundle_id')==bundle_id:
+                        return {'handoff_id':previous['id'],'package_hash':db.rows('SELECT package_hash FROM manual_application_handoffs WHERE id=?',(previous['id'],))[0]['package_hash'],
+                                'blockers':old['blockers'],'state':old['state'],'submitted':False}
+                except (ValueError,PermissionError):pass
         if not candidate.get('cv_document_id'):raise PermissionError('APPROVED_CV_REQUIRED')
         from .broad_selection import assess_selection
         selection=assess_selection(db,job,candidate)
@@ -76,6 +90,11 @@ def prepare_handoff(db, job_id, inspection_id=None):
                  'prepared_at':now(),'expires_at':(datetime.now(ZoneInfo('Europe/Dublin'))+timedelta(hours=24)).isoformat(timespec='seconds'),
                  'state':'MANUAL_REVIEW_REQUIRED','interaction_mode':interaction_route(target)['mode'],
                  'submitted':False,'external_receipt_verified':False}
+        if bundle:
+            payload.update(version=3,document_bundle_id=bundle_id,
+                           document_bundle_hash=db.rows('SELECT file_hash FROM job_document_bundles WHERE id=?',(bundle_id,))[0]['file_hash'],
+                           optional_documents=[d for d in bundle['documents'] if d['kind']!='CV'],
+                           reference_documents=bundle['references'])
         raw=json.dumps(payload,ensure_ascii=False,sort_keys=True).encode('utf-8');fingerprint=hashlib.sha256(raw).hexdigest()
         path=private_folder(db)/(fingerprint+'.manual-handoff.dpapi')
         path.write_bytes(protect(raw))
@@ -101,7 +120,15 @@ def load_handoff(db, handoff_id):
     payload=_read_package(db,handoff_id);job=_job(db,payload['job_id']);candidate=candidate_snapshot(db)
     if datetime.fromisoformat(payload['expires_at'])<=datetime.now(ZoneInfo('Europe/Dublin')):raise ValueError('HANDOFF_EXPIRED')
     if payload['job_id']!=job['id'] or payload['job_content_hash']!=job['content_hash'] or payload['target_url']!=manual_target_url(job.get('apply_url') or job['url']):raise ValueError('HANDOFF_JOB_CHANGED')
-    if payload['facts_hash']!=candidate['_facts_hash'] or payload['document_id']!=candidate.get('cv_document_id'):raise ValueError('HANDOFF_PROFILE_OR_CV_CHANGED')
+    expected_cv=candidate.get('cv_document_id')
+    if payload.get('document_bundle_id'):
+        from .job_documents import load_job_bundle
+        bundle=load_job_bundle(db,payload['document_bundle_id'])
+        bundle_row=db.rows('SELECT file_hash FROM job_document_bundles WHERE id=?',(payload['document_bundle_id'],))[0]
+        if bundle['job_id']!=job['id'] or bundle_row['file_hash']!=payload['document_bundle_hash']:
+            raise ValueError('HANDOFF_DOCUMENT_BUNDLE_CHANGED')
+        expected_cv=next(d['id'] for d in bundle['documents'] if d['kind']=='CV')
+    if payload['facts_hash']!=candidate['_facts_hash'] or payload['document_id']!=expected_cv:raise ValueError('HANDOFF_PROFILE_OR_CV_CHANGED')
     _,_,sha=document_bytes(db,payload['document_id'])
     if sha!=payload['document_hash']:raise ValueError('HANDOFF_DOCUMENT_CHANGED')
     if payload['inspection_id']:
@@ -132,6 +159,12 @@ def handoff_download(db,handoff_id):
     buffer=io.BytesIO()
     with zipfile.ZipFile(buffer,'w',zipfile.ZIP_DEFLATED) as archive:
         archive.writestr('CV.'+payload['document_extension'],content)
+        if payload.get('document_bundle_id'):
+            from .job_documents import bundle_files
+            approved_bundle,files=bundle_files(db,payload['document_bundle_id'])
+            for name,raw in files.items():
+                if name!='CV.'+payload['document_extension']:archive.writestr(name,raw)
+            archive.writestr('documentos-autorizados.json',json.dumps(approved_bundle,ensure_ascii=False,indent=2))
         archive.writestr('datos-y-respuestas.json',json.dumps(payload,ensure_ascii=False,indent=2))
         archive.writestr('LEEME.txt',text)
         archive.writestr('CANDIDATURA.txt',manual_application_text(payload).encode('utf-8'))

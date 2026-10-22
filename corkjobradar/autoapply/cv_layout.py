@@ -123,8 +123,15 @@ def _fonts():
 
 def _emphasis(label, text, index):
     """Format exact substrings only. No generated summaries or reference claims."""
+    employment = re.match(r'(?P<heading>[^.;|]{3,100}? at [^();|]{2,100}?)\s*(?P<period>\([^\n]+\))', text)
+    if label == 'Experience' and employment:
+        split = employment.start('period')
+        return text[:split].rstrip(), '\n' + text[split:]
     if label == 'Experience' and index == 0 and len(text) < 220:
         return text, ''
+    if label == 'Education & Training' and '(CFGS DAM)' in text:
+        split = text.index('(CFGS DAM)') + len('(CFGS DAM)')
+        return text[:split], text[split:]
     if label in {'Core Capabilities', 'Selected Projects', 'Education & Training', 'Additional Experience'}:
         # Original reference emphasises skills/project labels. Keep the exact
         # approved string (including punctuation) in PDF and DOCX text.
@@ -158,33 +165,58 @@ def _story(name, headline, contact, linkedin, sections, size):
     if linkedin:
         story.append(paragraph(linkedin, small))
     story.append(Spacer(1, 2))
+    class ProfileParagraph(Paragraph):
+        def draw(self):
+            super().draw()
+            self.canv.saveState();self.canv.setStrokeColor(navy);self.canv.setLineWidth(2)
+            self.canv.line(-4, -3, -4, self.height + 3);self.canv.restoreState()
+
     for label, claims in sections:
         rule = HRFlowable(width='100%', thickness=.6, color=HexColor('#' + REFERENCE.rule),
                            spaceBefore=0, spaceAfter=4)
         story.append(KeepTogether([paragraph(label.upper(), heading), rule]))
         for index, text in enumerate(claims):
             style = body
+            employment = label == 'Experience' and bool(re.match(r'[^.;|]{3,100}? at [^();|]{2,100}?\s*\(', text))
             if label == 'Professional Profile':
                 style = ParagraphStyle('CVProfile', parent=body, backColor=HexColor('#' + REFERENCE.panel),
-                                       borderColor=navy, borderWidth=.8, borderPadding=5, spaceAfter=4)
+                                       borderWidth=0, borderPadding=4, spaceAfter=4)
+            elif employment:
+                style = ParagraphStyle('CVEmployment', parent=body, keepWithNext=True, spaceBefore=3)
             elif label == 'Experience' and index > 0:
                 style = ParagraphStyle('CVBullet', parent=body, leftIndent=10, firstLineIndent=0,
                                        bulletIndent=0)
             bold, rest = _emphasis(label, text, index)
             markup = '<b>' + escape(bold) + '</b>' + escape(rest) if bold else escape(rest)
-            story.append(Paragraph(markup.replace('\n', '<br/>'), style,
-                                   bulletText='\u2022' if label == 'Experience' and index > 0 else None))
+            paragraph_class = ProfileParagraph if label == 'Professional Profile' else Paragraph
+            story.append(paragraph_class(markup.replace('\n', '<br/>'), style,
+                                   bulletText='\u2022' if label == 'Experience' and index > 0 and not employment else None))
     return story
 
 
 def _fit_size(name, headline, contact, linkedin, sections):
     _fonts()
-    for size in (REFERENCE.body_size, 9):
-        raw = _pdf(name, headline, contact, linkedin, sections, size)
-        from pypdf import PdfReader
-        if len(PdfReader(io.BytesIO(raw)).pages) == 1:
-            return size
+    raw = _pdf(name, headline, contact, linkedin, sections, REFERENCE.body_size)
+    from pypdf import PdfReader
+    if len(PdfReader(io.BytesIO(raw)).pages) == 1:
+        return REFERENCE.body_size
     raise ValueError('CV_CONTENT_EXCEEDS_ONE_PAGE_REVIEW_REQUIRED')
+
+
+def render_composed_cv(candidate, sections, headline, extension, *, max_pages=1):
+    """Selected, traceable contents; fixed readable type, explicit page allowance."""
+    if type(max_pages) is not int or max_pages not in (1, 2):
+        raise ValueError('EXPLICIT_ONE_OR_TWO_PAGE_POLICY_REQUIRED')
+    _fonts()
+    contact = ' | '.join(candidate[k] for k in ('location', 'phone', 'email') if candidate.get(k))
+    args = (candidate['full_name'], headline, contact, candidate.get('linkedin_url'), sections, 10)
+    pdf = _pdf(*args)
+    from pypdf import PdfReader
+    if len(PdfReader(io.BytesIO(pdf)).pages) > max_pages:
+        raise ValueError('CV_PAGE_ALLOWANCE_EXCEEDED_REVIEW_SELECTION_OR_ALLOW_TWO')
+    if extension == 'pdf': return pdf
+    if extension == 'docx': return _docx(*args)
+    raise ValueError('PDF_OR_DOCX_REQUIRED')
 
 
 def _pdf(name, headline, contact, linkedin, sections, size):
@@ -282,6 +314,9 @@ def _docx(name, headline, contact, linkedin, sections, size):
         border(heading, 'bottom', REFERENCE.rule, 4)
         for index, text in enumerate(claims):
             p = doc.add_paragraph()
+            employment = label == 'Experience' and bool(re.match(r'[^.;|]{3,100}? at [^();|]{2,100}?\s*\(', text))
+            p.paragraph_format.keep_together = True
+            if employment:p.paragraph_format.keep_with_next = True
             p.paragraph_format.space_before = Pt(0)
             p.paragraph_format.space_after = Pt(3)
             p.paragraph_format.line_spacing = Pt(size*1.22)
@@ -294,7 +329,7 @@ def _docx(name, headline, contact, linkedin, sections, size):
             if bold:
                 p.add_run(bold).bold = True
             p.add_run(rest)
-            if label == 'Experience' and index > 0:
+            if label == 'Experience' and index > 0 and not employment:
                 # Real Word bullets, with no floating objects or text boxes.
                 p.style = doc.styles['List Bullet']
                 p.paragraph_format.left_indent = Pt(10)

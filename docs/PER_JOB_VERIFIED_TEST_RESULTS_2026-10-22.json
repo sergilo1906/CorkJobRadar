@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-22T22:23:52+01:00",
+  "scope": "Local Windows validation; not GitHub CI or external ATS receipt",
+  "tests": 712,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 526.56,
+  "evidence": "logs/per-job-release.xml",
+  "browser_real_installation": "PASS",
+  "pdf_docx_real_profile": "PASS using LibreOffice; not Microsoft Word",
+  "human_document_approvals_performed_by_agent": 0,
+  "external_applications_sent": 0,
+  "live_enabled": false,
+  "overlapping_suites_not_added": true
+}

@@ -298,7 +298,7 @@ def test_v7_additive_migration_preserves_all_old_rows_and_live_check(db):
     with db.connect() as con:
         con.executescript('DROP TABLE autoapply_intervention_commands; DROP TABLE autoapply_interventions; PRAGMA user_version=7;')
     reopened=Database(db.path)
-    assert reopened.rows('PRAGMA user_version')[0]['user_version']==12
+    assert reopened.rows('PRAGMA user_version')[0]['user_version']==13
     assert all(reopened.rows('SELECT * FROM '+table)==rows for table,rows in before.items())
     assert reopened.rows('PRAGMA foreign_key_check')==[]
     with pytest.raises(sqlite3.IntegrityError):reopened.execute('UPDATE autoapply_control SET live_enabled=1')

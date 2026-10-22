@@ -1,5 +1,18 @@
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
+## Siguiente uso — documentos por oferta listos para revisar
+
+1. **Ofertas de empleo → elegir vacante IT → Preparar candidatura → CV**. Revisar las versiones actuales por oferta10/11/12 o generar la de otra oportunidad. En Mis candidaturas, las retenidas pueden estar en Requieren intervención. No aprobar CV4, que conserva su retención de calidad, ni volver a pedir los22 hechos.
+2. Revisar contenido, nuevos resúmenes/cartas y diseño del formato elegido. Carta/referencias opcionales desmarcadas; comprobar que el formulario las admite. Solo el usuario aprueba el paquete exacto. Los consentimientos se reinician al cambiar selección o esquema.
+3. Referencias originales preservadas: SIE recomendación IT, Gas recomendación laboral, Carriage confirmación de empleo. Aportar original independiente y revisar diferencias/datos adicionales antes de autorizarlo. El PDF de cuatro páginas no se exporta como una referencia seleccionada. Se admite una carta independiente completa de varias páginas con clasificación expresa.
+4. Con paquete aprobado: preparar ZIP, solicitar manualmente por el enlace oficial y registrar una declaración solo después de presentar. Justificante/declaración no equivalen a recepción externa autenticada. LinkedIn/Indeed manuales, sin API empresarial para esa vía.
+5. Mantener6h y comprobar actividad/pendientes. Nuevo proceso cargado, horario conservado; ensayo físico de suspensión/reinicio sigue pendiente. No se instalaron servicios o inicio automático.
+6. AutoApply externo continúa LIVE OFF: falta canal permitido/validado, ensayo real autorizado con recepción y activación separada de política. No declarar terminado el envío externo.
+
+**Cierre técnico:712 PASS** completa,0 fallos/errores/omitidas; navegador real y documentos PDF/DOCX con LibreOffice comprobados. No se comprobó Microsoft Word. No repetir suites sin cambios/fallos nuevos. [Informe](docs/PER_JOB_DOCUMENTS_2026-10-22.md). Copia final y verificación indicadas en el checkpoint; conservar históricos y no restaurar sobre producción.
+
+Los bloques siguientes son historia, incluidas las recomendaciones de aprobar CV4.
+
 ## Prioridad actual tras integrar y probar las PR localmente
 
 1. Abrir **Perfil y configuración → CV definitivo → versión4**: revisar imagen y descarga y aprobarla solo si el usuario lo decide. DAM finalizado, Institut Baix Camp,2022–2024. No volver a aprobar los22 hechos ni reutilizar CV2/CV3 revocados. Para Word: **Opciones de documento: DOCX, importar CV o carta**; esa versión requiere revisión propia.

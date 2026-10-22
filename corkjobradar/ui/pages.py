@@ -57,9 +57,15 @@ def home(db,view):
     st.subheader('Qué necesitas hacer ahora')
     if not view['cv_approved']:
         with st.container(border=True):
-            st.markdown('**Revisar tu CV definitivo**')
-            st.write('Tus datos aprobados se conservan. Falta aprobar una versión del documento para preparar paquetes.')
-            nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='home_cv',primary=True)
+            held=bool(db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' LIMIT 1"))
+            if held:
+                st.markdown('**Preparar tu CV para una oferta**')
+                st.write('Tus hechos aprobados se conservan. Elige una oportunidad y revisa sus documentos en el paso CV; el CV general anterior está retenido por calidad.')
+                nav_button('Elegir oferta y preparar documentos','Ofertas de empleo',key='home_cv',primary=True)
+            else:
+                st.markdown('**Revisar tu CV definitivo**')
+                st.write('Tus datos aprobados se conservan. Falta aprobar una versión del documento para preparar paquetes.')
+                nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='home_cv',primary=True)
     with st.container(border=True):
         st.markdown('**Consultar oportunidades informáticas**')
         st.write('Compara requisitos obligatorios y deseables antes de preparar tu candidatura.')
@@ -205,7 +211,7 @@ def detail(db,view,job):
         nav_button('Ver candidatura','Mis candidaturas',job=job['id'],key='detail_existing')
     else:
         controls=actions_for(cv_approved=view['cv_approved'],preparation_allowed=selection['preparation_allowed'],application=job['application'])
-        if controls['prepare'] or (controls['review_cv'] and selection['preparation_allowed']):nav_button('Preparar candidatura','Mis candidaturas',job=job['id'],step='Solicitud',key='detail_prepare',primary=True)
+        if controls['prepare'] or (controls['review_cv'] and selection['preparation_allowed']):nav_button('Preparar candidatura','Mis candidaturas',job=job['id'],step='Solicitud' if view['cv_approved'] else 'CV',key='detail_prepare',primary=True)
         else:st.info('Preparación retenida por los criterios del puesto. Revisa requisitos y evidencias antes de continuar.')
     with st.expander('Texto publicado completo'):st.text(job['description'] or 'Texto pendiente de recuperar')
     if st.checkbox('Mostrar análisis y herramientas avanzadas de esta oferta',key='detail_advanced'):
@@ -232,7 +238,7 @@ def applications(db,view):
             st.write('Estado: '+job['application'])
             st.write(job['academic_label']);st.caption(job['priority_note'])
             nav_button('Revisar requisitos','Mis candidaturas',job=jid,step='Requisitos',key='application_requirements')
-            if job['application'] not in APPLICATION_STATES[3:]:nav_button('Preparar candidatura','Mis candidaturas',job=jid,step='Solicitud',key='application_prepare',primary=True)
+            if job['application'] not in APPLICATION_STATES[3:]:nav_button('Preparar candidatura','Mis candidaturas',job=jid,step='Solicitud' if view['cv_approved'] else 'CV',key='application_prepare',primary=True)
             st.link_button('Abrir oferta original',job['url'])
         elif step=='Seguimiento':
             st.caption('Seguimiento declarado por ti. No autentica al remitente ni acredita recepción externa por sí solo.')
@@ -256,8 +262,17 @@ def applications(db,view):
             st.info('La candidatura ya está registrada, cerrada o tiene un envío incierto. Se conserva el historial y no se ofrece repetirla.')
             if job['application']==APPLICATION_STATES[3]:nav_button('Adjuntar justificante','Mis candidaturas',job=jid,step='Justificantes',key='application_evidence')
         elif step=='Solicitud' and not view['cv_approved']:
-            st.warning('Aprueba una versión del CV para poder preparar el paquete. La aprobación no autoriza envíos.')
-            nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='application_cv_needed',primary=True)
+            from ..autoapply.handoff import load_handoff
+            valid_package=False
+            for existing in db.rows('SELECT id FROM manual_application_handoffs WHERE job_id=? ORDER BY id DESC',(jid,)):
+                try:load_handoff(db,existing['id']);valid_package=True;break
+                except (ValueError,PermissionError):continue
+            if valid_package:
+                from ..autoapply.manual_workspace_ui import render_job_workspace
+                render_job_workspace(db,jid,step)
+            else:
+                st.warning('Revisa y aprueba los documentos de esta oferta para preparar el paquete. La aprobación no autoriza envíos.')
+                nav_button('Revisar documentos de esta oferta','Mis candidaturas',job=jid,step='CV',key='application_cv_needed',primary=True)
         else:
             from ..autoapply.manual_workspace_ui import render_job_workspace
             render_job_workspace(db,jid,step)
@@ -422,8 +437,19 @@ def profile(db,view):
         if st.checkbox('Opciones de documento: DOCX, importar CV o carta',key='profile_cv_import'):
             from ..autoapply.ui import render_cv_editor
             render_cv_editor(db)
+        st.info('Para adaptar documentos a una vacante: Mis candidaturas → selecciona oferta → CV. La revisión por oferta no aprueba el CV general.')
+        with st.expander('Biblioteca de referencias y originales'):
+            from ..autoapply.job_documents_ui import render_references
+            render_references(db)
     elif section=='Datos y experiencia aprobados':
         st.write(f"{view['approved_facts']} datos y afirmaciones aprobados se conservan. Solo añade o corrige información que haya cambiado.")
+        with st.expander('Expediente estructurado y campos pendientes'):
+            from ..autoapply.professional_dossier import build_dossier
+            from ..autoapply.vault import candidate_snapshot
+            dossier=build_dossier(candidate_snapshot(db))
+            st.caption('Representación derivada de tus hechos vigentes. No importa proyectos, tareas ni fechas nuevas por suposición.')
+            st.dataframe([{'Tipo':e['kind'],'Hecho aprobado':e['approved_text'],
+                           'Campos pendientes':', '.join(e['review_pending'])} for e in dossier['entries']],hide_index=True)
         if st.checkbox('Mostrar mis datos privados y editar la ficha',key='profile_private'):
             from ..autoapply.ui import render_profile_editor
             render_profile_editor(db)

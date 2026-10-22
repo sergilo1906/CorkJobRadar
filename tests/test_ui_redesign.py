@@ -114,7 +114,10 @@ def test_offer_detail_return_keeps_filters_and_cv_gate(db,profile,monkeypatch):
     next(b for b in app.button if b.label=='Preparar candidatura').click().run()
     assert not app.exception
     assert not any(b.label=='Preparar solicitud manual con mi CV aprobado' for b in app.button)
-    next(b for b in app.button if b.label=='Revisar y aprobar CV').click().run()
+    assert app.selectbox(key='ui_job_step').value=='CV'
+    assert any(b.label=='Crear CV adaptado y carta para revisar' for b in app.button)
+    assert not db.rows('SELECT * FROM job_document_bundles')
+    app.radio(key='ui_area').set_value('Perfil y configuración').run()
     assert app.selectbox(key='ui_profile_section').value=='CV definitivo'
     app.radio(key='ui_area').set_value('Ofertas de empleo').run()
     assert app.text_input(key='offer_search').value=='Support'
