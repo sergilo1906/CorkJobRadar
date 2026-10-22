@@ -23,6 +23,7 @@ from corkjobradar.config import ROOT
 from corkjobradar.db import Database
 from corkjobradar.autoapply.documents import create_cv_review, render_cv
 from corkjobradar.autoapply.vault import approve_fact, candidate_snapshot
+from corkjobradar.worker import worker_lock
 from scripts.update_dam_completed_20261022 import FIELD, COMPLETED
 
 UPDATED = {
@@ -47,10 +48,19 @@ def _current_claim(db):
 
 def update(db):
     """Version the exact prior statement; never approve the CV or turn on LIVE."""
+    try:
+        with worker_lock(db):
+            return _update_locked(db)
+    except OSError:
+        raise RuntimeError('WORKER_ACTIVE_OR_BACKUP_IO_ERROR_RETRY_AFTER_PAUSE') from None
+
+
+def _update_locked(db):
     facts, existing = _current_claim(db)
     before = {'section': existing['section'], 'text_en': existing['text_en']}
     if before == UPDATED:
-        return {'already_current': True, 'new_cv_draft_id': None}
+        return {'already_current': True, 'new_cv_draft_id': None,
+                'current_cv_approved': bool(facts.get('cv_document_id'))}
     if before != COMPLETED:
         raise ValueError('DAM_FACT_CHANGED_OR_DIFFERENT_FROM_EXPECTED:REVIEW_MANUALLY')
 
@@ -85,6 +95,8 @@ def _backup_db(db):
         source.backup(target)
         if target.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
             raise RuntimeError('BACKUP_INTEGRITY_FAILED')
+        if target.execute('PRAGMA foreign_key_check').fetchall():
+            raise RuntimeError('BACKUP_FOREIGN_KEY_FAILED')
     return dest
 
 
@@ -103,7 +115,7 @@ def main():
               'qualification': 'CFGS DAM completed',
               'already_current': before == UPDATED,
               'live_enabled': bool(current['live_enabled']),
-              'cv_approved_after_change': False}
+              'cv_approved_after_change': bool(facts.get('cv_document_id')) if before == UPDATED else False}
     if not args.apply_user_confirmation:
         status['action'] = 'PREVIEW_ONLY'
         print(json.dumps(status, indent=2))

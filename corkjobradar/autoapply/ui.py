@@ -307,6 +307,8 @@ def render_cv_editor(db):
         try:
             content,ext,sha,text=cv_review_bytes(db,chosen)
             st.caption('Revisión íntegra del documento. La aprobación solo afecta a esta versión y a la ficha actual; no activa AutoApply.')
+            from .cv_preview import show_pdf_preview
+            show_pdf_preview(content,ext)
             st.text(text)
             st.download_button('Descargar CV para revisión',content,file_name='CV.'+ext)
             prepared=(content,ext,candidate_snapshot(db)['_facts_hash'])

@@ -84,6 +84,12 @@ def command(db,action,*,search_now=True):
     with db.transaction() as con:
         con.execute('BEGIN IMMEDIATE')
         row=state(db)
+        # A stale UI/CLI callback must not undo an in-flight pause/stop. Check
+        # under the write transaction, not only in the visibility layer.
+        if action in {'START','RESUME','SEARCH_NOW'} and row['state'] in {'PAUSING','STOPPING'}:
+            raise ValueError('RUNTIME_TRANSITION_IN_PROGRESS')
+        if action=='SEARCH_NOW' and row.get('active_kind'):
+            raise ValueError('WORK_ALREADY_ACTIVE')
         if action in {'PAUSE','STOP'}:
             update(db,desired='PAUSED' if action=='PAUSE' else 'STOPPED',state='PAUSING' if row['child_pid'] else ('PAUSED' if action=='PAUSE' else 'STOPPED'))
             if row['active_run']:db.execute('UPDATE scan_runs SET cancel_requested=1 WHERE id=?',(row['active_run'],))

@@ -43,3 +43,50 @@ def test_refuses_unexpected_education_version(db):
     with pytest.raises(ValueError, match='DAM_FACT_CHANGED'):
         update(db)
     assert not db.rows('SELECT * FROM candidate_documents')
+
+
+def test_active_preparation_lock_prevents_profile_change(db):
+    from corkjobradar.worker import worker_lock
+    populate(db)
+    approve_fact(db, FIELD, COMPLETED, 'SYNTHETIC', confirmed=True)
+    before = db.rows('SELECT * FROM candidate_facts')
+    with worker_lock(db), pytest.raises(RuntimeError, match='WORKER_ACTIVE'):
+        update(db)
+    assert db.rows('SELECT * FROM candidate_facts') == before
+    assert not db.rows('SELECT * FROM candidate_documents')
+
+
+def test_render_failure_preserves_fact_and_approved_cv(db, monkeypatch):
+    import scripts.update_dam_study_dates_20261022 as migration
+    populate(db)
+    approve_fact(db, FIELD, COMPLETED, 'SYNTHETIC', confirmed=True)
+    current = candidate_snapshot(db)
+    did = create_cv_review(db, render_cv(current, 'pdf'), 'pdf')
+    _, _, sha, _ = cv_review_bytes(db, did)
+    approve_cv_review(db, did, sha, current['_facts_hash'], confirmed=True)
+    before = {t: db.rows('SELECT * FROM ' + t) for t in ('candidate_facts', 'candidate_documents')}
+    def fail(*args, **kwargs):
+        raise ValueError('SYNTHETIC_RENDER_FAILED')
+    monkeypatch.setattr(migration, 'render_cv', fail)
+    with pytest.raises(ValueError, match='SYNTHETIC_RENDER_FAILED'):
+        migration.update(db)
+    assert all(db.rows('SELECT * FROM ' + t) == rows for t, rows in before.items())
+
+
+def test_corrected_education_invalidates_previously_prepared_packet(db, profile, monkeypatch):
+    from test_usable_it_workspace import case
+    from corkjobradar.autoapply import handoff
+    job = case(db, profile)
+    approve_fact(db, FIELD, COMPLETED, 'SYNTHETIC', confirmed=True)
+    current = candidate_snapshot(db)
+    did = create_cv_review(db, render_cv(current, 'pdf'), 'pdf')
+    _, _, sha, _ = cv_review_bytes(db, did)
+    approve_cv_review(db, did, sha, current['_facts_hash'], confirmed=True)
+    monkeypatch.setattr(handoff, 'validate_url', lambda url: url)
+    packet = handoff.prepare_handoff(db, job['id'])
+    before = db.rows('SELECT * FROM manual_application_handoffs')
+    update(db)
+    with pytest.raises(ValueError, match='HANDOFF_PROFILE_OR_CV_CHANGED'):
+        handoff.load_handoff(db, packet['handoff_id'])
+    assert db.rows('SELECT * FROM manual_application_handoffs') == before
+    assert not db.rows('SELECT * FROM application_attempts')

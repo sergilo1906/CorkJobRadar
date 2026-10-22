@@ -33,6 +33,8 @@ def _cv(db,job,candidate,expanded=None):
                          format_func=lambda i:'Versión '+str(i)+(' · aprobada' if next(r['approved_at'] for r in versions if r['id']==i) else ' · pendiente'),key='mw_cv_version')
         try:
             content,ext,sha,text=cv_review_bytes(db,did)
+            from .cv_preview import show_pdf_preview
+            show_pdf_preview(content,ext)
             st.text(text)
             with st.expander('Avanzado: integridad del documento'):st.caption('SHA-256: '+sha)
             st.download_button('Descargar esta versión para revisar',content,file_name='CV-para-revisar.'+ext,key='mw_review_download')

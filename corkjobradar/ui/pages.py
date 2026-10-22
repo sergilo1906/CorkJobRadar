@@ -419,7 +419,7 @@ def profile(db,view):
         from ..autoapply.manual_workspace_ui import _cv
         from ..autoapply.vault import candidate_snapshot
         _cv(db,None,candidate_snapshot(db),expanded=True)
-        if st.checkbox('Importar otro CV o preparar una carta',key='profile_cv_import'):
+        if st.checkbox('Opciones de documento: DOCX, importar CV o carta',key='profile_cv_import'):
             from ..autoapply.ui import render_cv_editor
             render_cv_editor(db)
     elif section=='Datos y experiencia aprobados':

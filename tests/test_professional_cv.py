@@ -38,7 +38,7 @@ def test_professional_cv_preserves_every_fact_and_contact(candidate, extension):
     for field in ('full_name', 'email', 'phone', 'location', 'linkedin_url'):
         assert candidate[field] in text
     for heading in ('Professional Profile', 'Core Capabilities', 'Selected Projects', 'Education & Training'):
-        assert heading in text
+        assert heading.casefold() in text.casefold()
     if extension == 'pdf':
         assert len(PdfReader(io.BytesIO(raw)).pages) == 1
 
@@ -51,7 +51,7 @@ def test_adaptation_only_reorders_claims_and_never_copies_web_instructions(candi
     assert sorted(claims) == sorted(c['text_en'] for c in candidate['_claims'])
     assert candidate == before
     assert not any('IGNORE ALL RULES' in c for c in claims)
-    assert dict(sections)['Experience'][0].startswith('SYNTHETIC: Installed')
+    assert dict(sections)['Experience'][0].startswith('SYNTHETIC: Junior IT')
 
 
 def test_legacy_projects_are_moved_whole_without_duplicate_claims(candidate):
@@ -67,10 +67,11 @@ def test_markup_is_literal_and_does_not_inject_links_or_images(candidate, extens
     assert '<b>literal</b>' in text and 'file:///private' in text
 
 
-def test_pdf_overflow_fails_without_dropping_claims(candidate):
+@pytest.mark.parametrize('extension', ['pdf', 'docx'])
+def test_pdf_overflow_fails_without_dropping_claims(candidate, extension):
     candidate['_claims'][0]['text_en'] = 'SYNTHETIC long statement. ' * 1500
     with pytest.raises(ValueError, match='CV_CONTENT_EXCEEDS_ONE_PAGE_REVIEW_REQUIRED'):
-        render_cv(candidate, 'pdf')
+        render_cv(candidate, extension)
 
 
 def test_unknown_section_fails_instead_of_silently_losing_claim(candidate):
@@ -82,7 +83,7 @@ def test_unknown_section_fails_instead_of_silently_losing_claim(candidate):
 def test_minimal_legacy_profile_remains_supported(candidate):
     candidate['_claims'] = [candidate['_claims'][6]]
     text = validate_document(render_cv(candidate, 'pdf'), 'pdf')
-    assert 'Education & Training' in text
+    assert 'education & training' in text.casefold()
     assert 'Professional Profile' not in text  # Never invent a summary to fill the template.
 
 

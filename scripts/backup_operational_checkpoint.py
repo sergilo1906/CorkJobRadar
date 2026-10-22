@@ -37,7 +37,7 @@ def main():
         assert snapshot.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
         assert not snapshot.execute('PRAGMA foreign_key_check').fetchall()
         tables={r[0] for r in snapshot.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        counts={t:snapshot.execute('SELECT COUNT(*) FROM '+t).fetchone()[0] for t in ('jobs','candidate_facts','candidate_documents','autoapply_form_inspections','application_attempts','user_actions','autoapply_interventions','autoapply_intervention_commands','manual_application_evidence','manual_application_evidence_reviews','manual_requirement_reviews','it_selection_origins','it_worksite_evidence','it_application_queue','it_application_queue_events','local_runtime','local_runtime_events','local_runtime_notifications') if t in tables}
+        counts={t:snapshot.execute('SELECT COUNT(*) FROM '+t).fetchone()[0] for t in ('jobs','job_analyses','job_snapshots','scan_runs','source_runs','task_queue','candidate_facts','candidate_documents','autoapply_form_inspections','application_attempts','application_receipt_evidence','user_actions','autoapply_interventions','autoapply_intervention_commands','manual_application_handoffs','manual_application_declarations','manual_application_evidence','manual_application_evidence_reviews','manual_requirement_reviews','it_selection_origins','it_worksite_evidence','it_application_queue','it_application_queue_events','local_runtime','local_runtime_events','local_runtime_notifications') if t in tables}
         paths=set()
         for table in ('candidate_documents','autoapply_form_inspections','application_receipt_evidence','manual_application_handoffs','manual_application_evidence'):
             if table not in tables:continue
@@ -66,7 +66,7 @@ def main():
                     archive.write(path,path.relative_to(ROOT))
         for name in ('app.py','README.md','PROGRESO.md','NEXT_STEPS.md','requirements-lock.txt','requirements-autoapply-lock.txt','instalar-autoapply.ps1','.streamlit/config.toml'):
             archive.write(ROOT/name,name)
-        for pattern in ('operational-*','verified-flow-*','external-adapter-*','human-intervention-*','assisted-delivery-*','usable-it-*','it-50km-*','local-runtime-*','ui-redesign-*','dam-completed-*','academic-reevaluation-*','approved-cv-facts-import.json'):
+        for pattern in ('operational-*','verified-flow-*','external-adapter-*','human-intervention-*','assisted-delivery-*','usable-it-*','it-50km-*','local-runtime-*','ui-redesign-*','dam-completed-*','academic-reevaluation-*','approved-cv-facts-import.json','pr23-*','reference-cv-*','pr2-windows-*','pr3-windows-*','pr1-cv-*'):
             for path in (ROOT/'logs').glob(pattern):
                 if path.is_file():archive.write(path,path.relative_to(ROOT))
         for path in (ROOT/'data/runtime-logs').glob('*.log'):
@@ -77,7 +77,7 @@ def main():
         for path in (ROOT/'exports').glob('Oportunidades-IT-DAM-*.xlsx'):
             if not path.resolve().is_relative_to(ROOT/'exports'):raise ValueError('REPORT_OUTSIDE_PROJECT')
             archive.write(path,path.relative_to(ROOT))
-        for path in (ROOT/'data/public-probes').iterdir():
+        for path in (ROOT/'data/public-probes').glob('*'):
             if not path.is_file():continue
             if not path.resolve().is_relative_to(ROOT/'data/public-probes'):raise ValueError('PUBLIC_CAPTURE_OUTSIDE_PROJECT')
             archive.write(path,path.relative_to(ROOT))
