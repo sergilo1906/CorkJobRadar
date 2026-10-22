@@ -1,5 +1,9 @@
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
+## 22/10/2026 — Propuesta de generador profesional desde GitHub
+
+Plantilla compartida PDF/Word mejorada, afirmaciones literales, secciones de perfil/proyectos/experiencia adicional y rechazo explícito del PDF que exceda una página. **12 regresiones nuevas PASS** y ejemplos sintéticos revisados visualmente. Suite completa de esta copia Linux: **369 PASS / 255 FAIL** (Windows DPAPI, Chromium y runtime); requiere validación Windows antes de integrar. No se cambiaron hechos, CV aprobado, políticas, supervisor ni datos de producción. **El checkpoint previo registra CV id2 aprobado**; esta propuesta no lo revoca ni pide nueva aprobación del mismo archivo. No hay envíos desde esta sesión. [Alcance, pruebas y pendientes](docs/CV2_INTEGRACION_2026-10-22.md).
+
 Código respaldado en **repositorio privado** https://github.com/sergilo1906/CorkJobRadar. Usar la carpeta local actual para conservar bases/documentos/aprobaciones; un clon no incluye esos datos. Antes de futuras subidas, revisar lo preparado con `scripts/audit_github_publish.py` y un nombre de informe nuevo. Ver `docs/GITHUB_PUBLICATION.md`. La publicación no autoriza candidaturas ni aprobación del CV; LIVE OFF.
 
 **Actualización de estado11:58:** CV2 ya consta aprobado desde11:35:37; no volver a pedir aprobación del mismo documento mientras siga vigente. Hay26 paquetes locales preparados por el trabajador, sin envíos externos. Revisar/revalidar esos paquetes, requisitos, ubicación y transporte antes de utilizarlos manualmente. Las instrucciones de aprobación del CV en bloques anteriores reflejan estados previos; no aprobar de nuevo ni revocar por el agente.

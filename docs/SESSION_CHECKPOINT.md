@@ -1,5 +1,9 @@
 # Checkpoint de continuidad — EN DESARROLLO
 
+## 22/10/2026 — Propuesta de generador profesional desde GitHub
+
+Plantilla compartida PDF/Word mejorada, afirmaciones literales, secciones de perfil/proyectos/experiencia adicional y rechazo explícito del PDF que exceda una página. **12 regresiones nuevas PASS** y ejemplos sintéticos revisados visualmente. Suite completa de esta copia Linux: **369 PASS / 255 FAIL** (Windows DPAPI, Chromium y runtime); requiere validación Windows antes de integrar. No se cambiaron hechos, CV aprobado, políticas, supervisor ni datos de producción. **El checkpoint previo registra CV id2 aprobado**; esta propuesta no lo revoca ni pide nueva aprobación del mismo archivo. No hay envíos desde esta sesión. [Alcance, pruebas y pendientes](CV2_INTEGRACION_2026-10-22.md).
+
 ## GitHub privado publicado — 22/10/2026
 
 **Estado más reciente observado11:58:** CV id2 aprobado desde22/10 11:35:37, sin revocación;22 hechos vigentes y26 paquetes manuales locales,613 ofertas,0 intentos/envíos, control0/0/1/epoch0. La aprobación precede a la tarea GitHub y no fue realizada/modificada por el agente. No volver a pedir aprobación de ese CV salvo cambio de versión/hechos. Las referencias a CV pendiente en los checkpoints anteriores son históricas. Los paquetes se revalidan y no acreditan elegibilidad completa ni recepción empresarial.

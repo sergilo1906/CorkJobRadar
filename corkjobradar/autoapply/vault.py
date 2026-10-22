@@ -60,7 +60,7 @@ def approve_fact(db, field, value, origin, confirmed=False):
     if field=='email' and (not isinstance(value,str) or not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+',value)):raise ValueError('INVALID_EMAIL')
     if field=='linkedin_url' and not re.fullmatch(r'https://(?:www\.)?linkedin\.com/in/[A-Za-z0-9_%\-]+/?',value):raise ValueError('INVALID_LINKEDIN_PROFILE_URL')
     if not isinstance(value,(str,dict)) or not value:raise ValueError('EMPTY_OR_INVALID_FACT')
-    if field.startswith('claim:') and (not isinstance(value,dict) or value.get('section') not in {'Education','Experience','Skills','Languages','Availability'} or not value.get('text_en')):
+    if field.startswith('claim:') and (not isinstance(value,dict) or value.get('section') not in {'Profile','Projects','Additional Experience','Education','Experience','Skills','Languages','Availability'} or not value.get('text_en')):
         raise ValueError('CLAIM_REQUIRES_APPROVED_ENGLISH_TEXT_AND_SECTION')
     if field.startswith('answer:') and (not isinstance(value,dict) or not all(value.get(k) for k in ('question','host','answer'))):
         raise ValueError('ANSWER_REQUIRES_EXACT_QUESTION_HOST_AND_ANSWER')
