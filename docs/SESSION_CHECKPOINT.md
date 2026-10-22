@@ -2,6 +2,8 @@
 
 ## GitHub privado publicado — 22/10/2026
 
+**Estado más reciente observado11:58:** CV id2 aprobado desde22/10 11:35:37, sin revocación;22 hechos vigentes y26 paquetes manuales locales,613 ofertas,0 intentos/envíos, control0/0/1/epoch0. La aprobación precede a la tarea GitHub y no fue realizada/modificada por el agente. No volver a pedir aprobación de ese CV salvo cambio de versión/hechos. Las referencias a CV pendiente en los checkpoints anteriores son históricas. Los paquetes se revalidan y no acreditan elegibilidad completa ni recepción empresarial.
+
 Ya existe `.git` local y remoto `origin`: **https://github.com/sergilo1906/CorkJobRadar**, privado, rama `main`. Importación inicial `856cccb93a4d71ba997289eb5ce995ae504ca50c`,305 archivos auditados. Consultar `git status`/remoto antes de siguientes commits; no reinicializar ni hacer force-push. Credenciales GH existentes; autor local noreply, sin modificar otros proyectos/configuración global. Verificación del commit/árbol remoto y directorio limpio: `logs/github-publication-verification.json`.
 
 No se suben `data/`, `logs/`, `exports/`, `.venv/`, bases/CV/DPAPI/backups/secretos. Las exclusiones se refuerzan en `.gitignore`; `scripts/audit_github_publish.py --report github-NOMBRE.json` revisa todos los blobs del índice y contactos reales solo en memoria. Informes existentes no se sobrescriben. `docs/VERIFIED_TEST_RESULTS_2026-10-22.json` conserva el resumen verificado de pruebas locales; no equivale a CI ejecutada en GitHub. Publicación no altera datos ni consiente CV/política/envíos. LIVE OFF y próximo trabajo funcional indicados debajo.

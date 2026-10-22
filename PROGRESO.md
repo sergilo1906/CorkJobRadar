@@ -2,9 +2,11 @@
 
 ## Publicación del código en GitHub — 22/10/2026
 
+**Estado actual observado a las11:58:** la aplicación registra CV2 aprobado desde11:35:37,22 hechos vigentes y26 paquetes manuales locales. La aprobación ya existía antes de esta publicación; el agente no la ha realizado ni modificado.613 ofertas, cero intentos/envíos y LIVE OFF. Las menciones a CV pendiente en bloques anteriores describen sus respectivos cierres históricos y no deben provocar una nueva solicitud de aprobación del mismo CV.
+
 Repositorio **privado** creado y subida inicial completada: https://github.com/sergilo1906/CorkJobRadar. Git inicializado únicamente en este proyecto; autor con dirección noreply de GitHub y credenciales reutilizadas sin modificar configuración global. Commit inicial `856cccb93a4d71ba997289eb5ce995ae504ca50c`:305 archivos de código/pruebas/configuración de ejemplo/documentación, aproximadamente3,2MB. Revisión de los blobs preparados sin contactos reales ni patrones de secretos (`logs/github-initial-audit.json`).
 
-SQLite, CV/anexos, activos DPAPI, backups, logs, exportaciones y entorno virtual siguen locales e ignorados; no se sube la ficha profesional ni se activa LIVE. Documentación de continuidad funcional incluida; resumen de JUnit real en `docs/VERIFIED_TEST_RESULTS_2026-10-22.json`, sin atribuir estas pruebas a GitHub Actions. Instrucciones de alcance/privacidad en `docs/GITHUB_PUBLICATION.md`. Comprobación remota posterior y estado de sincronización en `logs/github-publication-verification.json`. La publicación no cambia las613 ofertas,22 hechos ni aprobación pendiente del CV2. La siguiente prioridad funcional continúa siendo el uso de la lista académica descrita debajo.
+SQLite, CV/anexos, activos DPAPI, backups, logs, exportaciones y entorno virtual siguen locales e ignorados; no se sube la ficha profesional ni se activa LIVE. Documentación de continuidad funcional incluida; resumen de JUnit real en `docs/VERIFIED_TEST_RESULTS_2026-10-22.json`, sin atribuir estas pruebas a GitHub Actions. Instrucciones de alcance/privacidad en `docs/GITHUB_PUBLICATION.md`. Comprobación remota posterior y estado de sincronización en `logs/github-publication-verification.json`. La publicación no cambia las613 ofertas,22 hechos ni las autorizaciones registradas. La siguiente prioridad funcional continúa siendo el uso de la lista académica y los paquetes locales, sujetos a revalidación.
 
 ## Vigente — 22/10/2026: reevaluación de todas las ofertas con DAM terminado
 
