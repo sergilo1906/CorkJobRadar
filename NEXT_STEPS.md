@@ -1,5 +1,7 @@
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
+Código respaldado en **repositorio privado** https://github.com/sergilo1906/CorkJobRadar. Usar la carpeta local actual para conservar bases/documentos/aprobaciones; un clon no incluye esos datos. Antes de futuras subidas, revisar lo preparado con `scripts/audit_github_publish.py` y un nombre de informe nuevo. Ver `docs/GITHUB_PUBLICATION.md`. La publicación no autoriza candidaturas ni aprobación del CV; LIVE OFF.
+
 ## Prioridad vigente: usar la lista reevaluada con DAM terminado
 
 **613/613 reevaluadas;56 IT,15 oportunidades locales para revisar (2 primeras/13 condicionadas) y2 IT por confirmar.** Lista en `docs/OPORTUNIDADES_IT_DAM_2026-10-22.md`, Excel en `exports/Oportunidades-IT-DAM-2026-10-22.xlsx`; descargables también en Ofertas/Mis candidaturas. No son compatibilidades plenas: transporte/centro, vigencia, requisitos esenciales y CV pueden seguir pendientes. No reconstruir UI ni repetir análisis/pruebas acreditados sin cambios.

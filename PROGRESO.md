@@ -1,5 +1,11 @@
 # Cork Job Radar — progreso verificable
 
+## Publicación del código en GitHub — 22/10/2026
+
+Repositorio **privado** creado y subida inicial completada: https://github.com/sergilo1906/CorkJobRadar. Git inicializado únicamente en este proyecto; autor con dirección noreply de GitHub y credenciales reutilizadas sin modificar configuración global. Commit inicial `856cccb93a4d71ba997289eb5ce995ae504ca50c`:305 archivos de código/pruebas/configuración de ejemplo/documentación, aproximadamente3,2MB. Revisión de los blobs preparados sin contactos reales ni patrones de secretos (`logs/github-initial-audit.json`).
+
+SQLite, CV/anexos, activos DPAPI, backups, logs, exportaciones y entorno virtual siguen locales e ignorados; no se sube la ficha profesional ni se activa LIVE. Documentación de continuidad funcional incluida; resumen de JUnit real en `docs/VERIFIED_TEST_RESULTS_2026-10-22.json`, sin atribuir estas pruebas a GitHub Actions. Instrucciones de alcance/privacidad en `docs/GITHUB_PUBLICATION.md`. Comprobación remota posterior y estado de sincronización en `logs/github-publication-verification.json`. La publicación no cambia las613 ofertas,22 hechos ni aprobación pendiente del CV2. La siguiente prioridad funcional continúa siendo el uso de la lista académica descrita debajo.
+
 ## Vigente — 22/10/2026: reevaluación de todas las ofertas con DAM terminado
 
 **613/613 examinadas**, reanálisis básico y contraste académico versionados con los hechos vigentes. **56 IT confirmadas;15 oportunidades locales para revisar (2 prioritarias/13 condicionadas)**, más2 anuncios de Evo-soft en «IT por confirmar». Todas visibles en la interfaz existente y en `docs/OPORTUNIDADES_IT_DAM_2026-10-22.md`/`exports/Oportunidades-IT-DAM-2026-10-22.xlsx`; Excel completo de56 IT y hoja de pendientes. No son15 candidaturas plenamente elegibles ni15 trayectos acreditados. Se conservan las613 ofertas,22 hechos,23 versiones y el **CV2 pendiente**. **LIVE OFF; cero documentos nuevos/envíos.**

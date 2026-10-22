@@ -1,5 +1,11 @@
 # Checkpoint de continuidad — EN DESARROLLO
 
+## GitHub privado publicado — 22/10/2026
+
+Ya existe `.git` local y remoto `origin`: **https://github.com/sergilo1906/CorkJobRadar**, privado, rama `main`. Importación inicial `856cccb93a4d71ba997289eb5ce995ae504ca50c`,305 archivos auditados. Consultar `git status`/remoto antes de siguientes commits; no reinicializar ni hacer force-push. Credenciales GH existentes; autor local noreply, sin modificar otros proyectos/configuración global. Verificación del commit/árbol remoto y directorio limpio: `logs/github-publication-verification.json`.
+
+No se suben `data/`, `logs/`, `exports/`, `.venv/`, bases/CV/DPAPI/backups/secretos. Las exclusiones se refuerzan en `.gitignore`; `scripts/audit_github_publish.py --report github-NOMBRE.json` revisa todos los blobs del índice y contactos reales solo en memoria. Informes existentes no se sobrescriben. `docs/VERIFIED_TEST_RESULTS_2026-10-22.json` conserva el resumen verificado de pruebas locales; no equivale a CI ejecutada en GitHub. Publicación no altera datos ni consiente CV/política/envíos. LIVE OFF y próximo trabajo funcional indicados debajo.
+
 ## Vigente — 22/10/2026: reevaluación académica completa y lista utilizable
 
 **613 ofertas,56 IT confirmadas,15 locales por revisar (2 prioritarias/13 condicionadas),2 Evo-soft con funciones/ubicación pendientes.**613 evaluaciones académicas actuales;2411 análisis totales incluyendo1185 originales intactos.22 hechos vigentes/23 versiones; CV2 cifrado **pendiente**, sin aprobación del agente, política activada, documento nuevo ni candidatura enviada. LIVE OFF. Leer `ACADEMIC_REEVALUATION_2026-10-22.md` y `OPORTUNIDADES_IT_DAM_2026-10-22.md`. Excel en `exports/Oportunidades-IT-DAM-2026-10-22.xlsx`; mismo informe actual descargable en Ofertas/Mis candidaturas.
