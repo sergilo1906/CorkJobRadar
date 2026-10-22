@@ -188,3 +188,15 @@ def test_reference_header_has_role_strapline_pdf_and_word(candidate):
     assert doc.paragraphs[1].runs[0].bold
     assert doc.paragraphs[2].text.index(candidate['location']) < doc.paragraphs[2].text.index(candidate['email'])
     assert len(PdfReader(io.BytesIO(pdf)).pages) == 1
+
+
+def test_reference_skill_project_label_emphasis_is_presentation_only():
+    from corkjobradar.autoapply.cv_layout import _emphasis
+    for title, text in [
+        ('Core Capabilities', 'IT SUPPORT: Windows, Microsoft 365, user guidance.'),
+        ('Selected Projects', 'Barber Booking Platform | Astro + Firebase/Firestore'),
+    ]:
+        bold, tail = _emphasis(title, text, 0)
+        assert bold and bold + tail == text
+    bold, tail = _emphasis('Education & Training', 'Completed CFGS DAM in 2022-2024.', 0)
+    assert bold + tail == 'Completed CFGS DAM in 2022-2024.'
