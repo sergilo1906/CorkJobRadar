@@ -339,3 +339,10 @@ Modelo portátil existente: `data/local-model-gpu/runtime_config.json`, Qwen3-4B
 ## Continuación local supervisada
 
 Actualizado: 2026-10-19T21:46:26+01:00. Estado: **COMPLETED**; después de ejecución 12. Fase: refresh-documents. Registro preciso: `data/continuity-workflow-12.json`; logs `logs/continuity-workflow-12-*.log`. Proyecto EN DESARROLLO, envío real OFF. Este proceso no es un servicio y no arranca con Windows. Una cancelación de la ejecución esperada detiene la continuación. No relanzar fases iniciadas sin revisar su resultado.
+
+### Anotaci?n hist?rica recibida de PR #1 (antes de validaci?n Windows)
+
+# Checkpoint de continuidad — EN DESARROLLO
+
+## 22/10/2026 — Propuesta de generador profesional desde GitHub
+
