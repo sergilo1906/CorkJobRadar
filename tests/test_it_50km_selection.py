@@ -248,7 +248,7 @@ def test_additive_schema_keeps_all_old_rows_and_live_constraint(db,profile):
     db.execute('PRAGMA user_version=10')
     reopened=Database(db.path)
     assert reopened.rows('SELECT * FROM jobs')==before
-    assert reopened.rows('PRAGMA user_version')[0]['user_version']==12
+    assert reopened.rows('PRAGMA user_version')[0]['user_version']==13
     assert not reopened.rows('PRAGMA foreign_key_check')
     with pytest.raises(sqlite3.IntegrityError):reopened.execute('UPDATE autoapply_control SET live_enabled=1')
 

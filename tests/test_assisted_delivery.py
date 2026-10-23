@@ -148,7 +148,7 @@ def test_v8_to_v9_preserves_every_existing_row_and_live_lock(db,profile):
     before={t:db.rows('SELECT * FROM '+t) for t in tables}
     with db.connect() as con:con.executescript('DROP TABLE manual_application_evidence_reviews; DROP TABLE manual_application_evidence; PRAGMA user_version=8;')
     reopened=Database(db.path)
-    assert reopened.rows('PRAGMA user_version')[0]['user_version']==12
+    assert reopened.rows('PRAGMA user_version')[0]['user_version']==13
     assert all(reopened.rows('SELECT * FROM '+t)==rows for t,rows in before.items())
     assert not reopened.rows('PRAGMA foreign_key_check')
     with pytest.raises(sqlite3.IntegrityError):reopened.execute('UPDATE autoapply_control SET live_enabled=1')

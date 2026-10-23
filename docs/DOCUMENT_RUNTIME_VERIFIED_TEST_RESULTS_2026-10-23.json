@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-23T10:51:16+01:00",
+  "scope": "Local Windows validation, not GitHub CI or an external ATS receipt",
+  "full_suite_before_final_notification_reopen_fix": {
+    "tests": 734,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 537.29,
+    "evidence": "logs/document-runtime-final-release.xml"
+  },
+  "final_regression_of_current_notification_runtime_and_ui_code": {
+    "tests": 75,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 65.13,
+    "evidence": "logs/document-runtime-final-notifications.xml"
+  },
+  "overlapping_suites_not_added": true,
+  "real_installation_browser": "PASS: localhost,1440/390,15 drafts,consent unchecked,no external requests",
+  "real_profile_documents_validated": 60,
+  "approved_facts_preserved": 22,
+  "approvals_performed_by_agent": 0,
+  "external_applications_sent": 0,
+  "live_enabled": false
+}

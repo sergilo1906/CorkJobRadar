@@ -14,7 +14,7 @@ def test_v1_migration_backed_up_without_losing_history(tmp_path):
         con.executescript(SCHEMA+'\nPRAGMA user_version=1;')
         con.execute('INSERT INTO audit_events(created_at,kind,details) VALUES(?,?,?)',(now(),'HISTORICAL','{}'))
     db=Database(path)
-    assert db.rows('PRAGMA user_version')[0]['user_version']==12
+    assert db.rows('PRAGMA user_version')[0]['user_version']==13
     assert db.rows('SELECT kind FROM audit_events')[0]['kind']=='HISTORICAL'
     copies=list((tmp_path/'backups').glob('*.sqlite3'))
     assert len(copies)==1

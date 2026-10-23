@@ -133,17 +133,19 @@ class Database:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as con:
             version = con.execute("PRAGMA user_version").fetchone()[0]
-            if version > 12:
+            if version > 13:
                 raise RuntimeError("Base de datos de una versión más reciente")
-            if 0 < version < 12:
+            if 0 < version < 13:
                 folder=self.path.parent/'backups'
                 folder.mkdir(exist_ok=True)
-                filename=folder/(self.path.stem+'-before-v12-'+now().replace(':','')+'-'+uuid4().hex[:8]+'.sqlite3')
+                filename=folder/(self.path.stem+'-before-v13-'+now().replace(':','')+'-'+uuid4().hex[:8]+'.sqlite3')
                 backup=sqlite3.connect(filename)
                 try:
                     con.backup(backup)
                     if backup.execute('PRAGMA integrity_check').fetchone()[0]!='ok':
                         raise RuntimeError('La copia previa no supera integridad; migración cancelada')
+                    if backup.execute('PRAGMA foreign_key_check').fetchall():
+                        raise RuntimeError('La copia previa tiene errores FK; migración cancelada')
                 finally:
                     backup.close()
             if version < 1:
@@ -184,6 +186,9 @@ class Database:
             if version < 12:
                 from .runtime_schema import MIGRATION_12
                 con.executescript(MIGRATION_12)
+            if version < 13:
+                from .autoapply.document_schema import MIGRATION_13
+                con.executescript(MIGRATION_13)
 
     @contextmanager
     def connect(self):

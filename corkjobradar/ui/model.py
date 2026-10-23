@@ -39,6 +39,8 @@ def load_view(db):
       (SELECT group_concat(id||status) FROM autoapply_interventions) interventions,
       (SELECT MAX(id) FROM manual_application_handoffs) handoffs,
       (SELECT MAX(id) FROM manual_application_declarations) declarations,
+      (SELECT MAX(id) FROM job_document_events) document_events,
+      (SELECT group_concat(id||COALESCE(revoked_at,'')) FROM job_document_bundles) document_bundles,
       (SELECT MAX(id) FROM user_actions) actions''')[0]
     return _load_view((str(db.path.resolve()),digest(signature),(ROOT/'config/profile.yaml').stat().st_mtime_ns),db)
 
@@ -67,6 +69,14 @@ def _load_view(signature,_db):
     # Snapshot is used only to derive validity. Personal values never enter the list model.
     candidate=candidate_snapshot(db)
     cv_approved=bool(candidate.get('cv_document_id'))
+    # A job-specific CV does not become the general CV. Retained per-job packets
+    # are nevertheless visible; load/download always repeats the full gate.
+    job_prepared={r['job_id']:r for r in db.rows('''SELECT b.job_id,MAX(b.id) bundle_id FROM job_document_bundles b
+        JOIN job_document_versions v ON v.id=b.version_id JOIN jobs j ON j.id=b.job_id
+        JOIN job_document_events e ON e.bundle_id=b.id AND e.kind='LOCAL_HANDOFF_PREPARED'
+        WHERE b.revoked_at IS NULL AND v.revoked_at IS NULL AND b.expires_at>? AND v.facts_hash=?
+          AND v.job_content_hash=j.content_hash AND v.id=(SELECT MAX(n.id) FROM job_document_versions n WHERE n.job_id=b.job_id)
+        GROUP BY b.job_id''',(datetime.now(ZoneInfo('Europe/Dublin')).isoformat(),candidate['_facts_hash']))}
     for job in jobs:
         q=queue.get(job['id'],{});selection=parse(q.get('assessment'),{})
         it=classify_it_functions(job);exp=experience_requirements(job)
@@ -104,7 +114,8 @@ def _load_view(signature,_db):
         job['manual_declared']=declared;job['external_confirmed']=confirmed
         # Prepared means a retained local packet, never an assertion of sending or current eligibility.
         # The existing load/download services revalidate content, CV, answers and duplicates on opening.
-        valid_package=job['id'] in prepared and cv_approved
+        valid_package=job['id'] in prepared and (cv_approved or job['id'] in job_prepared)
+        job['document_bundle_id']=job_prepared.get(job['id'],{}).get('bundle_id')
         job['application']=application_state(closed=job['open_status']=='CLOSED_CONFIRMED' or mark.get('action')=='rechazada',
             manual=declared,confirmed=confirmed,uncertain=uncertain,intervention=job['id'] in interventions,
             prepared=valid_package,needs_review=it.status=='CONFIRMED_IT' and q.get('workflow_state') in {'INTERVENTION','FAILED_RETRY'})

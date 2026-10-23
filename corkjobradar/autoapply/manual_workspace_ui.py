@@ -44,7 +44,9 @@ def _cv(db,job,candidate,expanded=None):
                 st.caption('La aprobación de este CV no certifica los requisitos ni la accesibilidad de la oferta seleccionada.')
                 return
             consent=st.checkbox('He revisado íntegramente esta versión y apruebo este CV definitivo',key='mw_cv_consent_'+str(did)+'_'+sha)
-            if st.button('Aprobar esta versión del CV',disabled=not consent,key='mw_approve_cv'):
+            quality_hold=bool(db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' AND json_extract(details,'$.document_id')=?",(did,)))
+            if quality_hold:st.warning('Esta versión está retenida por la revisión de calidad. Prepara los documentos por oferta en Mis candidaturas → CV; no se aprueba esta versión.')
+            if st.button('Aprobar esta versión del CV',disabled=not consent or quality_hold,key='mw_approve_cv'):
                 approve_cv_review(db,did,sha,candidate['_facts_hash'],confirmed=consent);st.success('CV aprobado por ti. LIVE sigue OFF.');st.rerun()
         except Exception:st.info('Versión retenida por cambio de datos o integridad; genera y revisa una nueva.')
 
@@ -219,7 +221,11 @@ def render_job_workspace(db,jid,step):
     job['state']=selected['state'];job['reasons']=[reason_text(code) for code in selected['exclusions']+selected['essential_pending']+selected['operational_pending']]
     job['manual_package_possible']=selected['preparation_allowed'] and selected['cv_approved']
     if step=='CV':
-        _cv(db,job,candidate,expanded=True)
+        if job['it_status']=='CONFIRMED_IT':
+            from .job_documents_ui import render_job_documents
+            render_job_documents(db,row)
+        else:
+            _cv(db,job,candidate,expanded=True)
         return
     inspection_id=None
     if step=='Requisitos':

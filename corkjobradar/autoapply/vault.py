@@ -146,6 +146,8 @@ def forget_professional_data(db,confirmed=False):
     paths.update(Path(r['encrypted_path']).resolve() for r in db.rows('SELECT encrypted_path FROM application_receipt_evidence'))
     paths.update(Path(r['encrypted_path']).resolve() for r in db.rows('SELECT encrypted_path FROM manual_application_handoffs'))
     paths.update(Path(r['encrypted_path']).resolve() for r in db.rows('SELECT encrypted_path FROM manual_application_evidence'))
+    for table in ('professional_dossiers','reference_originals','job_document_versions','job_document_bundles'):
+        paths.update(Path(r['encrypted_path']).resolve() for r in db.rows('SELECT encrypted_path FROM '+table))
     if any(not p.is_relative_to(folder) for p in paths):raise ValueError('DOCUMENT_PATH_OUTSIDE_VAULT')
     tombstone=protect(json.dumps({'value':'ERASED','origin':'ERASED'}).encode())
     with db.transaction():
@@ -156,6 +158,10 @@ def forget_professional_data(db,confirmed=False):
             request_command(db,session['id'],'CLOSE')
         db.execute('UPDATE candidate_facts SET encrypted_value=?,revoked_at=?',(tombstone,now()))
         db.execute('UPDATE candidate_documents SET revoked_at=?',(now(),))
+        db.execute('UPDATE reference_originals SET revoked_at=?,metadata=?',(now(),tombstone))
+        db.execute('UPDATE reference_review_events SET metadata=?',(tombstone,))
+        db.execute('UPDATE job_document_versions SET revoked_at=?',(now(),))
+        db.execute('UPDATE job_document_bundles SET revoked_at=?',(now(),))
         event(db,'PROFESSIONAL_DATA_ERASED',{'documents':len(rows)})
     # Each resolved file was checked above; no recursive removal and no external paths.
     for path in paths:

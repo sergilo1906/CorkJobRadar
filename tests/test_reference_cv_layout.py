@@ -169,3 +169,34 @@ def test_docx_real_office_renderer_one_page_and_all_claims(candidate, tmp_path):
     text = ' '.join((reader.pages[0].extract_text() or '').split())
     assert all(c['text_en'] in text for c in candidate['_claims'])
     assert candidate['email'] in text
+
+
+def test_reference_header_has_role_strapline_pdf_and_word(candidate):
+    """A one-page CV must look like a CV, not just contain all text."""
+    from corkjobradar.autoapply.cv_layout import _role_headline
+    assert _role_headline() == 'JUNIOR IT SUPPORT | HELPDESK | SERVICE DESK'
+    assert _role_headline({'title': 'QA Tester'}) == 'JUNIOR QA | SOFTWARE TESTING'
+    assert _role_headline({'title': 'Junior Developer'}) == 'JUNIOR DEVELOPER | SOFTWARE DEVELOPMENT'
+    assert _role_headline({'title': 'Senior Data Analyst'}) == 'JUNIOR IT SUPPORT | HELPDESK | SERVICE DESK'
+    pdf = render_cv(candidate, 'pdf')
+    text = validate_document(pdf, 'pdf')
+    assert 'JUNIOR IT SUPPORT | HELPDESK | SERVICE DESK' in text
+    assert text.index(candidate['location']) < text.index(candidate['email'])
+    doc = Document(io.BytesIO(render_cv(candidate, 'docx')))
+    assert doc.paragraphs[0].text == candidate['full_name']
+    assert doc.paragraphs[1].text == 'JUNIOR IT SUPPORT | HELPDESK | SERVICE DESK'
+    assert doc.paragraphs[1].runs[0].bold
+    assert doc.paragraphs[2].text.index(candidate['location']) < doc.paragraphs[2].text.index(candidate['email'])
+    assert len(PdfReader(io.BytesIO(pdf)).pages) == 1
+
+
+def test_reference_skill_project_label_emphasis_is_presentation_only():
+    from corkjobradar.autoapply.cv_layout import _emphasis
+    for title, text in [
+        ('Core Capabilities', 'IT SUPPORT: Windows, Microsoft 365, user guidance.'),
+        ('Selected Projects', 'Barber Booking Platform | Astro + Firebase/Firestore'),
+    ]:
+        bold, tail = _emphasis(title, text, 0)
+        assert bold and bold + tail == text
+    bold, tail = _emphasis('Education & Training', 'Completed CFGS DAM in 2022-2024.', 0)
+    assert bold + tail == 'Completed CFGS DAM in 2022-2024.'

@@ -1,5 +1,33 @@
 # Cork Job Radar — progreso verificable
 
+## Estado vigente23/10 — borradores periódicos integrados y comprobados
+
+**15 borradores por revisar,24 versiones por oferta,60 archivos PDF/DOCX validados.** El trabajador genera documentos específicos sin aprobar el CV general. Reutiliza versiones, respeta revocaciones incluso durante la generación, conserva HOLDs y reanuda sin duplicados. Inicio → Revisar borradores de CV y carta abre el filtro único; los avisos van al paso CV y se reabren cuando su causa reaparece.
+
+**734 PASS completa anterior al último ajuste de avisos;75 PASS de regresión final del código actual**, suites solapadas, sin sumar. Navegador de instalación1440/390 PASS,0 solicitudes externas/cambios en tablas críticas, controles sin consentimiento. Primer selector de ensayo y fallo real de avisos corregidos con evidencias retenidas. [Implementación, pruebas y límites](docs/DOCUMENT_DRAFT_RUNTIME_2026-10-23.md).
+
+**616 ofertas/3.028 análisis,22 hechos vigentes/24 históricos conservados, CV4 retenido y sin aprobar.** Referencias3 pendientes,52 paquetes anteriores preservados,0 bundles nuevos aprobados y0 envíos. No son15 ofertas plenamente elegibles. Catorce tablas estáticas/76 activos previos idénticos; transporte íntegro sin cambios y0 contactos en logs/bases auditados.
+
+Un supervisor local RUNNING/WAITING, cada6h; próxima23/10 a las16:30:12 Europe/Dublin. Ciclo23:118 observaciones de dos fuentes, sin ofertas nuevas; Evo-soft sigue bloqueado por robots.txt inaccesible. Recuperación y repetición local comprobadas, sin ensayo físico de Windows. Copias previa/final `logs/document-runtime-start-backup.json` / `logs/document-runtime-final-backup.json`, sin restauración. **LIVE OFF; solo el usuario aprueba documentos y futuros ensayos/políticas.**
+
+Los apartados siguientes son históricos.
+
+## Estado vigente — motor documental por oferta probado (22/10/2026)
+
+**712 pruebas superadas**,0 fallos/errores/omitidas,26 avisos,526,66s. Suite completa `logs/per-job-release.xml`, posterior a los últimos cambios. Previa710 y dirigidas53/124 solapadas: no sumar. Navegador real1440/390 PASS; PDF/DOCX y cartas reales comprobados con LibreOffice. [Informe y uso](docs/PER_JOB_DOCUMENTS_2026-10-22.md).
+
+Implementados expediente cifrado estructurado, selección/evidencia por requisito, CV distintos para soporte/desarrollo/QA, cartas trazables revisables, originales de referencias y paquetes elegidos por oferta integrados en ZIP/seguimiento. Consentimientos reiniciados al cambiar la selección y revalidados en backend. Una o dos páginas configurables con letra fija legible; no se fuerza el ajuste reduciendo la fuente.
+
+**616 ofertas, 3.028 análisis y 22 hechos activos/24 históricos conservados tras el ciclo programado 21. CV4 general pendiente y retenido por calidad. Borradores por oferta10/11/12 pendientes de revisión; ninguna aprobación del agente.** Tres referencias originales cifradas, pendientes y sin permiso de compartir. Para adjuntar una se necesita su original independiente, sin reconstruir firmas ni compartir las otras páginas. Las muestras QA/graduate mantienen dudas de elegibilidad; no son tres candidaturas listas.
+
+Auditoría PASS:15 tablas históricas/60 activos cifrados intactos,7 tablas de transporte idénticas y0 contactos en58 archivos/SQLite. Biblioteca y pruebas privadas fuera de Git. Copia final/verificación: `logs/per-job-final-backup.json` / `logs/per-job-final-verification.json`. Main remoto intacto; rama `work/per-job-documents-20261022` incorpora PR5 sobre la integración validada.
+
+Aplicación recargada de forma controlada, un supervisor y programación de 6 horas conservada. El ciclo 21 terminó el22/10 a las22:25:55: 122 observaciones de SolarWinds, Version1 y Evo-soft; 61 tareas de análisis y 6 de detalle completadas. Las dos incorporaciones son marketing en Austin, no nuevas oportunidades IT compatibles. Próxima búsqueda: **23/10 a las04:26:29, Europe/Dublin**. Verificación posterior PASS en `logs/per-job-scheduled-cycle-verification.json`: 17 tablas estáticas idénticas, 76 activos cifrados intactos, histórico preservado y ambas bases íntegras. No representa cobertura de todo Cork.
+
+Código publicado en la rama `work/per-job-documents-20261022`, commit funcional `b683a28`, sin datos privados ni cambios en main. Sin servicios/inicio Windows. **LIVE OFF,0 candidaturas/recibos externos.** No se declara terminado AutoApply; quedan revisión humana de documentos/campos nuevos y ensayo externo permitido, autorizado y confirmado.
+
+Los bloques siguientes son históricos. No seguir la antigua recomendación de aprobar CV4.
+
 ## Estado vigente — PR y CV verificados en Windows, 22/10/2026
 
 PR #2/#3 probadas y combinadas localmente; trabajo de CV #1 reutilizado y corregido. Rama activa `work/validated-pr23-cv-20261022`; `main` remoto y las PR originales se conservan sin fusionar. No se reconstruyó la interfaz. [Informe de integración](docs/PR_CV_WINDOWS_2026-10-22.md).

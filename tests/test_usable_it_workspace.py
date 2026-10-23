@@ -127,7 +127,7 @@ def test_additive_v9_to_v10_keeps_old_rows_and_live_check(db,profile):
     case(db,profile);before=db.rows('SELECT * FROM candidate_facts')
     with db.connect() as con:con.executescript('DROP TABLE manual_requirement_reviews; PRAGMA user_version=9;')
     reopened=Database(db.path)
-    assert reopened.rows('PRAGMA user_version')[0]['user_version']==12 and reopened.rows('SELECT * FROM candidate_facts')==before
+    assert reopened.rows('PRAGMA user_version')[0]['user_version']==13 and reopened.rows('SELECT * FROM candidate_facts')==before
     assert not reopened.rows('PRAGMA foreign_key_check')
     with pytest.raises(sqlite3.IntegrityError):reopened.execute('UPDATE autoapply_control SET live_enabled=1')
 

@@ -24,6 +24,13 @@ def title(name,description):st.title(name);st.caption(description)
 def clear_job():st.session_state.ui_job=None
 
 
+def go_draft_reviews():
+    go('Mis candidaturas')
+    st.session_state.applications_state='Borradores por revisar'
+    st.session_state.applications_search=''
+    st.session_state.applications_page=1
+
+
 def runtime_label(data):
     r=data['control']
     if r['state']=='STOPPING':return 'Terminando la tarea actual'
@@ -54,12 +61,22 @@ def home(db,view):
         for label,value in group:html+='<div class="cjr-metric"><dt>'+escape(label)+'</dt><dd>'+str(value)+'</dd></div>'
     st.markdown(html+'</dl>',unsafe_allow_html=True)
     st.caption('Guardada no significa compatible. Hay que contrastar vigencia, requisitos, centro y accesibilidad.')
+    drafts=rt.snapshot(db)['document_drafts_for_review']
+    if drafts:
+        st.info(f'{drafts} borradores por oferta pendientes de revisar. No son paquetes aprobados ni solicitudes enviadas.')
+        st.button('Revisar borradores de CV y carta',key='home_draft_reviews',on_click=go_draft_reviews)
     st.subheader('Qué necesitas hacer ahora')
     if not view['cv_approved']:
         with st.container(border=True):
-            st.markdown('**Revisar tu CV definitivo**')
-            st.write('Tus datos aprobados se conservan. Falta aprobar una versión del documento para preparar paquetes.')
-            nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='home_cv',primary=True)
+            held=bool(db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' LIMIT 1"))
+            if held:
+                st.markdown('**Preparar tu CV para una oferta**')
+                st.write('Tus hechos aprobados se conservan. Elige una oportunidad y revisa sus documentos en el paso CV; el CV general anterior está retenido por calidad.')
+                nav_button('Elegir oferta y preparar documentos','Ofertas de empleo',key='home_cv',primary=True)
+            else:
+                st.markdown('**Revisar tu CV definitivo**')
+                st.write('Tus datos aprobados se conservan. Falta aprobar una versión del documento para preparar paquetes.')
+                nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='home_cv',primary=True)
     with st.container(border=True):
         st.markdown('**Consultar oportunidades informáticas**')
         st.write('Compara requisitos obligatorios y deseables antes de preparar tu candidatura.')
@@ -205,7 +222,7 @@ def detail(db,view,job):
         nav_button('Ver candidatura','Mis candidaturas',job=job['id'],key='detail_existing')
     else:
         controls=actions_for(cv_approved=view['cv_approved'],preparation_allowed=selection['preparation_allowed'],application=job['application'])
-        if controls['prepare'] or (controls['review_cv'] and selection['preparation_allowed']):nav_button('Preparar candidatura','Mis candidaturas',job=job['id'],step='Solicitud',key='detail_prepare',primary=True)
+        if controls['prepare'] or (controls['review_cv'] and selection['preparation_allowed']):nav_button('Preparar candidatura','Mis candidaturas',job=job['id'],step='Solicitud' if view['cv_approved'] else 'CV',key='detail_prepare',primary=True)
         else:st.info('Preparación retenida por los criterios del puesto. Revisa requisitos y evidencias antes de continuar.')
     with st.expander('Texto publicado completo'):st.text(job['description'] or 'Texto pendiente de recuperar')
     if st.checkbox('Mostrar análisis y herramientas avanzadas de esta oferta',key='detail_advanced'):
@@ -232,7 +249,7 @@ def applications(db,view):
             st.write('Estado: '+job['application'])
             st.write(job['academic_label']);st.caption(job['priority_note'])
             nav_button('Revisar requisitos','Mis candidaturas',job=jid,step='Requisitos',key='application_requirements')
-            if job['application'] not in APPLICATION_STATES[3:]:nav_button('Preparar candidatura','Mis candidaturas',job=jid,step='Solicitud',key='application_prepare',primary=True)
+            if job['application'] not in APPLICATION_STATES[3:]:nav_button('Preparar candidatura','Mis candidaturas',job=jid,step='Solicitud' if view['cv_approved'] else 'CV',key='application_prepare',primary=True)
             st.link_button('Abrir oferta original',job['url'])
         elif step=='Seguimiento':
             st.caption('Seguimiento declarado por ti. No autentica al remitente ni acredita recepción externa por sí solo.')
@@ -256,16 +273,30 @@ def applications(db,view):
             st.info('La candidatura ya está registrada, cerrada o tiene un envío incierto. Se conserva el historial y no se ofrece repetirla.')
             if job['application']==APPLICATION_STATES[3]:nav_button('Adjuntar justificante','Mis candidaturas',job=jid,step='Justificantes',key='application_evidence')
         elif step=='Solicitud' and not view['cv_approved']:
-            st.warning('Aprueba una versión del CV para poder preparar el paquete. La aprobación no autoriza envíos.')
-            nav_button('Revisar y aprobar CV','Perfil y configuración',section='CV definitivo',key='application_cv_needed',primary=True)
+            from ..autoapply.handoff import load_handoff
+            valid_package=False
+            for existing in db.rows('SELECT id FROM manual_application_handoffs WHERE job_id=? ORDER BY id DESC',(jid,)):
+                try:load_handoff(db,existing['id']);valid_package=True;break
+                except (ValueError,PermissionError):continue
+            if valid_package:
+                from ..autoapply.manual_workspace_ui import render_job_workspace
+                render_job_workspace(db,jid,step)
+            else:
+                st.warning('Revisa y aprueba los documentos de esta oferta para preparar el paquete. La aprobación no autoriza envíos.')
+                nav_button('Revisar documentos de esta oferta','Mis candidaturas',job=jid,step='CV',key='application_cv_needed',primary=True)
         else:
             from ..autoapply.manual_workspace_ui import render_job_workspace
             render_job_workspace(db,jid,step)
         return
     title('Mis candidaturas','Preparación, seguimiento y justificantes en un solo lugar. Cada paquete se revalida al abrirlo; preparado no significa enviado ni plenamente elegible.')
     academic_summary(db,view)
-    selected=st.selectbox('Estado de candidatura',APPLICATION_STATES,key='applications_state')
-    rows=[j for j in view['jobs'] if j['application']==selected and (j['has_application'] or j['potential'])]
+    selected=st.selectbox('Estado de candidatura',(*APPLICATION_STATES,'Borradores por revisar'),key='applications_state')
+    if selected=='Borradores por revisar':
+        from ..autoapply.document_preparation import draft_review_rows
+        ids={d['job_id'] for d in draft_review_rows(db)}
+        rows=[j for j in view['jobs'] if j['id'] in ids]
+        st.caption('Documentos locales sin un paquete aprobado vigente. Revisa requisitos, contenido y diseño antes de aprobar o exportar.')
+    else:rows=[j for j in view['jobs'] if j['application']==selected and (j['has_application'] or j['potential'])]
     st.write(f'**{len(rows)} candidaturas u oportunidades** · {selected}')
     search=st.text_input('Buscar candidatura por empresa o puesto',key='applications_search').casefold()
     rows=[j for j in rows if not search or search in (j['title']+' '+j['company']).casefold()]
@@ -345,6 +376,7 @@ def activity_status(db):
         if run['cancel_requested']:st.caption('Cancelación solicitada: terminando la petición o tarea actual.')
         else:st.button('Cancelar búsqueda en curso',key='cancel_search_'+str(run['id']),on_click=cancel_search,args=(db,run['id']))
     cols=st.columns(2);cols[0].metric('Tareas pendientes de otras búsquedas',sum(r['n'] for r in data['pending_tasks']));cols[1].metric('Recepciones externas confirmadas',data['confirmed_external'])
+    st.metric('Borradores sin paquete aprobado',data['document_drafts_for_review'])
 
 
 def activity(db,view):
@@ -358,8 +390,12 @@ def activity(db,view):
         for n in notices:
             with st.container(border=True):
                 st.write(NOTICES.get(n['kind'],'Revisión necesaria en la actividad local.'))
-                if n['kind']=='APPROVED_CV_REQUIRED':nav_button('Revisar CV','Perfil y configuración',section='CV definitivo',key='notice_cv_'+str(n['id']))
+                if n['kind']=='APPROVED_CV_REQUIRED':
+                    if db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' LIMIT 1"):
+                        nav_button('Elegir oferta y revisar su CV','Ofertas de empleo',key='notice_cv_'+str(n['id']))
+                    else:nav_button('Revisar CV','Perfil y configuración',section='CV definitivo',key='notice_cv_'+str(n['id']))
                 elif n['kind']=='HUMAN_VERIFICATION':nav_button('Abrir intervención','AutoApply',key='notice_human_'+str(n['id']))
+                elif n['kind'] in {'DOCUMENT_REVIEW','DOCUMENT_DRAFT_HOLD'}:nav_button('Revisar CV y carta','Mis candidaturas',job=n['job_id'],step='CV',key='notice_document_'+str(n['id']))
                 elif n.get('job_id'):nav_button('Revisar candidatura','Mis candidaturas',job=n['job_id'],step='Respuestas',key='notice_job_'+str(n['id']))
                 if not n.get('acknowledged_at') and st.button('Marcar aviso como leído',key='notice_read_'+str(n['id'])):
                     db.execute('UPDATE local_runtime_notifications SET acknowledged_at=? WHERE id=?',(now(),n['id']));st.rerun()
@@ -422,8 +458,19 @@ def profile(db,view):
         if st.checkbox('Opciones de documento: DOCX, importar CV o carta',key='profile_cv_import'):
             from ..autoapply.ui import render_cv_editor
             render_cv_editor(db)
+        st.info('Para adaptar documentos a una vacante: Mis candidaturas → selecciona oferta → CV. La revisión por oferta no aprueba el CV general.')
+        with st.expander('Biblioteca de referencias y originales'):
+            from ..autoapply.job_documents_ui import render_references
+            render_references(db)
     elif section=='Datos y experiencia aprobados':
         st.write(f"{view['approved_facts']} datos y afirmaciones aprobados se conservan. Solo añade o corrige información que haya cambiado.")
+        with st.expander('Expediente estructurado y campos pendientes'):
+            from ..autoapply.professional_dossier import build_dossier
+            from ..autoapply.vault import candidate_snapshot
+            dossier=build_dossier(candidate_snapshot(db))
+            st.caption('Representación derivada de tus hechos vigentes. No importa proyectos, tareas ni fechas nuevas por suposición.')
+            st.dataframe([{'Tipo':e['kind'],'Hecho aprobado':e['approved_text'],
+                           'Campos pendientes':', '.join(e['review_pending'])} for e in dossier['entries']],hide_index=True)
         if st.checkbox('Mostrar mis datos privados y editar la ficha',key='profile_private'):
             from ..autoapply.ui import render_profile_editor
             render_profile_editor(db)
@@ -438,7 +485,7 @@ def profile(db,view):
         row=rt.state(db)
         with st.form('ui_frequency'):
             hours=st.number_input('Horas entre búsquedas IT',.25,168.,float(row['interval_hours']),step=.25)
-            prepare=st.checkbox('Preparar candidaturas razonables con CV aprobado',value=bool(row['auto_prepare']))
+            prepare=st.checkbox('Generar borradores IT; aprobaré cada paquete antes de exportarlo',value=bool(row['auto_prepare']))
             sound=st.checkbox('Aviso sonoro local',value=bool(row['sound']))
             if st.form_submit_button('Guardar frecuencia y avisos'):
                 try:rt.configure(db,hours,prepare,sound);st.success('Configuración guardada. LIVE sigue OFF.')

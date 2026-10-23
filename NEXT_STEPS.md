@@ -1,4 +1,31 @@
+# Continuación vigente —23/10/2026
+
+1. **Inicio → Revisar borradores de CV y carta**:15 borradores actuales, accesibles juntos en **Mis candidaturas → Borradores por revisar**. Abrir candidatura y paso CV; los avisos llevan allí directamente. No son15 ofertas plenamente elegibles: revisar preguntas, requisitos, idiomas/estudios, centro, turno y transporte sin coche.
+2. Revisar contenido y diseño del PDF/DOCX elegido y las nuevas redacciones. Solo tú apruebas el paquete exacto; carta/referencias opcionales desmarcadas. No aprobar CV4 retenido ni volver a pedir los22 hechos. Referencias: original independiente íntegro, revisión y autorización por paquete.
+3. Tras aprobar los documentos: preparar/exportar ZIP local, presentar personalmente mediante el enlace oficial y registrar una solicitud que hayas realizado. LinkedIn/Indeed manuales. Un justificante declarado no acredita recepción externa autenticada.
+4. Mantener preparación local activada si deseas borradores periódicos. No necesita CV general aprobado, respeta revocaciones y reutiliza versiones al reanudar. Próxima búsqueda23/10 a las16:30:12 Dublin, cada6h; Evo-soft permanece bloqueado por robots.txt inaccesible. No iniciar otro trabajador.
+5. **LIVE OFF**: faltan canal permitido, ensayo externo autorizado con confirmación y activación separada de política. No hay envíos. Suspensión/reinicio físico de Windows siguen sin ensayar; no se activó inicio automático ni servicios.
+
+Verificación:734 PASS completa previa al último ajuste de avisos y75 PASS de regresión final, sin sumar; navegador de instalación y60 documentos reales PASS. [Informe](docs/DOCUMENT_DRAFT_RUNTIME_2026-10-23.md). Copias/controles de privacidad conservados. PR6 continúa en borrador, sin fusionar main.
+
+Los bloques siguientes son historia y no sustituyen estas prioridades.
+
 # Continuación vigente — EN DESARROLLO (22/10/2026)
+
+## Siguiente uso — documentos por oferta listos para revisar
+
+1. **Ofertas de empleo → elegir vacante IT → Preparar candidatura → CV**. Revisar las versiones actuales por oferta10/11/12 o generar la de otra oportunidad. En Mis candidaturas, las retenidas pueden estar en Requieren intervención. No aprobar CV4, que conserva su retención de calidad, ni volver a pedir los22 hechos.
+2. Revisar contenido, nuevos resúmenes/cartas y diseño del formato elegido. Carta/referencias opcionales desmarcadas; comprobar que el formulario las admite. Solo el usuario aprueba el paquete exacto. Los consentimientos se reinician al cambiar selección o esquema.
+3. Referencias originales preservadas: SIE recomendación IT, Gas recomendación laboral, Carriage confirmación de empleo. Aportar original independiente y revisar diferencias/datos adicionales antes de autorizarlo. El PDF de cuatro páginas no se exporta como una referencia seleccionada. Se admite una carta independiente completa de varias páginas con clasificación expresa.
+4. Con paquete aprobado: preparar ZIP, solicitar manualmente por el enlace oficial y registrar una declaración solo después de presentar. Justificante/declaración no equivalen a recepción externa autenticada. LinkedIn/Indeed manuales, sin API empresarial para esa vía.
+5. Mantener6h y comprobar actividad/pendientes. Nuevo proceso cargado, horario conservado; ensayo físico de suspensión/reinicio sigue pendiente. No se instalaron servicios o inicio automático.
+6. AutoApply externo continúa LIVE OFF: falta canal permitido/validado, ensayo real autorizado con recepción y activación separada de política. No declarar terminado el envío externo.
+
+**Cierre técnico:712 PASS** completa,0 fallos/errores/omitidas; navegador real y documentos PDF/DOCX con LibreOffice comprobados. No se comprobó Microsoft Word. No repetir suites sin cambios/fallos nuevos. [Informe](docs/PER_JOB_DOCUMENTS_2026-10-22.md). Copia final y verificación indicadas en el checkpoint; conservar históricos y no restaurar sobre producción.
+
+**Continuidad comprobada tras publicar:** ciclo21 completado; 616 ofertas/3.028 análisis. Sus dos anuncios nuevos son marketing en Austin y no amplían la lista IT compatible. Próxima búsqueda23/10 a las04:26:29 Europe/Dublin. Mantener el supervisor existente; no iniciar otro ni repetir la suite de712 sin cambios funcionales. Código funcional publicado en `work/per-job-documents-20261022` (`b683a28`); main conserva su estado anterior. Copia posterior al ciclo: `logs/per-job-post-cycle-backup.json`, sin restaurar sobre producción.
+
+Los bloques siguientes son historia, incluidas las recomendaciones de aprobar CV4.
 
 ## Prioridad actual tras integrar y probar las PR localmente
 

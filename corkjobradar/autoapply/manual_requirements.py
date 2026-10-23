@@ -12,8 +12,8 @@ TECHNICAL=re.compile(r'\b(?:experience|knowledge|familiarity|proficien\w*|qualif
 STATUSES={'CUMPLIDO','NO_CUMPLIDO','PENDIENTE'}
 
 
-def requirement_items(job):
-    text=job['description'];passages,_=source_passages(text);items=[]
+def requirement_items(job,section_aliases=None):
+    text=job['description'];passages,_=source_passages(text,section_aliases=section_aliases);items=[]
     for passage in passages:
         if passage['section'] in {'duties','benefits','context'}:continue
         # Split explicit contrasting clauses; never split "degree OR equivalent experience".
@@ -24,9 +24,10 @@ def requirement_items(job):
             for quote in pieces:
                 if not (passage['section'] in {'mandatory','desirable'} or TECHNICAL.search(quote) or MANDATORY.search(quote) or PREFERRED.search(quote)):continue
                 explicit_required=MANDATORY.search(re.sub(r'\bnot (?:required|essential)\b','',quote,flags=re.I))
-                mixed=bool(PREFERRED.search(quote) and (explicit_required or re.search(r'\b(?:will|should|need to)\b.{0,35}\bhave\b',quote,re.I)))
+                header_preferred=passage['section']=='desirable'
+                mixed=bool((PREFERRED.search(quote) or header_preferred) and (explicit_required or re.search(r'\b(?:will|should|need to)\b.{0,35}\bhave\b',quote,re.I)))
                 conditional=bool(re.search(r'\b(?:if|when|unless|depending on)\b',quote,re.I))
-                level='POR_ACLARAR' if mixed or conditional else 'DESEABLE' if PREFERRED.search(quote) else 'OBLIGATORIO' if passage['section']=='mandatory' or explicit_required else 'POR_ACLARAR'
+                level='POR_ACLARAR' if mixed or conditional else 'DESEABLE' if PREFERRED.search(quote) or header_preferred else 'OBLIGATORIO' if passage['section']=='mandatory' or explicit_required else 'POR_ACLARAR'
                 # No phrase is synthesized: source offset must still bind exactly.
                 start=text.find(quote,passage['offset'])
                 if start<0:continue
@@ -63,14 +64,14 @@ def _automatic(item,candidate,profile):
     return status,fact_ids,reason
 
 
-def checklist(db,job,candidate=None,profile=None):
+def checklist(db,job,candidate=None,profile=None,section_aliases=None):
     candidate=candidate or candidate_snapshot(db);profile=profile or load_profile()
     reviews=db.rows('''SELECT * FROM manual_requirement_reviews WHERE job_id=? AND job_content_hash=? AND facts_hash=? ORDER BY id DESC''',
                     (job['id'],job['content_hash'],candidate['_facts_hash']))
     latest={}
     for review in reviews:latest.setdefault(review['requirement_hash'],review)
     output=[]
-    for item in requirement_items(job):
+    for item in requirement_items(job,section_aliases=section_aliases):
         status,ids,reason=_automatic(item,candidate,profile);review=latest.get(item['id'])
         if review:status=review['status'];ids=json.loads(review['fact_ids']);reason='Contraste factual registrado por el usuario para estas versiones.'
         output.append({**item,'status':status,'fact_ids':ids,'reason':reason,'reviewed_at':review['reviewed_at'] if review else None})

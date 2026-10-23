@@ -4,7 +4,9 @@ import streamlit as st
 from .runtime import Watchdog,state,command,configure,snapshot,update,process_stamp
 from .config import ROOT,now
 
-NOTICES={'APPROVED_CV_REQUIRED':'Revisa y aprueba tu CV definitivo para preparar paquetes.',
+NOTICES={'APPROVED_CV_REQUIRED':'Los documentos necesitan tu aprobación antes de exportar paquetes. Puedes revisar el CV específico desde una oferta sin aprobar el CV general retenido.',
+         'DOCUMENT_REVIEW':'Hay un CV y una carta por oferta listos para revisar. No están aprobados ni se ha enviado nada.',
+         'DOCUMENT_DRAFT_HOLD':'No se pudo generar el borrador de esta oferta. Revisa el contenido y el diseño; las demás tareas continúan.',
          'HUMAN_VERIFICATION':'CAPTCHA, MFA o verificación humana pendiente. Abre las intervenciones de AutoApply.',
          'ESSENTIAL_ANSWER':'Falta una respuesta legal o habilitación imprescindible. Revisa la oferta y sus preguntas.',
          'SOURCE_ACCESS_REVIEW':'Fuente bloqueada: necesita revisión manual de acceso; no se elude ni se reintenta continuamente.',
@@ -55,7 +57,7 @@ def render(db):
     with st.expander('Configurar frecuencia y preparación local'):
         with st.form('local_runtime_config'):
             hours=st.number_input('Horas entre búsquedas IT',.25,168.0,float(row['interval_hours']),step=.25)
-            prepare=st.checkbox('Preparar todas las candidaturas razonables con CV previamente aprobado',value=bool(row['auto_prepare']))
+            prepare=st.checkbox('Generar borradores para ofertas IT razonables; los paquetes requieren mi aprobación',value=bool(row['auto_prepare']))
             sound=st.checkbox('Aviso sonoro local al aparecer nuevas intervenciones',value=bool(row['sound']))
             if st.form_submit_button('Guardar configuración local'):
                 configure(db,hours,prepare,sound);st.success('Configuración guardada. No activa envío ni inicio con Windows.');st.rerun(scope='fragment')

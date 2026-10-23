@@ -131,7 +131,11 @@ def ensure_supervisor(db,owner_pid=None):
 
 def input_fingerprint(db,clock=None):
     clock=clock or datetime.fromisoformat(now())
-    data={'hour':clock.isoformat()[:13]}
+    from .autoapply.document_preparation import PREPARATION_VERSION
+    from .autoapply.job_composition import COMPOSER_VERSION
+    from .autoapply.professional_dossier import MODEL_VERSION
+    data={'hour':clock.isoformat()[:13],
+          'document_pipeline':(PREPARATION_VERSION,COMPOSER_VERSION,MODEL_VERSION)}
     for table,columns in (
         ('jobs','id,content_hash,open_status,last_verified_at,possible_duplicate'),
         ('candidate_facts','id,revoked_at'),('candidate_documents','id,approved_at,revoked_at'),
@@ -144,17 +148,23 @@ def input_fingerprint(db,clock=None):
 
 
 def notify(db,kind,key,job_id=None,reference_id=None):
-    return db.execute('INSERT OR IGNORE INTO local_runtime_notifications(created_at,kind,job_id,reference_id,dedupe_key) VALUES(?,?,?,?,?)',
+    return db.execute('''INSERT INTO local_runtime_notifications(created_at,kind,job_id,reference_id,dedupe_key) VALUES(?,?,?,?,?)
+        ON CONFLICT(dedupe_key) DO UPDATE SET resolved_at=NULL,acknowledged_at=NULL
+        WHERE local_runtime_notifications.resolved_at IS NOT NULL''',
                       (now(),kind,job_id,str(reference_id) if reference_id is not None else None,key))
 
 
 def sync_notifications(db):
     """Persist codes/IDs only. No answers, cookies, challenge tokens or contacts."""
     active=set()
-    previous=db.rows('SELECT coalesce(max(id),0) n FROM local_runtime_notifications')[0]['n']
+    previous={r['id'] for r in db.rows('SELECT id FROM local_runtime_notifications WHERE resolved_at IS NULL')}
     docs=db.rows('''SELECT id FROM candidate_documents WHERE approved_at IS NOT NULL AND revoked_at IS NULL''')
     if not docs:
         key='APPROVED_CV_REQUIRED';active.add(key);notify(db,key,key)
+    from .autoapply.document_preparation import draft_review_rows
+    for draft in draft_review_rows(db):
+        key='DOCUMENT_REVIEW:'+str(draft['id']);active.add(key)
+        notify(db,'DOCUMENT_REVIEW',key,draft['job_id'],draft['id'])
     for item in db.rows("""SELECT i.id,p.job_id,i.reason_code FROM autoapply_interventions i
                           JOIN application_attempts a ON a.id=i.attempt_id JOIN application_plans p ON p.id=a.plan_id
                           WHERE i.status='INTERVENCION_HUMANA_REQUERIDA'"""):
@@ -165,6 +175,9 @@ def sync_notifications(db):
             key='ESSENTIAL:'+row['job_id']+':'+row['binding_hash'];active.add(key);notify(db,'ESSENTIAL_ANSWER',key,row['job_id'])
         if row['error_code']=='LOCAL_PREPARATION_REVIEW_REQUIRED':
             key='PREPARATION:'+row['job_id']+':'+row['binding_hash'];active.add(key);notify(db,'PREPARATION_REVIEW',key,row['job_id'])
+        if row['error_code']=='DOCUMENT_DRAFT_REVIEW_REQUIRED':
+            key='DOCUMENT_HOLD:'+row['job_id']+':'+row['binding_hash'];active.add(key)
+            notify(db,'DOCUMENT_DRAFT_HOLD',key,row['job_id'])
     for row in db.rows("SELECT id FROM sources WHERE enabled=1 AND status='BLOQUEADA'"):
         key='SOURCE:'+row['id'];active.add(key);notify(db,'SOURCE_ACCESS_REVIEW',key,reference_id=row['id'])
     from .autoapply.forms import load_inspection,answer_plan
@@ -180,8 +193,8 @@ def sync_notifications(db):
     for row in db.rows('SELECT id,dedupe_key FROM local_runtime_notifications WHERE resolved_at IS NULL'):
         if row['dedupe_key'] not in active and not row['dedupe_key'].startswith('FAILURE:'):
             db.execute('UPDATE local_runtime_notifications SET resolved_at=? WHERE id=?',(now(),row['id']))
-    latest=db.rows('SELECT coalesce(max(id),0) n FROM local_runtime_notifications')[0]['n']
-    if latest>previous and state(db)['sound'] and os.name=='nt':
+    latest={r['id'] for r in db.rows('SELECT id FROM local_runtime_notifications WHERE resolved_at IS NULL')}
+    if latest-previous and state(db)['sound'] and os.name=='nt':
         import winsound
         winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
 
@@ -276,9 +289,15 @@ def run_work(db,kind,run_id=None):
     from .reevaluation import reevaluate_all
     reevaluate_all(db,should_stop=lambda:state(db)['desired']!='RUNNING' or state(db)['state']=='STOPPING')
     if state(db)['desired']!='RUNNING' or state(db)['state']=='STOPPING':return
-    if state(db)['auto_prepare'] and candidate_snapshot(db).get('cv_document_id'):
-        prepare_all_local(db,should_stop=lambda:state(db)['desired']!='RUNNING' or state(db)['state']=='STOPPING')
+    stopped=lambda:state(db)['desired']!='RUNNING' or state(db)['state']=='STOPPING'
+    if state(db)['auto_prepare']:
+        from .autoapply.document_preparation import prepare_document_drafts
+        drafted=prepare_document_drafts(db,should_stop=stopped)
+        if stopped() or drafted.get('input_changed'):return
+        if candidate_snapshot(db).get('cv_document_id'):
+            prepare_all_local(db,should_stop=stopped)
     else:refresh_queue(db)
+    if stopped():return
     sync_notifications(db)
     update(db,last_prepare_fingerprint=input_fingerprint(db),last_prepare_at=now())
 
@@ -329,8 +348,10 @@ class Watchdog:
 
 
 def snapshot(db):
+    from .autoapply.document_preparation import draft_review_rows
     row=state(db)
     return {'control':row,'supervisor_alive':alive(row['supervisor_pid'],row['supervisor_stamp']),
+            'document_drafts_for_review':len(draft_review_rows(db)),
             'pending_tasks':db.rows("SELECT status,count(*) n FROM task_queue WHERE status<>'done' GROUP BY status"),
             'queue':db.rows('SELECT workflow_state,count(*) n FROM it_application_queue GROUP BY workflow_state'),
             'prepared':db.rows("SELECT count(*) n FROM it_application_queue WHERE workflow_state='MANUAL_READY'")[0]['n'],

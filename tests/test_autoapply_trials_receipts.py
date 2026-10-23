@@ -132,6 +132,6 @@ def test_additive_v5_to_current_migration_preserves_existing_facts_and_keeps_off
             con.execute('DROP TABLE '+name)
         con.execute('PRAGMA user_version=5')
     reopened=Database(db.path)
-    assert reopened.rows('PRAGMA user_version')[0]['user_version']==12
+    assert reopened.rows('PRAGMA user_version')[0]['user_version']==13
     assert reopened.rows('SELECT * FROM candidate_facts')==before
     assert reopened.rows('SELECT live_enabled,enabled FROM autoapply_control')[0]=={'live_enabled':0,'enabled':0}
