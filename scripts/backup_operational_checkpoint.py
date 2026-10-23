@@ -69,7 +69,7 @@ def main():
                     archive.write(path,path.relative_to(ROOT))
         for name in ('app.py','README.md','PROGRESO.md','NEXT_STEPS.md','requirements-lock.txt','requirements-autoapply-lock.txt','instalar-autoapply.ps1','.streamlit/config.toml'):
             archive.write(ROOT/name,name)
-        for pattern in ('operational-*','verified-flow-*','external-adapter-*','human-intervention-*','assisted-delivery-*','usable-it-*','it-50km-*','local-runtime-*','ui-redesign-*','dam-completed-*','academic-reevaluation-*','approved-cv-facts-import.json','pr23-*','reference-cv-*','pr2-windows-*','pr3-windows-*','pr1-cv-*','per-job-*'):
+        for pattern in ('operational-*','verified-flow-*','external-adapter-*','human-intervention-*','assisted-delivery-*','usable-it-*','it-50km-*','local-runtime-*','ui-redesign-*','dam-completed-*','academic-reevaluation-*','approved-cv-facts-import.json','pr23-*','reference-cv-*','pr2-windows-*','pr3-windows-*','pr1-cv-*','per-job-*','document-runtime-*'):
             for path in (ROOT/'logs').glob(pattern):
                 if path.is_file():archive.write(path,path.relative_to(ROOT))
         for path in (ROOT/'data/runtime-logs').glob('*.log'):

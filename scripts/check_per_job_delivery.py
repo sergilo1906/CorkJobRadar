@@ -17,6 +17,7 @@ from scripts.check_ui_redesign import navigate,select,idle,layout
 def main():
     from playwright.sync_api import sync_playwright,expect
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--label',required=True)
+    parser.add_argument('--check-background-drafts',action='store_true')
     args=parser.parse_args()
     if not re.fullmatch(r'per-job-[a-z0-9-]+',args.label):raise ValueError('SAFE_LABEL_REQUIRED')
     path=ROOT/'logs'/(args.label+'.json')
@@ -39,6 +40,15 @@ def main():
         context.route('**/*',guard);context.route_web_socket('**/*',lambda ws:ws.connect_to_server() if allowed(ws.url) else ws.close())
         page=context.new_page();page.goto('http://127.0.0.1:8501')
         page.get_by_role('heading',name='Tu próxima oportunidad IT',exact=True).wait_for(timeout=45000);idle(page)
+        draft_count=rt.snapshot(db)['document_drafts_for_review']
+        if args.check_background_drafts:
+            assert draft_count>0
+            page.get_by_role('button',name='Revisar borradores de CV y carta',exact=True).click();idle(page)
+            expect(page.get_by_test_id('stSelectbox').filter(has_text='Estado de candidatura')).to_contain_text('Borradores por revisar')
+            navigate(page,'Actividad y notificaciones')
+            page.get_by_role('button',name='Revisar CV y carta',exact=True).first.click();idle(page)
+            page.get_by_role('heading',name='Documentos para esta oferta',exact=True).wait_for(timeout=30000)
+            expect(page.get_by_role('button',name='Aprobar paquete seleccionado para exportación',exact=True)).to_be_disabled()
         navigate(page,'Perfil y configuración')
         expect(page.get_by_role('button',name='Aprobar esta versión del CV',exact=True)).to_be_disabled()
         assert 'retenida por la revisión de calidad' in page.locator('body').inner_text()
@@ -66,6 +76,7 @@ def main():
     report={'created_at':now(),'status':'PASS','layout':checks,'quality_hold_visible':True,'pending_references_visible':True,
             'per_job_preview_visible':True,'default_optional_documents_unselected':True,'approval_disabled_without_consent':True,
             'critical_tables_unchanged':True,'same_supervisor_alive':True,'external_requests':0,'applications_sent':0,'private_screenshots_saved':0}
+    if args.check_background_drafts:report.update(background_draft_count=draft_count,background_draft_navigation='PASS')
     path.write_text(json.dumps(report,indent=2),encoding='utf-8');print(json.dumps(report))
 
 

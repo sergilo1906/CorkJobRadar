@@ -1,5 +1,19 @@
 # Checkpoint de continuidad — EN DESARROLLO
 
+## Estado vigente23/10 — borradores periódicos integrados y comprobados
+
+**15 borradores por revisar,24 versiones por oferta,60 archivos PDF/DOCX validados.** El trabajador genera documentos específicos sin aprobar el CV general. Reutiliza versiones, respeta revocaciones incluso durante la generación, conserva HOLDs y reanuda sin duplicados. Inicio → Revisar borradores de CV y carta abre el filtro único; los avisos van al paso CV y se reabren cuando su causa reaparece.
+
+**734 PASS completa anterior al último ajuste de avisos;75 PASS de regresión final del código actual**, suites solapadas, sin sumar. Navegador de instalación1440/390 PASS,0 solicitudes externas/cambios en tablas críticas, controles sin consentimiento. Primer selector de ensayo y fallo real de avisos corregidos con evidencias retenidas. [Implementación, pruebas y límites](DOCUMENT_DRAFT_RUNTIME_2026-10-23.md).
+
+**616 ofertas/3.028 análisis,22 hechos vigentes/24 históricos conservados, CV4 retenido y sin aprobar.** Referencias3 pendientes,52 paquetes anteriores preservados,0 bundles nuevos aprobados y0 envíos. No son15 ofertas plenamente elegibles. Catorce tablas estáticas/76 activos previos idénticos; transporte íntegro sin cambios y0 contactos en logs/bases auditados.
+
+Un supervisor local RUNNING/WAITING, cada6h; próxima23/10 a las16:30:12 Europe/Dublin. Ciclo23:118 observaciones de dos fuentes, sin ofertas nuevas; Evo-soft sigue bloqueado por robots.txt inaccesible. Recuperación y repetición local comprobadas, sin ensayo físico de Windows. Copias previa/final `logs/document-runtime-start-backup.json` / `logs/document-runtime-final-backup.json`, sin restauración. **LIVE OFF; solo el usuario aprueba documentos y futuros ensayos/políticas.**
+
+Rama `work/per-job-documents-20261022`, PR6 en borrador. SQLite13 sin nueva migración. Nuevos módulos/checks en `autoapply/document_preparation.py`, `tests/test_document_runtime*.py`, notificaciones/snapshot y filtro de candidaturas; se conserva la UI. Verificar PID+stamp antes de actuar: no reutilizar números antiguos. Consultar `logs/document-runtime-final-state.json`, `document-runtime-final-preservation.json` y `per-job-document-runtime-production-final.json`. No regenerar documentos revocados ni pedir otra vez hechos aprobados. Manual no necesita API empresarial; externos siguen bloqueados.
+
+Los checkpoints siguientes son históricos.
+
 ## Checkpoint vigente — documentos por oferta verificados (22/10/2026)
 
 - Rama `work/per-job-documents-20261022`, basada en2834bdf e incorporando PR5 `0785bf8` por avance directo. No mezclar el worktree aislado ni sobrescribir main. Backup inicial verificado `logs/per-job-start-backup.json`; final `logs/per-job-final-backup.json`, verificación `logs/per-job-final-verification.json`. No restaurar sobre producción.

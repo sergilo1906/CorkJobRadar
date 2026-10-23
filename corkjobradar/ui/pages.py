@@ -24,6 +24,13 @@ def title(name,description):st.title(name);st.caption(description)
 def clear_job():st.session_state.ui_job=None
 
 
+def go_draft_reviews():
+    go('Mis candidaturas')
+    st.session_state.applications_state='Borradores por revisar'
+    st.session_state.applications_search=''
+    st.session_state.applications_page=1
+
+
 def runtime_label(data):
     r=data['control']
     if r['state']=='STOPPING':return 'Terminando la tarea actual'
@@ -54,6 +61,10 @@ def home(db,view):
         for label,value in group:html+='<div class="cjr-metric"><dt>'+escape(label)+'</dt><dd>'+str(value)+'</dd></div>'
     st.markdown(html+'</dl>',unsafe_allow_html=True)
     st.caption('Guardada no significa compatible. Hay que contrastar vigencia, requisitos, centro y accesibilidad.')
+    drafts=rt.snapshot(db)['document_drafts_for_review']
+    if drafts:
+        st.info(f'{drafts} borradores por oferta pendientes de revisar. No son paquetes aprobados ni solicitudes enviadas.')
+        st.button('Revisar borradores de CV y carta',key='home_draft_reviews',on_click=go_draft_reviews)
     st.subheader('Qué necesitas hacer ahora')
     if not view['cv_approved']:
         with st.container(border=True):
@@ -279,8 +290,13 @@ def applications(db,view):
         return
     title('Mis candidaturas','Preparación, seguimiento y justificantes en un solo lugar. Cada paquete se revalida al abrirlo; preparado no significa enviado ni plenamente elegible.')
     academic_summary(db,view)
-    selected=st.selectbox('Estado de candidatura',APPLICATION_STATES,key='applications_state')
-    rows=[j for j in view['jobs'] if j['application']==selected and (j['has_application'] or j['potential'])]
+    selected=st.selectbox('Estado de candidatura',(*APPLICATION_STATES,'Borradores por revisar'),key='applications_state')
+    if selected=='Borradores por revisar':
+        from ..autoapply.document_preparation import draft_review_rows
+        ids={d['job_id'] for d in draft_review_rows(db)}
+        rows=[j for j in view['jobs'] if j['id'] in ids]
+        st.caption('Documentos locales sin un paquete aprobado vigente. Revisa requisitos, contenido y diseño antes de aprobar o exportar.')
+    else:rows=[j for j in view['jobs'] if j['application']==selected and (j['has_application'] or j['potential'])]
     st.write(f'**{len(rows)} candidaturas u oportunidades** · {selected}')
     search=st.text_input('Buscar candidatura por empresa o puesto',key='applications_search').casefold()
     rows=[j for j in rows if not search or search in (j['title']+' '+j['company']).casefold()]
@@ -360,6 +376,7 @@ def activity_status(db):
         if run['cancel_requested']:st.caption('Cancelación solicitada: terminando la petición o tarea actual.')
         else:st.button('Cancelar búsqueda en curso',key='cancel_search_'+str(run['id']),on_click=cancel_search,args=(db,run['id']))
     cols=st.columns(2);cols[0].metric('Tareas pendientes de otras búsquedas',sum(r['n'] for r in data['pending_tasks']));cols[1].metric('Recepciones externas confirmadas',data['confirmed_external'])
+    st.metric('Borradores sin paquete aprobado',data['document_drafts_for_review'])
 
 
 def activity(db,view):
@@ -373,8 +390,12 @@ def activity(db,view):
         for n in notices:
             with st.container(border=True):
                 st.write(NOTICES.get(n['kind'],'Revisión necesaria en la actividad local.'))
-                if n['kind']=='APPROVED_CV_REQUIRED':nav_button('Revisar CV','Perfil y configuración',section='CV definitivo',key='notice_cv_'+str(n['id']))
+                if n['kind']=='APPROVED_CV_REQUIRED':
+                    if db.rows("SELECT id FROM job_document_events WHERE kind='GENERAL_CV_QUALITY_HOLD' LIMIT 1"):
+                        nav_button('Elegir oferta y revisar su CV','Ofertas de empleo',key='notice_cv_'+str(n['id']))
+                    else:nav_button('Revisar CV','Perfil y configuración',section='CV definitivo',key='notice_cv_'+str(n['id']))
                 elif n['kind']=='HUMAN_VERIFICATION':nav_button('Abrir intervención','AutoApply',key='notice_human_'+str(n['id']))
+                elif n['kind'] in {'DOCUMENT_REVIEW','DOCUMENT_DRAFT_HOLD'}:nav_button('Revisar CV y carta','Mis candidaturas',job=n['job_id'],step='CV',key='notice_document_'+str(n['id']))
                 elif n.get('job_id'):nav_button('Revisar candidatura','Mis candidaturas',job=n['job_id'],step='Respuestas',key='notice_job_'+str(n['id']))
                 if not n.get('acknowledged_at') and st.button('Marcar aviso como leído',key='notice_read_'+str(n['id'])):
                     db.execute('UPDATE local_runtime_notifications SET acknowledged_at=? WHERE id=?',(now(),n['id']));st.rerun()
@@ -464,7 +485,7 @@ def profile(db,view):
         row=rt.state(db)
         with st.form('ui_frequency'):
             hours=st.number_input('Horas entre búsquedas IT',.25,168.,float(row['interval_hours']),step=.25)
-            prepare=st.checkbox('Preparar candidaturas razonables con CV aprobado',value=bool(row['auto_prepare']))
+            prepare=st.checkbox('Generar borradores IT; aprobaré cada paquete antes de exportarlo',value=bool(row['auto_prepare']))
             sound=st.checkbox('Aviso sonoro local',value=bool(row['sound']))
             if st.form_submit_button('Guardar frecuencia y avisos'):
                 try:rt.configure(db,hours,prepare,sound);st.success('Configuración guardada. LIVE sigue OFF.')

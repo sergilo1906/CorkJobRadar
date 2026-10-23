@@ -32,7 +32,7 @@ def _event(db, kind, *, job_id=None, version_id=None, bundle_id=None, **details)
                (job_id, version_id, bundle_id, kind, now(), json.dumps(details, sort_keys=True)))
 
 
-def create_job_version(db, job_id, *, family=None, max_pages=1):
+def create_job_version(db, job_id, *, family=None, max_pages=1, automatic=False):
     """Generate PDF AND DOCX for review. Does not approve either document."""
     candidate = candidate_snapshot(db); job = _job(db, job_id)
     dossier_row, dossier = sync_dossier(db)
@@ -59,6 +59,14 @@ def create_job_version(db, job_id, *, family=None, max_pages=1):
         if not con.in_transaction: con.execute('BEGIN IMMEDIATE')
         if candidate['_facts_hash'] != candidate_snapshot(db)['_facts_hash'] or job != _job(db, job_id):
             raise ValueError('COMPOSITION_INPUT_CHANGED')
+        if automatic:
+            latest=db.rows('SELECT * FROM job_document_versions WHERE job_id=? ORDER BY id DESC LIMIT 1',(job_id,))
+            if latest and latest[0]['revoked_at'] and latest[0]['facts_hash']==candidate['_facts_hash'] and latest[0]['job_content_hash']==job['content_hash']:
+                raise PermissionError('USER_REVOKED_JOB_DOCUMENT_INPUT')
+            from .broad_selection import assess_selection
+            selected=assess_selection(db,job,candidate)
+            if not selected['preparation_allowed'] or selected['geography']['state']=='REMOTE_SEPARATE':
+                raise PermissionError('AUTOMATIC_DRAFT_SELECTION_CHANGED')
         path, sha = save_asset(db, encode(payload), 'job-documents')
         rows = db.rows('SELECT id FROM job_document_versions WHERE job_id=? AND file_hash=?', (job_id, sha))
         if rows: return rows[0]['id']

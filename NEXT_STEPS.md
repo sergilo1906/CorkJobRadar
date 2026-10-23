@@ -1,3 +1,15 @@
+# Continuación vigente —23/10/2026
+
+1. **Inicio → Revisar borradores de CV y carta**:15 borradores actuales, accesibles juntos en **Mis candidaturas → Borradores por revisar**. Abrir candidatura y paso CV; los avisos llevan allí directamente. No son15 ofertas plenamente elegibles: revisar preguntas, requisitos, idiomas/estudios, centro, turno y transporte sin coche.
+2. Revisar contenido y diseño del PDF/DOCX elegido y las nuevas redacciones. Solo tú apruebas el paquete exacto; carta/referencias opcionales desmarcadas. No aprobar CV4 retenido ni volver a pedir los22 hechos. Referencias: original independiente íntegro, revisión y autorización por paquete.
+3. Tras aprobar los documentos: preparar/exportar ZIP local, presentar personalmente mediante el enlace oficial y registrar una solicitud que hayas realizado. LinkedIn/Indeed manuales. Un justificante declarado no acredita recepción externa autenticada.
+4. Mantener preparación local activada si deseas borradores periódicos. No necesita CV general aprobado, respeta revocaciones y reutiliza versiones al reanudar. Próxima búsqueda23/10 a las16:30:12 Dublin, cada6h; Evo-soft permanece bloqueado por robots.txt inaccesible. No iniciar otro trabajador.
+5. **LIVE OFF**: faltan canal permitido, ensayo externo autorizado con confirmación y activación separada de política. No hay envíos. Suspensión/reinicio físico de Windows siguen sin ensayar; no se activó inicio automático ni servicios.
+
+Verificación:734 PASS completa previa al último ajuste de avisos y75 PASS de regresión final, sin sumar; navegador de instalación y60 documentos reales PASS. [Informe](docs/DOCUMENT_DRAFT_RUNTIME_2026-10-23.md). Copias/controles de privacidad conservados. PR6 continúa en borrador, sin fusionar main.
+
+Los bloques siguientes son historia y no sustituyen estas prioridades.
+
 # Continuación vigente — EN DESARROLLO (22/10/2026)
 
 ## Siguiente uso — documentos por oferta listos para revisar

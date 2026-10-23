@@ -1,5 +1,17 @@
 # Cork Job Radar — progreso verificable
 
+## Estado vigente23/10 — borradores periódicos integrados y comprobados
+
+**15 borradores por revisar,24 versiones por oferta,60 archivos PDF/DOCX validados.** El trabajador genera documentos específicos sin aprobar el CV general. Reutiliza versiones, respeta revocaciones incluso durante la generación, conserva HOLDs y reanuda sin duplicados. Inicio → Revisar borradores de CV y carta abre el filtro único; los avisos van al paso CV y se reabren cuando su causa reaparece.
+
+**734 PASS completa anterior al último ajuste de avisos;75 PASS de regresión final del código actual**, suites solapadas, sin sumar. Navegador de instalación1440/390 PASS,0 solicitudes externas/cambios en tablas críticas, controles sin consentimiento. Primer selector de ensayo y fallo real de avisos corregidos con evidencias retenidas. [Implementación, pruebas y límites](docs/DOCUMENT_DRAFT_RUNTIME_2026-10-23.md).
+
+**616 ofertas/3.028 análisis,22 hechos vigentes/24 históricos conservados, CV4 retenido y sin aprobar.** Referencias3 pendientes,52 paquetes anteriores preservados,0 bundles nuevos aprobados y0 envíos. No son15 ofertas plenamente elegibles. Catorce tablas estáticas/76 activos previos idénticos; transporte íntegro sin cambios y0 contactos en logs/bases auditados.
+
+Un supervisor local RUNNING/WAITING, cada6h; próxima23/10 a las16:30:12 Europe/Dublin. Ciclo23:118 observaciones de dos fuentes, sin ofertas nuevas; Evo-soft sigue bloqueado por robots.txt inaccesible. Recuperación y repetición local comprobadas, sin ensayo físico de Windows. Copias previa/final `logs/document-runtime-start-backup.json` / `logs/document-runtime-final-backup.json`, sin restauración. **LIVE OFF; solo el usuario aprueba documentos y futuros ensayos/políticas.**
+
+Los apartados siguientes son históricos.
+
 ## Estado vigente — motor documental por oferta probado (22/10/2026)
 
 **712 pruebas superadas**,0 fallos/errores/omitidas,26 avisos,526,66s. Suite completa `logs/per-job-release.xml`, posterior a los últimos cambios. Previa710 y dirigidas53/124 solapadas: no sumar. Navegador real1440/390 PASS; PDF/DOCX y cartas reales comprobados con LibreOffice. [Informe y uso](docs/PER_JOB_DOCUMENTS_2026-10-22.md).
