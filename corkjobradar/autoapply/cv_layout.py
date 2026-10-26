@@ -35,7 +35,7 @@ class ReferenceStyle:
 
 
 REFERENCE = ReferenceStyle()
-LAYOUT_VERSION = 'REFERENCE_A4_V2'
+LAYOUT_VERSION = 'REFERENCE_A4_V3_STRUCTURED_HEADER'
 
 
 def cv_sections(candidate, job=None):
@@ -72,6 +72,16 @@ def cv_sections(candidate, job=None):
     return result
 
 
+def _role_headline(job=None):
+    """Presentation label only: a requested role, never a new qualification."""
+    title = (job or {}).get('title', '').casefold()
+    if re.search(r'\b(?:qa|tester|testing|quality assurance)\b', title):
+        return 'JUNIOR QA | SOFTWARE TESTING'
+    if re.search(r'\b(?:developer|programmer|software engineer)\b', title):
+        return 'JUNIOR DEVELOPER | SOFTWARE DEVELOPMENT'
+    return 'JUNIOR IT SUPPORT | HELPDESK | SERVICE DESK'
+
+
 def _font_files():
     pairs = (
         ('C:/Windows/Fonts/arial.ttf', 'C:/Windows/Fonts/arialbd.ttf'),
@@ -86,15 +96,16 @@ def _font_files():
 
 def render_professional_cv(candidate, extension, job=None):
     sections = cv_sections(candidate, job)
-    contact = ' | '.join(candidate[k] for k in ('email', 'phone', 'location') if candidate.get(k))
+    contact = ' | '.join(candidate[k] for k in ('location', 'phone', 'email') if candidate.get(k))
     linkedin = candidate.get('linkedin_url')
+    headline = _role_headline(job)
     # Measure once for BOTH formats. A DOCX must not silently overflow while its
     # PDF counterpart fails. Never truncate or shrink below a readable 9 pt.
-    size = _fit_size(candidate['full_name'], contact, linkedin, sections)
+    size = _fit_size(candidate['full_name'], headline, contact, linkedin, sections)
     if extension == 'pdf':
-        return _pdf(candidate['full_name'], contact, linkedin, sections, size)
+        return _pdf(candidate['full_name'], headline, contact, linkedin, sections, size)
     if extension == 'docx':
-        return _docx(candidate['full_name'], contact, linkedin, sections, size)
+        return _docx(candidate['full_name'], headline, contact, linkedin, sections, size)
     raise ValueError('PDF_OR_DOCX_REQUIRED')
 
 
@@ -115,13 +126,16 @@ def _emphasis(label, text, index):
     if label == 'Experience' and index == 0 and len(text) < 220:
         return text, ''
     if label in {'Core Capabilities', 'Selected Projects', 'Education & Training', 'Additional Experience'}:
-        prefix, separator, suffix = text.partition(':')
-        if separator:
-            return prefix + separator, suffix
+        # Original reference emphasises skills/project labels. Keep the exact
+        # approved string (including punctuation) in PDF and DOCX text.
+        for delimiter in (':', ' | '):
+            prefix, separator, suffix = text.partition(delimiter)
+            if separator and prefix and len(prefix) <= 65:
+                return prefix + separator, suffix
     return '', text
 
 
-def _story(name, contact, linkedin, sections, size):
+def _story(name, headline, contact, linkedin, sections, size):
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.colors import HexColor
     from reportlab.platypus import Paragraph, Spacer, HRFlowable, KeepTogether
@@ -130,6 +144,9 @@ def _story(name, contact, linkedin, sections, size):
                           leading=size*1.22, spaceAfter=3, textColor=HexColor('#252525'))
     title = ParagraphStyle('CVName', parent=body, fontName='RadarCVBold', textColor=navy,
                            fontSize=REFERENCE.name_size, leading=26, spaceAfter=3)
+    strapline = ParagraphStyle('CVHeadline', parent=body, fontName='RadarCVBold',
+                              fontSize=10.2, leading=13.2, spaceAfter=3,
+                              textColor=HexColor('#252525'))
     small = ParagraphStyle('CVContact', parent=body, fontSize=REFERENCE.contact_size,
                            leading=10.5, spaceAfter=1, textColor=HexColor('#' + REFERENCE.muted))
     heading = ParagraphStyle('CVSection', parent=body, fontName='RadarCVBold', textColor=navy,
@@ -137,7 +154,7 @@ def _story(name, contact, linkedin, sections, size):
                              spaceAfter=2, keepWithNext=True)
     paragraph = lambda text, style: Paragraph(escape(text).replace('\n', '<br/>'), style)
     story = [paragraph(name, title), HRFlowable(width='100%', thickness=1.8, color=navy,
-                                               spaceBefore=0, spaceAfter=4), paragraph(contact, small)]
+                                               spaceBefore=0, spaceAfter=4), paragraph(headline, strapline), paragraph(contact, small)]
     if linkedin:
         story.append(paragraph(linkedin, small))
     story.append(Spacer(1, 2))
@@ -160,17 +177,17 @@ def _story(name, contact, linkedin, sections, size):
     return story
 
 
-def _fit_size(name, contact, linkedin, sections):
+def _fit_size(name, headline, contact, linkedin, sections):
     _fonts()
     for size in (REFERENCE.body_size, 9):
-        raw = _pdf(name, contact, linkedin, sections, size)
+        raw = _pdf(name, headline, contact, linkedin, sections, size)
         from pypdf import PdfReader
         if len(PdfReader(io.BytesIO(raw)).pages) == 1:
             return size
     raise ValueError('CV_CONTENT_EXCEEDS_ONE_PAGE_REVIEW_REQUIRED')
 
 
-def _pdf(name, contact, linkedin, sections, size):
+def _pdf(name, headline, contact, linkedin, sections, size):
     from reportlab.lib.pagesizes import A4
     from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate
     from reportlab.platypus.doctemplate import LayoutError
@@ -185,7 +202,7 @@ def _pdf(name, contact, linkedin, sections, size):
                   leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
     doc.addPageTemplates(PageTemplate(id='Reference', frames=[frame]))
     try:
-        doc.build(_story(name, contact, linkedin, sections, size), canvasmaker=_deterministic_canvas)
+        doc.build(_story(name, headline, contact, linkedin, sections, size), canvasmaker=_deterministic_canvas)
     except LayoutError:
         raise ValueError('CV_CONTENT_EXCEEDS_ONE_PAGE_REVIEW_REQUIRED') from None
     return buffer.getvalue()
@@ -197,7 +214,7 @@ def _deterministic_canvas(*args, **kwargs):
     return Canvas(*args, **kwargs)
 
 
-def _docx(name, contact, linkedin, sections, size):
+def _docx(name, headline, contact, linkedin, sections, size):
     from docx import Document
     from docx.shared import Pt, Mm, RGBColor
     from docx.oxml import OxmlElement
@@ -246,6 +263,12 @@ def _docx(name, contact, linkedin, sections, size):
     title = doc.add_paragraph(name, style='Title')
     border(title, 'bottom', REFERENCE.navy, 14)
     title.paragraph_format.keep_with_next = True
+    role = doc.add_paragraph(headline)
+    role.paragraph_format.space_after = Pt(3)
+    role.paragraph_format.keep_with_next = True
+    for run in role.runs:
+        run.font.bold = True
+        run.font.size = Pt(10.2)
     for text in (contact, linkedin):
         if text:
             p = doc.add_paragraph(text)
